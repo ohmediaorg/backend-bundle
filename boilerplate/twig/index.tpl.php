@@ -33,14 +33,14 @@
         <tr>
           <td>{{ <?php echo $singular['snake_case']; ?> }}</td>
           <td>
-    <?php if ($has_view_route) { ?>
+<?php if ($has_view_route) { ?>
             {% if is_granted(attributes.view, <?php echo $singular['snake_case']; ?>) %}
             <a class="btn btn-sm btn-primary" href="{{ path('<?php echo $singular['snake_case']; ?>_view', {id: <?php echo $singular['snake_case']; ?>.id}) }}" title="View">
               {{ bootstrap_icon('eye-fill') }}
               <span class="visually-hidden">View</span>
             </a>
             {% endif %}
-    <?php } ?>
+<?php } ?>
             {% if is_granted(attributes.edit, <?php echo $singular['snake_case']; ?>) %}
             <a class="btn btn-sm btn-primary" href="{{ path('<?php echo $singular['snake_case']; ?>_edit', {id: <?php echo $singular['snake_case']; ?>.id}) }}" title="Edit">
               {{ bootstrap_icon('pen-fill') }}
