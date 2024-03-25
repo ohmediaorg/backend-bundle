@@ -153,6 +153,11 @@ form {
   }
 }
 
+.btn-action {
+  margin-right: $one-space-width;
+  margin-bottom: $one-space-width;
+}
+
 .pagination {
   @extend .pagination-sm;
 }
