@@ -29,61 +29,59 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
     {
         $<?php echo $singular['camel_case']; ?> = $options['data'];
 
-        $builder
-            // TIP: these all do the same thing
-            // ->add('name')
-            // ->add('name', null)
-            // ->add('name', TextType::class)
+        // TIP: these all do the same thing
+        // $builder->add('name');
+        // $builder->add('name', null);
+        // $builder->add('name', TextType::class);
 
-            // always use the file-bundle for files
-            // for some reason it is necessary to specify 'data'
-            // when usually 'mapped' => true (default) is enough
-            // ->add('file', FileEntityType::class, [
-            //     'data' => $<?php echo $singular['camel_case']; ?>->getFile(),
-            // ])
-            // ->add('image', FileEntityType::class, [
-            //     'image' => true,
-            //     'data' => $<?php echo $singular['camel_case']; ?>->getFile(),
-            // ])
+        // always use the file-bundle for files
+        // for some reason it is necessary to specify 'data'
+        // when usually 'mapped' => true (default) is enough
+        // $builder->add('file', FileEntityType::class, [
+        //     'data' => $<?php echo $singular['camel_case']; ?>->getFile(),
+        // ]);
+        // $builder->add('image', FileEntityType::class, [
+        //     'image' => true,
+        //     'data' => $<?php echo $singular['camel_case']; ?>->getFile(),
+        // ]);
 
-            // always use the datetime-bundle to ensure timezones are good
-            // ->add('start_datetime', DateTimeType::class)
-            // ->add('end_datetime', DateTimeType::class)
+        // always use the datetime-bundle to ensure timezones are good
+        // $builder->add('start_datetime', DateTimeType::class);
+        // $builder->add('end_datetime', DateTimeType::class);
 
-            // if you have a checkbox for a toggle, make sure it is not required
-            // ->add('is_featured', CheckboxType::class, [
-            //     'required' => false,
-            // ])
+        // if you have a checkbox for a toggle, make sure it is not required
+        // $builder->add('is_featured', CheckboxType::class, [
+        //     'required' => false,
+        // ]);
 
-            // <select>
-            // ->add('selection', ChoiceType::class)
+        // <select>
+        // $builder->add('selection', ChoiceType::class);
 
-            // <select multiple>
-            // ->add('selection', ChoiceType::class, [
-            //     'multiple' => true,
-            // ])
+        // <select multiple>
+        // $builder->add('selection', ChoiceType::class, [
+        //     'multiple' => true,
+        // ]);
 
-            // array of <input type="radio">
-            // ->add('selection', ChoiceType::class, [
-            //     'expanded' => true,
-            // ])
+        // array of <input type="radio">
+        // $builder->add('selection', ChoiceType::class, [
+        //     'expanded' => true,
+        // ]);
 
-            // array of <input type="checkbox">
-            // ->add('selection', ChoiceType::class, [
-            //     'expanded' => true,
-            //     'multiple' => true,
-            // ])
+        // array of <input type="checkbox">
+        // $builder->add('selection', ChoiceType::class, [
+        //     'expanded' => true,
+        //     'multiple' => true,
+        // ]);
 
-            // for a OneToOne or ManyToOne relationship selection
-            // ->add('owner', EntityType::class, [
-            //     'class' => User::class,
-            //     'query_builder' => function (EntityRepository $er): QueryBuilder {
-            //         return $er->createQueryBuilder('u')
-            //             ->orderBy('u.email', 'ASC');
-            //     },
-            //     'choice_label' => 'email',
-            // ])
-        ;
+        // for a OneToOne or ManyToOne relationship selection
+        // $builder->add('owner', EntityType::class, [
+        //     'class' => User::class,
+        //     'query_builder' => function (EntityRepository $er): QueryBuilder {
+        //         return $er->createQueryBuilder('u')
+        //             ->orderBy('u.email', 'ASC');
+        //     },
+        //     'choice_label' => 'email',
+        // ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
