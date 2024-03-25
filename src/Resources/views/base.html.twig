@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% set metaTitle = block('meta_title') is defined
+    ? block('meta_title')
+    : null
+  %}
+
+  {{ meta_simple(metaTitle) }}
+
+  {% include '@OHMediaBackend/include/stylesheets_global.html.twig' %}
+
+  {% block stylesheets %}{% endblock %}
+</head>
+<body>
+  <nav id="top-nav" class="navbar navbar-light fixed-top">
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-nav" aria-controls="side-nav" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="navbar-nav">
+      {% if app.user %}
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('user_edit', {id: app.user.id}) }}">
+            <i class="bi bi-person-fill"></i>
+            Profile
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('user_logout') }}">
+            <i class="bi bi-box-arrow-right"></i>
+            Logout
+          </a>
+        </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('user_login') }}">
+          <i class="bi bi-box-arrow-in-right"></i>
+          Login
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="side-nav" aria-labelledby="offcanvasNavbarLabel">
+    <a href="#" class="offcanvas-header">
+      {% include '@OHMediaBackend/include/logo.html.twig' %}
+    </a>
+    <div class="offcanvas-body">
+      {{ bootstrap_nav(backend_nav(), 'nav flex-column') }}
+    </div>
+  </div>
+
+  <main>
+    <div id="top-bar">
+      <div id="top-bar-breadcrumbs">
+        {% block breadcrumbs %}{% endblock %}
+      </div>
+
+      <div id="top-bar-actions">
+        {% block actions %}{% endblock %}
+      </div>
+    </div>
+
+    {{ bootstrap_alerts() }}
+
+    {% block main %}{% endblock %}
+  </main>
+
+  <footer>&copy; OH! Media {{ 'now'|date('Y') }}</footer>
+
+  {% include '@OHMediaBackend/include/javascripts_global.html.twig' %}
+
+  {{ captcha_script() }}
+  {{ file_script() }}
+
+  {% block javascripts %}{% endblock %}
+</body>
+</html>

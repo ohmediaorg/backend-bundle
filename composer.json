@@ -1,0 +1,27 @@
+{
+    "name": "ohmediaorg/backend-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony BackendBundle",
+    "keywords": ["Backend"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Justin Hoffman",
+            "email": "justin@ohmedia.ca"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ohmediaorg/security-bundle"
+        }
+    ],
+    "require": {
+        "ohmediaorg/security-bundle": "dev-main",
+        "php": ">=7.2",
+        "symfony/framework-bundle": "5.4.* || 6.4.*"
+    },
+    "autoload": {
+        "psr-4": { "OHMedia\\BackendBundle\\": "src/" }
+    }
+}

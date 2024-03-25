@@ -1,0 +1,4 @@
+<form class="{% block form_class %}{% endblock %}" method="post" action="{% block form_action %}{% endblock %}" data-confirm="{% block confirm_message %}{% endblock %}">
+  <input type="hidden" name="{% block csrf_name %}{% endblock %}" value="{{ csrf_token(block('csrf_name')) }}">
+  <button class="{% block button_class %}{% endblock %}" type="submit" title="{% block button_title %}{% endblock %}">{% block button_html %}{% endblock %}</button>
+</form>

@@ -1,0 +1,19 @@
+services:
+    oh_media_backend.nav_manager:
+        class: OHMedia\BackendBundle\Service\NavManager
+        public: false
+
+    OHMedia\BackendBundle\Twig\DateTimeExtension:
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    OHMedia\BackendBundle\Twig\NavExtension:
+        arguments: ["@oh_media_backend.nav_manager"]
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    OHMedia\BackendBundle\Command\BoilerplateCommand:
+        arguments: ["%kernel.project_dir%"]
+        tags: ["console.command"]
