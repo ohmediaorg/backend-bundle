@@ -1,6 +1,6 @@
 <?php echo "<?php\n"; ?>
 
-namespace App\Backend\Controller;
+namespace App\Controller\Backend;
 
 use App\Entity\<?php echo $singular['pascal_case']; ?>;
 use App\Form\<?php echo $singular['pascal_case']; ?>Type;

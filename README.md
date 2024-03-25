@@ -21,7 +21,7 @@ Update `config/routes/attributes.yml`:
 
 ```yaml
 backend_controllers:
-    resource: ../../src/Backend/Controller
+    resource: ../../src/Controller/Backend
     type: attribute
     prefix: admin
 ```

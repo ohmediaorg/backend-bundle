@@ -1,6 +1,6 @@
 <?php echo "<?php\n"; ?>
 
-namespace App\Backend\Nav;
+namespace App\Service\Backend\Nav;
 
 use App\Entity\<?php echo $singular['pascal_case']; ?>;
 use App\Security\Voter\<?php echo $singular['pascal_case']; ?>Voter;

@@ -81,8 +81,8 @@ class BoilerplateCommand extends Command
         $entityPhpFile = sprintf('src/Entity/%s.php', $pascalCase);
         $repositoryPhpFile = sprintf('src/Repository/%sRepository.php', $pascalCase);
         $formPhpFile = sprintf('src/Form/%sType.php', $pascalCase);
-        $controllerPhpFile = sprintf('src/Backend/Controller/%sController.php', $pascalCase);
-        $navItemProviderPhpFile = sprintf('src/Backend/Nav/%sNavItemProvider.php', $pascalCase);
+        $controllerPhpFile = sprintf('src/Controller/Backend/%sController.php', $pascalCase);
+        $navItemProviderPhpFile = sprintf('src/Service/Backend/Nav/%sNavItemProvider.php', $pascalCase);
         $voterPhpFile = sprintf('src/Security/Voter/%sVoter.php', $pascalCase);
         $indexTwigFile = sprintf('templates/backend/%s/%s_index.html.twig', $snakeCase, $snakeCase);
         $createTwigFile = sprintf('templates/backend/%s/%s_create.html.twig', $snakeCase, $snakeCase);
