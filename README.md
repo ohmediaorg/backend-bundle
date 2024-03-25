@@ -13,6 +13,8 @@ return [
 ];
 ```
 
+Also run `npm install bootstrap bootstrap-icons`
+
 ## Config
 
 Update `config/routes/attributes.yml`:
