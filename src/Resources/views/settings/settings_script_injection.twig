@@ -1,18 +1,18 @@
 {% extends '@OHMediaBackend/base.html.twig' %}
 
-{% block meta_title %}Scripts | Settings{% endblock %}
+{% block meta_title %}Script Injection | Settings{% endblock %}
 
 {% block breadcrumbs %}
 {{ bootstrap_breadcrumbs(
   bootstrap_breadcrumb(bootstrap_icon('gear-fill') ~ ' Settings'),
-  bootstrap_breadcrumb('Scripts'),
+  bootstrap_breadcrumb('Script Injection'),
 ) }}
 {% endblock %}
 
 {% block main %}
 <div class="card">
   <div class="card-body">
-    <h1 class="card-title h3">Script Settings</h1>
+    <h1 class="card-title h3">Script Injection</h1>
 
     {{ form_start(form) }}
     <div class="row">

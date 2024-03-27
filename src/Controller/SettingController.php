@@ -17,8 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Admin]
 class SettingController extends AbstractController
 {
-    #[Route('/settings/meta', name: 'settings_meta')]
-    public function meta(Request $request, MetaSettings $metaSettings): Response
+    #[Route('/settings/global_meta', name: 'settings_global_meta')]
+    public function globalMeta(Request $request, MetaSettings $metaSettings): Response
     {
         $this->denyAccessUnlessGranted(
             SettingVoter::META,
@@ -40,10 +40,10 @@ class SettingController extends AbstractController
 
             $this->addFlash('notice', 'Global meta settings updated successfully');
 
-            return $this->redirectToRoute('settings_meta');
+            return $this->redirectToRoute('settings_global_meta');
         }
 
-        return $this->render('@OHMediaBackend/settings/settings_meta.html.twig', [
+        return $this->render('@OHMediaBackend/settings/settings_global_meta.html.twig', [
             'form' => $form->createView(),
             'meta_default' => [
                 'base_title' => MetaSettings::SETTING_BASE_TITLE,
@@ -53,7 +53,7 @@ class SettingController extends AbstractController
         ]);
     }
 
-    #[Route('/settings/scripts', name: 'settings_scripts')]
+    #[Route('/settings/script-injection', name: 'settings_script_injection')]
     public function scripts(Request $request, Settings $settings): Response
     {
         $this->denyAccessUnlessGranted(
@@ -94,12 +94,12 @@ class SettingController extends AbstractController
                 $settings->set($id, $formData[$id]);
             }
 
-            $this->addFlash('notice', 'Script settings updated successfully');
+            $this->addFlash('notice', 'Script injection settings updated successfully');
 
-            return $this->redirectToRoute('settings_scripts');
+            return $this->redirectToRoute('settings_script_injection');
         }
 
-        return $this->render('@OHMediaBackend/settings/settings_scripts.html.twig', [
+        return $this->render('@OHMediaBackend/settings/settings_script_injection.html.twig', [
             'form' => $form->createView(),
             'scripts' => $scripts,
         ]);
