@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Admin]
 class SettingController extends AbstractController
 {
-    #[Route('/settings/global_meta', name: 'settings_global_meta')]
+    #[Route('/settings/global-meta', name: 'settings_global_meta')]
     public function globalMeta(Request $request, MetaSettings $metaSettings): Response
     {
         $this->denyAccessUnlessGranted(
