@@ -6,6 +6,7 @@ use App\Entity\<?php echo $singular['pascal_case']; ?>;
 use App\Form\<?php echo $singular['pascal_case']; ?>Type;
 use App\Repository\<?php echo $singular['pascal_case']; ?>Repository;
 use App\Security\Voter\<?php echo $singular['pascal_case']; ?>Voter;
+use OHMedia\BackendBundle\Routing\Attribute\Admin;
 use OHMedia\BootstrapBundle\Service\Paginator;
 use OHMedia\SecurityBundle\Form\DeleteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[Admin]
 class <?php echo $singular['pascal_case']; ?>Controller extends AbstractController
 {
     #[Route('/<?php echo $plural['kebab_case']; ?>', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
