@@ -17,3 +17,10 @@ services:
     OHMedia\BackendBundle\Command\BoilerplateCommand:
         arguments: ["%kernel.project_dir%"]
         tags: ["console.command"]
+
+    OHMedia\BackendBundle\Controller\SettingController:
+        tags: ["container.service_subscriber", "controller.service_arguments"]
+        autowire: true
+
+    OHMedia\BackendBundle\Security\Voter\SettingVoter:
+        tags: ["security.voter"]

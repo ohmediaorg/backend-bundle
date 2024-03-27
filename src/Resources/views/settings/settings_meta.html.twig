@@ -1,0 +1,30 @@
+{% extends '@OHMediaBackend/base.html.twig' %}
+
+{% block meta_title %}Meta | Settings{% endblock %}
+
+{% block breadcrumbs %}
+{{ bootstrap_breadcrumbs(
+  bootstrap_breadcrumb(bootstrap_icon('gear-fill') ~ ' Settings'),
+  bootstrap_breadcrumb('Global Meta'),
+) }}
+{% endblock %}
+
+{% block main %}
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title h3">Global Meta Settings</h1>
+
+    {{ form_start(form) }}
+    <div class="row">
+      <div class="col-lg-6">
+        {{ form_row(form.offsetGet(meta_default.base_title)) }}
+        {{ form_row(form.offsetGet(meta_default.description)) }}
+      </div>
+      <div class="col-lg-6">
+        {{ form_row(form.offsetGet(meta_default.image)) }}
+      </div>
+    </div>
+    {{ form_end(form) }}
+  </div>
+</div>
+{% endblock %}

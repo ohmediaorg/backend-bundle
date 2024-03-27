@@ -1,0 +1,28 @@
+{% extends '@OHMediaBackend/base.html.twig' %}
+
+{% block meta_title %}Scripts | Settings{% endblock %}
+
+{% block breadcrumbs %}
+{{ bootstrap_breadcrumbs(
+  bootstrap_breadcrumb(bootstrap_icon('gear-fill') ~ ' Settings'),
+  bootstrap_breadcrumb('Scripts'),
+) }}
+{% endblock %}
+
+{% block main %}
+<div class="card">
+  <div class="card-body">
+    <h1 class="card-title h3">Script Settings</h1>
+
+    {{ form_start(form) }}
+    <div class="row">
+      {% for id, label in scripts %}
+      <div class="col-lg-6">
+        {{ form_row(form.offsetGet(id)) }}
+      </div>
+      {% endfor %}
+    </div>
+    {{ form_end(form) }}
+  </div>
+</div>
+{% endblock %}
