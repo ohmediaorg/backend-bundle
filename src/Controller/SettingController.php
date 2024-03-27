@@ -62,10 +62,10 @@ class SettingController extends AbstractController
         );
 
         $scripts = [
-            'script_head_open' => 'Placed just after the opening <head> tag',
-            'script_head_close' => 'Placed just before the closing </head> tag',
-            'script_body_open' => 'Placed just after the opening <body> tag',
-            'script_body_close' => 'Placed just before the closing </body> tag',
+            'oh_media_script_head_open' => 'Placed just after the opening <head> tag',
+            'oh_media_script_head_close' => 'Placed just before the closing </head> tag',
+            'oh_media_script_body_open' => 'Placed just after the opening <body> tag',
+            'oh_media_script_body_close' => 'Placed just before the closing </body> tag',
         ];
 
         $formBuilder = $this->createFormBuilder();
