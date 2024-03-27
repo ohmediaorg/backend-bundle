@@ -4,7 +4,7 @@ namespace OHMedia\BackendBundle\Controller;
 
 use OHMedia\BackendBundle\Routing\Attribute\Admin;
 use OHMedia\BackendBundle\Security\Voter\SettingVoter;
-use OHMedia\BackendBundle\Twig\ScriptInjectExtension;
+use OHMedia\BackendBundle\Twig\ScriptInjectionExtension;
 use OHMedia\MetaBundle\Settings\MetaSettings;
 use OHMedia\SettingsBundle\Entity\Setting;
 use OHMedia\SettingsBundle\Service\Settings;
@@ -63,10 +63,10 @@ class SettingController extends AbstractController
         );
 
         $scripts = [
-            ScriptInjectExtension::SCRIPT_HEAD_OPEN => 'Placed just after the opening <head> tag',
-            ScriptInjectExtension::SCRIPT_HEAD_CLOSE => 'Placed just before the closing </head> tag',
-            ScriptInjectExtension::SCRIPT_BODY_OPEN => 'Placed just after the opening <body> tag',
-            ScriptInjectExtension::SCRIPT_BODY_CLOSE => 'Placed just before the closing </body> tag',
+            ScriptInjectionExtension::SCRIPT_HEAD_OPEN => 'Placed just after the opening <head> tag',
+            ScriptInjectionExtension::SCRIPT_HEAD_CLOSE => 'Placed just before the closing </head> tag',
+            ScriptInjectionExtension::SCRIPT_BODY_OPEN => 'Placed just after the opening <body> tag',
+            ScriptInjectionExtension::SCRIPT_BODY_CLOSE => 'Placed just before the closing </body> tag',
         ];
 
         $formBuilder = $this->createFormBuilder();
