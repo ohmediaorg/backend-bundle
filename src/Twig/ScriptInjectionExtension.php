@@ -6,7 +6,7 @@ use OHMedia\SettingsBundle\Service\Settings;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class ScriptInjectExtension extends AbstractExtension
+class ScriptInjectionExtension extends AbstractExtension
 {
     public const SCRIPT_HEAD_OPEN = 'oh_media_script_head_open';
     public const SCRIPT_HEAD_CLOSE = 'oh_media_script_head_close';
