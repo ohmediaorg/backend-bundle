@@ -128,6 +128,20 @@ footer {
   display: none;
 }
 
+.card-title-with-count {
+  display: flex;
+  align-items: center;
+  gap: $spacer * 0.5;
+
+  .card-title-heading {
+    @include font-size($h3-font-size);
+    margin: 0;
+  }
+
+  .card-title-count {
+  }
+}
+
 form {
   fieldset:not(.fieldset-nostyle) {
     background: $gray-100;

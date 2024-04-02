@@ -19,7 +19,18 @@
 {% block main %}
 <div class="card">
   <div class="card-body">
-    <h1 class="card-title h3"><?php echo $plural['title']; ?></h1>
+    <div class="card-title card-title-with-count">
+      <h1 class="card-title-heading"><?php echo $plural['title']; ?></h1>
+      <div class="card-title-count">
+        <span class="badge text-bg-primary">
+<?php if ($has_reorder) { ?>
+          {{ <?php echo $plural['snake_case']; ?>|length }}
+<?php } else { ?>
+          {{ pagination.count }}
+<?php } ?>
+        </span>
+      </div>
+    </div>
 
     <table class="table table-striped">
       <thead>
