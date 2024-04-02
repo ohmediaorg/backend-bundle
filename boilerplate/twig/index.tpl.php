@@ -75,10 +75,12 @@
         {% endfor %}
       </tbody>
     </table>
+<?php if (!$has_reorder) { ?>
 
     {{ bootstrap_pagination(pagination) }}
 
     <small>{{ bootstrap_pagination_info(pagination) }}</small>
+<?php } ?>
   </div>
 </div>
 {% endblock %}
