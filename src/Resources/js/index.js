@@ -1,3 +1,6 @@
+import '@popperjs/core';
+import * as Bootstrap from 'bootstrap';
+
 import './alert.js';
 import './confirm.js';
 
@@ -18,6 +21,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.querySelectorAll('form').forEach((form) => {
     preventDoubleSubmit(form);
+  });
+
+  document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach((el) => {
+    new Bootstrap.Tooltip(el);
+  });
+
+  document.querySelectorAll('[data-bs-toggle="popover"]').forEach((el) => {
+    new Bootstrap.Popover(el);
   });
 
   document.querySelectorAll('a[target=_blank]').forEach((a) => {
