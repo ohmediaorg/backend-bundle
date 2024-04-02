@@ -24,13 +24,28 @@
     <table class="table table-striped">
       <thead>
         <tr>
+<?php if ($has_reorder) { ?>
+          <th>&nbsp;</th>
+<?php } ?>
           <th><?php echo $singular['title']; ?></th>
           <th></th>
         </tr>
       </thead>
+<?php if ($has_reorder) { ?>
+      <tbody
+        data-sortable
+        data-sortable-csrf-name="{{ csrf_token_name }}"
+        data-sortable-csrf-token="{{ csrf_token(csrf_token_name) }}"
+        data-sortable-url="{{ path('<?php echo $singular['snake_case']; ?>_reorder_post') }}"
+      >
+      {% for <?php echo $singular['snake_case']; ?> in <?php echo $plural['snake_case']; ?> %}
+        <tr data-id="{{ <?php echo $singular['snake_case']; ?>.id }}">
+          <td data-handle>{{ bootstrap_icon('arrows-move') }}</td>
+<?php } else { ?>
       <tbody>
         {% for <?php echo $singular['snake_case']; ?> in pagination.results %}
         <tr>
+<?php } ?>
           <td>{{ <?php echo $singular['snake_case']; ?> }}</td>
           <td>
 <?php if ($has_view_route) { ?>

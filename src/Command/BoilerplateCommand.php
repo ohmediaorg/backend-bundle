@@ -78,6 +78,11 @@ class BoilerplateCommand extends Command
             $parameters['singular']['kebab_case']
         ), false);
 
+        $parameters['has_reorder'] = $this->io->confirm(sprintf(
+            'Does the %s entity require reordering?',
+            $pascalCase
+        ), true);
+
         $entityPhpFile = sprintf('src/Entity/%s.php', $pascalCase);
         $repositoryPhpFile = sprintf('src/Repository/%sRepository.php', $pascalCase);
         $formPhpFile = sprintf('src/Form/%sType.php', $pascalCase);

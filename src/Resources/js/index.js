@@ -3,6 +3,7 @@ import * as Bootstrap from 'bootstrap';
 
 import './alert.js';
 import './confirm.js';
+import './sortable.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   function preventDoubleSubmit(form) {

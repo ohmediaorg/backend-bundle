@@ -13,7 +13,7 @@ return [
 ];
 ```
 
-Also run `npm install bootstrap bootstrap-icons`
+Also run `npm install bootstrap bootstrap-icons sortablejs`
 
 ## Config
 

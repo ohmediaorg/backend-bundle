@@ -6,11 +6,17 @@ use App\Entity\<?php echo $singular['pascal_case']; ?>;
 use App\Form\<?php echo $singular['pascal_case']; ?>Type;
 use App\Repository\<?php echo $singular['pascal_case']; ?>Repository;
 use App\Security\Voter\<?php echo $singular['pascal_case']; ?>Voter;
+<?php if ($has_reorder) { ?>
+use Doctrine\DBAL\Connection;
+<?php } ?>
 use OHMedia\BackendBundle\Routing\Attribute\Admin;
 use OHMedia\BootstrapBundle\Service\Paginator;
 use OHMedia\SecurityBundle\Form\DeleteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+<?php if ($has_reorder) { ?>
+use Symfony\Component\HttpFoundation\JsonResponse;
+<?php } ?>
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +24,76 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Admin]
 class <?php echo $singular['pascal_case']; ?>Controller extends AbstractController
 {
+<?php if ($has_reorder) { ?>
+    private const CSRF_TOKEN_REORDER = '<?php echo $singular['snake_case']; ?>_reorder';
+
+    #[Route('/<?php echo $plural['kebab_case']; ?>', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
+    public function index(<?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository): Response
+    {
+        $new<?php echo $singular['pascal_case']; ?> = new <?php echo $singular['pascal_case']; ?>();
+
+        $this->denyAccessUnlessGranted(
+            <?php echo $singular['pascal_case']; ?>Voter::INDEX,
+            $new<?php echo $singular['pascal_case']; ?>,
+            'You cannot access the list of <?php echo $plural['readable']; ?>.'
+        );
+
+        $<?php echo $plural['camel_case']; ?> = $<?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('f')
+            ->orderBy('f.ordinal', 'asc')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_index.html.twig', [
+            '<?php echo $plural['snake_case']; ?>' => $<?php echo $plural['camel_case']; ?>,
+            'new_<?php echo $singular['snake_case']; ?>' => $new<?php echo $singular['pascal_case']; ?>,
+            'attributes' => $this->getAttributes(),
+            'csrf_token_name' => self::CSRF_TOKEN_REORDER,
+        ]);
+    }
+
+    #[Route('/<?php echo $plural['kebab_case']; ?>/reorder', name: '<?php echo $singular['snake_case']; ?>_reorder_post', methods: ['POST'])]
+    public function reorderPost(
+        Connection $connection,
+        <?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository,
+        Request $request
+    ): Response {
+        $this->denyAccessUnlessGranted(
+            <?php echo $singular['pascal_case']; ?>Voter::INDEX,
+            new <?php echo $singular['pascal_case']; ?>(),
+            'You cannot reorder the <?php echo $plural['readable']; ?>.'
+        );
+
+        $csrfToken = $request->request->get(self::CSRF_TOKEN_REORDER);
+
+        if (!$this->isCsrfTokenValid(self::CSRF_TOKEN_REORDER, $csrfToken)) {
+            return new JsonResponse('Invalid CSRF token.', 400);
+        }
+
+        $<?php echo $plural['camel_case']; ?> = $request->request->all('order');
+
+        $connection->beginTransaction();
+
+        try {
+            foreach ($<?php echo $plural['camel_case']; ?> as $ordinal => $id) {
+                $<?php echo $singular['camel_case']; ?> = $<?php echo $singular['camel_case']; ?>Repository->find($id);
+
+                if ($<?php echo $singular['camel_case']; ?>) {
+                    $<?php echo $singular['camel_case']; ?>->setOrdinal($ordinal);
+
+                    $<?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
+                }
+            }
+
+            $connection->commit();
+        } catch (\Exception $e) {
+            $connection->rollBack();
+
+            return new JsonResponse('Data unable to be saved.', 400);
+        }
+
+        return new JsonResponse();
+    }
+<?php } else { ?>
     #[Route('/<?php echo $plural['kebab_case']; ?>', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
     public function index(
         <?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository,
@@ -40,6 +116,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             'attributes' => $this->getAttributes(),
         ]);
     }
+<?php } ?>
 
     #[Route('/<?php echo $singular['kebab_case']; ?>/create', name: '<?php echo $singular['snake_case']; ?>_create', methods: ['GET', 'POST'])]
     public function create(
