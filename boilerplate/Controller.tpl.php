@@ -10,7 +10,9 @@ use App\Security\Voter\<?php echo $singular['pascal_case']; ?>Voter;
 use Doctrine\DBAL\Connection;
 <?php } ?>
 use OHMedia\BackendBundle\Routing\Attribute\Admin;
+<?php if (!$has_reorder) { ?>
 use OHMedia\BootstrapBundle\Service\Paginator;
+<?php } ?>
 use OHMedia\SecurityBundle\Form\DeleteType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
