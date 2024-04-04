@@ -87,6 +87,7 @@ class BoilerplateCommand extends Command
         $repositoryPhpFile = sprintf('src/Repository/%sRepository.php', $pascalCase);
         $formPhpFile = sprintf('src/Form/%sType.php', $pascalCase);
         $controllerPhpFile = sprintf('src/Controller/Backend/%sController.php', $pascalCase);
+        $entityChoicePhpFile = sprintf('src/Service/EntityChoice/%sEntityChoice.php', $pascalCase);
         $navItemProviderPhpFile = sprintf('src/Service/Backend/Nav/%sNavItemProvider.php', $pascalCase);
         $voterPhpFile = sprintf('src/Security/Voter/%sVoter.php', $pascalCase);
         $indexTwigFile = sprintf('templates/backend/%s/%s_index.html.twig', $snakeCase, $snakeCase);
@@ -99,6 +100,7 @@ class BoilerplateCommand extends Command
             ->generateFile('Repository.tpl.php', $repositoryPhpFile, $parameters)
             ->generateFile('Form.tpl.php', $formPhpFile, $parameters)
             ->generateFile('Controller.tpl.php', $controllerPhpFile, $parameters)
+            ->generateFile('EntityChoice.tpl.php', $entityChoicePhpFile, $parameters)
             ->generateFile('NavItemProvider.tpl.php', $navItemProviderPhpFile, $parameters)
             ->generateFile('Voter.tpl.php', $voterPhpFile, $parameters)
             ->generateFile('twig/index.tpl.php', $indexTwigFile, $parameters)
