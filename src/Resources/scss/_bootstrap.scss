@@ -34,10 +34,11 @@ $card-spacer-x: $spacer * 2 !default;
 $card-title-spacer-y: $spacer * 2 !default;
 $card-border-width: 0 !default;
 $card-box-shadow: $box-shadow !default;
+$card-bg: $white !default;
 
 $table-striped-bg: $gray-100 !default;
 
-$navbar-padding-y: 0;
+$navbar-padding-y: 0 !default;
 
 $navbar-toggler-padding-y: 0 !default;
 $navbar-toggler-padding-x: 0 !default;
