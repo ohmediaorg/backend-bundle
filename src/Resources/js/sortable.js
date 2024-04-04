@@ -1,4 +1,5 @@
 import Sortable from 'sortablejs';
+import bootstrapToast from './toast.js';
 
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('[data-sortable]').forEach(function (container) {
@@ -23,10 +24,10 @@ document.addEventListener('DOMContentLoaded', function () {
         })
           .then((r) => r.json())
           .then((result) => {
-            alert('Order updated');
+            bootstrapToast('Order updated', 'success');
           })
           .catch((error) => {
-            alert(error);
+            bootstrapToast(error, 'danger');
           });
       },
     });

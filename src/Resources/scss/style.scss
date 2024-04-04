@@ -118,6 +118,36 @@ footer {
   padding-right: $spacer * 3;
 }
 
+main {
+  position: relative;
+
+  #toasts {
+    position: absolute;
+    top: $spacer;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 0;
+
+    .toast {
+      margin-bottom: $spacer * 0.5;
+
+      .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+        margin: auto;
+        margin-right: map-get($spacers, 2);
+      }
+
+      &.text-bg-info,
+      &.text-bg-warning,
+      &.text-bg-light {
+        .btn-close {
+          filter: none;
+        }
+      }
+    }
+  }
+}
+
 footer {
   font-size: $font-size-sm;
   color: $secondary;
@@ -140,6 +170,14 @@ footer {
 
   .card-title-count {
   }
+}
+
+.sortable-ghost {
+  @extend .table-success;
+}
+
+[data-handle] {
+  cursor: pointer;
 }
 
 form {
