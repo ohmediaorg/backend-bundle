@@ -38,12 +38,6 @@ document.querySelectorAll('a[target=_blank]').forEach((a) => {
   a.innerHTML += '&nbsp;<i class="bi bi-box-arrow-up-right"></i>';
 });
 
-// TODO: strip out honeypot from antispam bundle?
-// or make the class in the honeypot bundle fieldset-nostyle
-document.querySelectorAll('.form-row-topyenoh').forEach((fieldset) => {
-  fieldset.classList.add('fieldset-nostyle');
-});
-
 document.querySelectorAll('table.table').forEach((table) => {
   if (!table.parentNode.classList.contains('table-responsive')) {
     const wrapper = document.createElement('div');
