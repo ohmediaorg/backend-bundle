@@ -38,13 +38,6 @@ document.querySelectorAll('a[target=_blank]').forEach((a) => {
   a.innerHTML += '&nbsp;<i class="bi bi-box-arrow-up-right"></i>';
 });
 
-// TODO: see if there's a nice way to set this through the bootstrap-bundle
-const dropdowns = document.querySelectorAll('#side-nav .nav-item.dropdown');
-
-dropdowns.forEach((dropdown) => {
-  dropdown.classList.add('dropend');
-});
-
 // TODO: strip out honeypot from antispam bundle?
 // or make the class in the honeypot bundle fieldset-nostyle
 document.querySelectorAll('.form-row-topyenoh').forEach((fieldset) => {
