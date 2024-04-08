@@ -17,6 +17,8 @@ $green: #198754 !default;
 
 $primary: $blue !default;
 
+$component-active-color: color-contrast($primary) !default;
+
 $enable-shadows: true !default;
 
 $body-bg: $gray-100 !default;
