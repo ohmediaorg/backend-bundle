@@ -69,6 +69,14 @@ body {
     }
   }
 
+  .nav {
+    flex-direction: column;
+
+    .dropdown {
+      @extend .dropend;
+    }
+  }
+
   .nav-link {
     color: $white;
 
