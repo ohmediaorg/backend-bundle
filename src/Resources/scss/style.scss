@@ -69,12 +69,9 @@ body {
     }
   }
 
-  .nav {
-    flex-direction: column;
-
-    .dropdown {
-      @extend .dropend;
-    }
+  .offcanvas-body {
+    // necessary for dropdowns to show outside the container
+    overflow: visible;
   }
 
   .nav-link {
