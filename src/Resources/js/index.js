@@ -1,6 +1,8 @@
 import '@popperjs/core';
 import * as Bootstrap from 'bootstrap';
 
+window.Bootstrap = Bootstrap;
+
 import './alert.js';
 import './confirm.js';
 import './sortable.js';
