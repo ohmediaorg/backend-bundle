@@ -6,9 +6,12 @@ window.Bootstrap = Bootstrap;
 import './alert.js';
 import './confirm.js';
 import './sortable.js';
-import bootstrapToast from './toast.js';
 
+import bootstrapToast from './toast.js';
 window.bootstrapToast = bootstrapToast;
+
+import Sortable from 'sortablejs';
+window.Sortable = Sortable;
 
 function preventDoubleSubmit(form) {
   let submitted = false;
