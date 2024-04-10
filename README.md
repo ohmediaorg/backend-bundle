@@ -13,17 +13,23 @@ return [
 ];
 ```
 
-Also run `npm install bootstrap bootstrap-icons sortablejs`
+Also run `npm install bootstrap bootstrap-icons sortablejs tinymce`
 
 ## Config
 
-Update `config/routes/attributes.yml`:
+Create `config/packages/oh_media_backend.yaml` with the minimum config:
 
 ```yaml
-backend_controllers:
-    resource: ../../src/Controller/Backend
+oh_media_backend:
+    tinymce:
+```
+
+Update `config/routes.yaml`:
+
+```yaml
+oh_media_backend:
+    resource: '@OHMediaBackendBundle/Controller/'
     type: attribute
-    prefix: admin
 ```
 
 ## JS/Styles
@@ -41,6 +47,26 @@ Add the following to your backend Sass file:
 ```
 
 This should typically be all that is needed for backend styles.
+
+### TinyMCE
+
+Make sure webpack encore is setup to copy TinyMCE files:
+
+```js
+.copyFiles({
+  from: './node_modules/tinymce',
+  to: 'js/tinymce/[path][name].[ext]',
+  pattern: /\.(js|min\.css)$/,
+})
+```
+
+Such that `<script src="/backend/js/tinymce/tinymce.min.js"></script>` is valid.
+
+There is a function to initialize a TinyMCE instance:
+
+```js
+OH_MEDIA_TINYMCE(container, selector);
+```
 
 ### Templates
 
