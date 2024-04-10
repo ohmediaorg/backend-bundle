@@ -20,6 +20,12 @@ services:
         tags:
             - { name: twig.extension }
 
+    OHMedia\BackendBundle\Twig\TinymceExtension:
+        arguments: ["%oh_media_backend.tinymce.plugins%", "%oh_media_backend.tinymce.toolbar%"]
+        public: false
+        tags:
+            - { name: twig.extension }
+
     OHMedia\BackendBundle\Command\BoilerplateCommand:
         arguments: ["%kernel.project_dir%"]
         tags: ["console.command"]
