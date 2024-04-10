@@ -16,6 +16,27 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder('oh_media_backend');
 
+        $treeBuilder->getRootNode()
+            ->children()
+                ->arrayNode('tinymce')
+                  ->children()
+                    ->scalarNode('plugins')
+                        ->defaultValue('code link lists')
+                    ->end()
+                    ->arrayNode('toolbar')
+                        ->scalarPrototype()->end()
+                        ->defaultValue([
+                            'undo redo',
+                            'blocks',
+                            'bold italic numlist bullist',
+                            'alignleft aligncenter alignright alignjustify',
+                            'outdent indent',
+                        ])
+                    ->end()
+                ->end()
+            ->end()
+        ;
+
         return $treeBuilder;
     }
 }
