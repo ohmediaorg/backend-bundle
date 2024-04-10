@@ -23,6 +23,9 @@ class OHMediaBackendExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
+        $container->setParameter('oh_media_backend.tinymce.plugins', $config['tinymce']['plugins']);
+        $container->setParameter('oh_media_backend.tinymce.toolbar', $config['tinymce']['toolbar']);
+
         $container->registerForAutoconfiguration(AbstractNavItemProvider::class)
             ->addTag('oh_media_backend.nav_item_provider')
         ;
