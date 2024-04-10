@@ -1,0 +1,34 @@
+<script src="/backend/js/tinymce/tinymce.min.js"></script>
+
+<script async>
+function OH_MEDIA_TINYMCE(container, selector) {
+  const els = container.querySelectorAll(selector);
+
+  els.forEach(el => {
+    tinymce.init({
+      target: el,
+      plugins: {{ plugins|json_encode|raw }},
+      toolbar: {{ toolbar|json_encode|raw }},
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  OH_MEDIA_TINYMCE(document, 'textarea.wysiwyg');
+
+  const observer = new MutationObserver(function(mutationList, observer) {
+    for (const mutation of mutationList) {
+      if ('childList' !== mutation.type) {
+        continue;
+      }
+
+      OH_MEDIA_TINYMCE(mutation.target, 'textarea.wysiwyg');
+    }
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+});
+</script>
