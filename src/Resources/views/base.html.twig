@@ -61,6 +61,8 @@
     </div>
   </div>
 
+  <div id="toasts"></div>
+
   <main>
     <div id="top-bar">
       <div id="top-bar-breadcrumbs">
@@ -75,8 +77,6 @@
     {{ bootstrap_alerts() }}
 
     {% block main %}{% endblock %}
-
-    <div id="toasts"></div>
   </main>
 
   <footer>&copy; OH! Media {{ 'now'|date('Y') }}</footer>
