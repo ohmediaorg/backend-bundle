@@ -14,6 +14,7 @@ $one-space-width: 0.25em;
 :root {
   --top-nav-height: 60px;
   --side-nav-width: 250px;
+  --container-padding: #{$spacer * 3};
 }
 
 body {
@@ -101,7 +102,7 @@ body {
 
 main,
 footer {
-  @extend .container-xxl;
+  @include make-container;
   padding-top: $spacer;
   padding-bottom: $spacer;
   overflow: hidden;
@@ -111,35 +112,32 @@ footer {
 #top-nav,
 main,
 footer {
-  padding-left: $spacer * 3;
-  padding-right: $spacer * 3;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
 }
 
-main {
-  position: relative;
+#toasts {
+  position: fixed;
+  top: calc(1rem + var(--top-nav-height));
+  left: calc(50% + var(--side-nav-width) / 2);
+  transform: translateX(-50%);
+  border: 0;
+  z-index: $zindex-toast;
 
-  #toasts {
-    position: absolute;
-    top: $spacer;
-    left: 50%;
-    transform: translateX(-50%);
-    border: 0;
+  .toast {
+    margin-bottom: $spacer * 0.5;
 
-    .toast {
-      margin-bottom: $spacer * 0.5;
+    .btn-close {
+      filter: invert(1) grayscale(100%) brightness(200%);
+      margin: auto;
+      margin-right: map-get($spacers, 2);
+    }
 
+    &.text-bg-info,
+    &.text-bg-warning,
+    &.text-bg-light {
       .btn-close {
-        filter: invert(1) grayscale(100%) brightness(200%);
-        margin: auto;
-        margin-right: map-get($spacers, 2);
-      }
-
-      &.text-bg-info,
-      &.text-bg-warning,
-      &.text-bg-light {
-        .btn-close {
-          filter: none;
-        }
+        filter: none;
       }
     }
   }
@@ -221,6 +219,10 @@ form {
 }
 
 @include media-breakpoint-down(lg) {
+  :root {
+    --container-padding: #{$spacer * 2};
+  }
+
   body {
     padding-left: 0;
   }
@@ -228,20 +230,10 @@ form {
   #top-bar-breadcrumbs .breadcrumb {
     display: block;
   }
-
-  #top-nav,
-  main,
-  footer {
-    padding-left: $spacer * 2;
-    padding-right: $spacer * 2;
-  }
 }
 
 @include media-breakpoint-down(md) {
-  #top-nav,
-  main,
-  footer {
-    padding-left: $spacer;
-    padding-right: $spacer;
+  :root {
+    --container-padding: #{$spacer};
   }
 }
