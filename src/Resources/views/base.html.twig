@@ -11,7 +11,7 @@
 
   {{ meta_simple(meta_title) }}
 
-  {{ encore_entry_link_tags('backend', null, 'backend') }}
+  {{ importmap('backend') }}
 
   {% include '@OHMediaBackend/include/stylesheets_global.html.twig' %}
 
@@ -80,8 +80,6 @@
   </main>
 
   <footer>&copy; OH! Media {{ 'now'|date('Y') }}</footer>
-
-  {{ encore_entry_script_tags('backend', null, 'backend') }}
 
   {{ tinymce_script() }}
 

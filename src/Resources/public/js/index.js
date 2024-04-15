@@ -1,3 +1,5 @@
+import 'bootstrap-icons/font/bootstrap-icons.min.css';
+
 import '@popperjs/core';
 import * as Bootstrap from 'bootstrap';
 
@@ -12,6 +14,9 @@ window.bootstrapToast = bootstrapToast;
 
 import Sortable from 'sortablejs';
 window.Sortable = Sortable;
+
+import * as tinymce from 'tinymce';
+window.tinymce = tinymce;
 
 function preventDoubleSubmit(form) {
   let submitted = false;
