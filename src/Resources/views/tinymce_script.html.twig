@@ -1,3 +1,5 @@
+<script src="/tinymce/tinymce.min.js"></script>
+
 <script async>
 function OH_MEDIA_TINYMCE(container, selector) {
   const els = container.querySelectorAll(selector);
@@ -7,6 +9,7 @@ function OH_MEDIA_TINYMCE(container, selector) {
       target: el,
       plugins: {{ plugins|json_encode|raw }},
       toolbar: {{ toolbar|json_encode|raw }},
+      license_key: 'gpl',
     });
   });
 }

@@ -15,9 +15,6 @@ window.bootstrapToast = bootstrapToast;
 import Sortable from 'sortablejs';
 window.Sortable = Sortable;
 
-import * as tinymce from 'tinymce';
-window.tinymce = tinymce;
-
 function preventDoubleSubmit(form) {
   let submitted = false;
 
