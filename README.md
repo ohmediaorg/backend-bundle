@@ -13,9 +13,10 @@ return [
 ];
 ```
 
-// TODO: importmap instructions
+Run `php bin/console importmap:require bootstrap bootstrap-icons sortablejs`
 
-Also run `npm install bootstrap bootstrap-icons sortablejs tinymce`
+Add `cp -r vendor/tinymce/tinymce public` as both a `post-install-cmd` and
+`post-update-cmd` command in `composer.json`.
 
 ## Config
 
