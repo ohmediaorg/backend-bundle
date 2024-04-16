@@ -13,6 +13,8 @@ return [
 ];
 ```
 
+// TODO: importmap instructions
+
 Also run `npm install bootstrap bootstrap-icons sortablejs tinymce`
 
 ## Config
