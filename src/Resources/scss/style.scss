@@ -6,9 +6,7 @@ $oh-logo: url("data:image/svg+xml;charset=utf-8,%3Csvg width='90' height='100' x
 
 @import 'bootstrap';
 
-// this file (style.scss) will be copied to /public/bundles/ohmediabackend/scss/style.scss
-// so we need to reference the Bootstrap vendor files from that location
-@import '../../../../vendor/twbs/bootstrap/scss/bootstrap';
+@import '../../../../../twbs/bootstrap/scss/bootstrap';
 
 $one-space-width: 0.25em;
 
