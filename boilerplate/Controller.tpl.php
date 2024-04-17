@@ -192,6 +192,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             $<?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
 
             $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was updated successfully.');
+
 <?php if ($has_view_route) { ?>
             return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
                 'id' => $<?php echo $singular['camel_case']; ?>->getId(),

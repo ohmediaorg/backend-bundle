@@ -26,7 +26,7 @@ class <?php echo $singular['pascal_case']."\n"; ?>
 
     public function __toString(): string
     {
-        return '<?php echo $singular['title']; ?> #' . $this->id;
+        return '<?php echo $singular['title']; ?> #'.$this->id;
     }
 
     public function getId(): ?int
