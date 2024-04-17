@@ -5,10 +5,13 @@ function OH_MEDIA_TINYMCE(container, selector) {
   const els = container.querySelectorAll(selector);
 
   els.forEach(el => {
+    el.required = false;
+
     tinymce.init({
       target: el,
       plugins: {{ plugins|json_encode|raw }},
       toolbar: {{ toolbar|json_encode|raw }},
+      license_key: 'gpl',
     });
   });
 }
