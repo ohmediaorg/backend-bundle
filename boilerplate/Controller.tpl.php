@@ -40,8 +40,8 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             'You cannot access the list of <?php echo $plural['readable']; ?>.'
         );
 
-        $<?php echo $plural['camel_case']; ?> = $<?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('f')
-            ->orderBy('f.ordinal', 'asc')
+        $<?php echo $plural['camel_case']; ?> = $<?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>')
+            ->orderBy('<?php echo $alias; ?>.ordinal', 'asc')
             ->getQuery()
             ->getResult();
 
