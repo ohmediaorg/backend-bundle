@@ -69,6 +69,8 @@ class BoilerplateCommand extends Command
 
         $parameters['alias'] = strtolower(preg_replace('/[^A-Z]/', '', $parameters['singular']['pascal_case']));
 
+        $parameters['determiner'] = preg_match('/^(a|e|i|o|u)/i', $className) ? 'an' : 'a';
+
         $pascalCase = $parameters['singular']['pascal_case'];
         $snakeCase = $parameters['singular']['snake_case'];
 
