@@ -43,7 +43,7 @@
         <thead>
           <tr>
 <?php if ($has_reorder) { ?>
-            <th>&nbsp;</th>
+            <th style="width:1rem">&nbsp;</th>
 <?php } ?>
             <th><?php echo $singular['title']; ?></th>
             <th></th>
