@@ -17,6 +17,10 @@ $one-space-width: 0.25em;
   --container-padding: #{$spacer * 3};
 }
 
+img {
+  @include img-fluid;
+}
+
 body {
   padding-top: var(--top-nav-height);
   padding-left: var(--side-nav-width);
