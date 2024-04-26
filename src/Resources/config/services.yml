@@ -8,6 +8,9 @@ services:
         tags:
             - { name: twig.extension }
 
+    OHMedia\BackendBundle\Twig\CommonUi:
+        tags: ["twig.extension"]
+
     OHMedia\BackendBundle\Twig\NavExtension:
         arguments: ["@oh_media_backend.nav_manager"]
         public: false
