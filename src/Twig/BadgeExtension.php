@@ -6,14 +6,20 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class CommonUi extends AbstractExtension
+class BadgeExtension extends AbstractExtension
 {
-    public function getFilters(): array
+    public function getFunctions(): array
     {
         return [
-            new TwigFunction('badge_success', [$this, 'badgeSuccess']),
-            new TwigFunction('badge_info', [$this, 'badgeInfo']),
-            new TwigFunction('badge_warning', [$this, 'badgeWarning']),
+            new TwigFunction('badge_success', [$this, 'badgeSuccess'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFunction('badge_info', [$this, 'badgeInfo'], [
+                'is_safe' => ['html'],
+            ]),
+            new TwigFunction('badge_warning', [$this, 'badgeWarning'], [
+                'is_safe' => ['html'],
+            ]),
         ];
     }
 

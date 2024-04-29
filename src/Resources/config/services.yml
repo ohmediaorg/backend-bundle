@@ -8,7 +8,7 @@ services:
         tags:
             - { name: twig.extension }
 
-    OHMedia\BackendBundle\Twig\CommonUi:
+    OHMedia\BackendBundle\Twig\BadgeExtension:
         tags: ["twig.extension"]
 
     OHMedia\BackendBundle\Twig\NavExtension:
