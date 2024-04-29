@@ -46,6 +46,7 @@
             <th style="width:1rem">&nbsp;</th>
 <?php } ?>
             <th><?php echo $singular['title']; ?></th>
+            <th>Last Updated</th>
             <th></th>
           </tr>
         </thead>
@@ -65,6 +66,7 @@
           <tr>
 <?php } ?>
             <td>{{ <?php echo $singular['snake_case']; ?> }}</td>
+            <td>{{ <?php echo $singular['snake_case']; ?>.updatedAt|datetime }}</td>
             <td>
 <?php if ($has_view_route) { ?>
               {% if is_granted(attributes.view, <?php echo $singular['snake_case']; ?>) %}
