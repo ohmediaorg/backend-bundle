@@ -1,0 +1,38 @@
+services:
+    oh_media_backend.nav_manager:
+        class: OHMedia\BackendBundle\Service\NavManager
+        public: false
+
+    OHMedia\BackendBundle\Twig\DateTimeExtension:
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    OHMedia\BackendBundle\Twig\NavExtension:
+        arguments: ["@oh_media_backend.nav_manager"]
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    OHMedia\BackendBundle\Twig\ScriptInjectionExtension:
+        autowire: true
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    OHMedia\BackendBundle\Twig\TinymceExtension:
+        arguments: ["%oh_media_backend.tinymce.plugins%", "%oh_media_backend.tinymce.toolbar%"]
+        public: false
+        tags:
+            - { name: twig.extension }
+
+    OHMedia\BackendBundle\Command\BoilerplateCommand:
+        arguments: ["%kernel.project_dir%"]
+        tags: ["console.command"]
+
+    OHMedia\BackendBundle\Controller\SettingController:
+        tags: ["container.service_subscriber", "controller.service_arguments"]
+        autowire: true
+
+    OHMedia\BackendBundle\Security\Voter\SettingVoter:
+        tags: ["security.voter"]

@@ -37,13 +37,13 @@ oh_media_backend:
 Add the following to your backend JS entry point:
 
 ```js
-import '../../vendor/ohmediaorg/backend-bundle/src/Resources/js/index.js';
+import '../../vendor/ohmediaorg/backend-bundle/assets/js/index.js';
 ```
 
 Add the following to your backend Sass file:
 
 ```scss
-@import '../../../vendor/ohmediaorg/backend-bundle/src/Resources/scss/style';
+@import '../../../vendor/ohmediaorg/backend-bundle/assets/scss/style';
 ```
 
 This should typically be all that is needed for backend styles.

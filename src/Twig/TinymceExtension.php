@@ -8,12 +8,11 @@ use Twig\TwigFunction;
 
 class TinymceExtension extends AbstractExtension
 {
-    private $plugins;
-    private $toolbar;
+    private bool $rendered = false;
+    private string $toolbar;
 
-    public function __construct(string $plugins, array $toolbar)
+    public function __construct(private string $plugins, array $toolbar)
     {
-        $this->plugins = $plugins;
         $this->toolbar = implode(' | ', $toolbar);
     }
 
@@ -29,6 +28,12 @@ class TinymceExtension extends AbstractExtension
 
     public function tinymceScript(Environment $env)
     {
+        if ($this->rendered) {
+            return;
+        }
+
+        $this->rendered = true;
+
         return $env->render('@OHMediaBackend/tinymce_script.html.twig', [
             'plugins' => $this->plugins,
             'toolbar' => $this->toolbar,

@@ -13,11 +13,8 @@ class ScriptInjectionExtension extends AbstractExtension
     public const SCRIPT_BODY_OPEN = 'oh_media_script_body_open';
     public const SCRIPT_BODY_CLOSE = 'oh_media_script_body_close';
 
-    private $settings;
-
-    public function __construct(Settings $settings)
+    public function __construct(private Settings $settings)
     {
-        $this->settings = $settings;
     }
 
     public function getFunctions(): array

@@ -9,11 +9,8 @@ abstract class AbstractNavItemProvider
 {
     abstract public function getNavItem(): ?NavItemInterface;
 
-    private $authorizationChecker;
-
-    public function __construct(AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(private AuthorizationCheckerInterface $authorizationChecker)
     {
-        $this->authorizationChecker = $authorizationChecker;
     }
 
     final protected function isGranted(mixed $attribute, mixed $subject = null): bool

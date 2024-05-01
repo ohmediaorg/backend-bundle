@@ -8,11 +8,8 @@ use Twig\TwigFunction;
 
 class NavExtension extends AbstractExtension
 {
-    private $navManager;
-
-    public function __construct(NavManager $navManager)
+    public function __construct(private NavManager $navManager)
     {
-        $this->navManager = $navManager;
     }
 
     public function getFunctions(): array
