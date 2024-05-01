@@ -32,9 +32,7 @@
     <div class="card-title card-title-with-count">
       <h1 class="card-title-heading"><?php echo $plural['title']; ?></h1>
       <div class="card-title-count">
-        <span class="badge text-bg-primary">
-          {{ <?php echo $singular['snake_case']; ?>_count }}
-        </span>
+        {{ bootstrap_badge_primary(<?php echo $singular['snake_case']; ?>_count) }}
       </div>
     </div>
 
