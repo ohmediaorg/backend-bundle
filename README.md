@@ -13,7 +13,7 @@ return [
 ];
 ```
 
-Also run `npm install bootstrap bootstrap-icons sortablejs tinymce`
+Also run `npm install bootstrap bootstrap-icons sortablejs tinymce nice-select2`
 
 ## Config
 

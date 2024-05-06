@@ -13,6 +13,20 @@ window.bootstrapToast = bootstrapToast;
 import Sortable from 'sortablejs';
 window.Sortable = Sortable;
 
+import NiceSelect from 'nice-select2';
+
+document.querySelectorAll('select.nice-select2').forEach((select) => {
+  for (let i = 0; i < select.selectedOptions.length; i++) {
+    // ensures the starting/default value is shown as selected in the nice-select2 UI
+    select.selectedOptions.item(i).setAttribute('selected', '');
+  }
+
+  new NiceSelect(select, {
+    searchable: true,
+    placeholder: select.placeholder,
+  });
+});
+
 function preventDoubleSubmit(form) {
   let submitted = false;
 
