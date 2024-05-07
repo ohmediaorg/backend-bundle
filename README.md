@@ -1,21 +1,28 @@
 # Installation
 
-Make sure the following bundles are installed and set up:
+Update `composer.json` by adding this to the `repositories` array:
 
-1. `ohmediaorg/security-bundle`
-
-Enable the backend bundle in `config/bundles.php`:
-
-```php
-return [
-    // ...
-    OHMedia\BackendBundle\OHMediaBackendBundle::class => ['all' => true],
-];
+```json
+{
+    "type": "vcs",
+    "url": "https://github.com/ohmediaorg/backend-bundle"
+}
 ```
+
+Then run `composer require ohmediaorg/backend-bundle:dev-main`.
+
+Import the routes in `config/routes.yaml`:
+
+```yaml
+oh_media_backend:
+    resource: '@OHMediaBackendBundle/config/routes.yaml'
+```
+
+Run `php bin/console make:migration` then run the subsequent migration.
 
 Also run `npm install bootstrap bootstrap-icons sortablejs tinymce nice-select2`
 
-## Config
+# Config
 
 Create `config/packages/oh_media_backend.yaml` with the minimum config:
 
@@ -24,15 +31,7 @@ oh_media_backend:
     tinymce:
 ```
 
-Update `config/routes.yaml`:
-
-```yaml
-oh_media_backend:
-    resource: '@OHMediaBackendBundle/Controller/'
-    type: attribute
-```
-
-## JS/Styles
+# JS/Styles
 
 Add the following to your backend JS entry point:
 
@@ -48,7 +47,7 @@ Add the following to your backend Sass file:
 
 This should typically be all that is needed for backend styles.
 
-### TinyMCE
+## TinyMCE
 
 Make sure webpack encore is setup to copy TinyMCE files:
 
@@ -68,7 +67,7 @@ There is a function to initialize a TinyMCE instance:
 OH_MEDIA_TINYMCE(container, selector);
 ```
 
-### Templates
+## Templates
 
 All of your backend templates should ultimately extend `@OHMediaBackend/base.html.twig`.
 
@@ -79,7 +78,7 @@ by overriding:
 - `@OHMediaBackend/include/stylesheets_global.html.twig`
 - `@OHMediaBackend/include/javascripts_global.html.twig`
 
-### Logo
+## Logo
 
 The logo can be similarly overridden via `@OHMediaBackend/include/logo.html.twig`
 in combination with a Sass variable `$oh-logo` used for the mobile menu icon.
