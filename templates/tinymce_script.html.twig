@@ -16,6 +16,70 @@ function OH_MEDIA_TINYMCE(container, selector) {
   });
 }
 
+tinymce.PluginManager.add('shortcodes', (editor, url) => {
+  const openDialog = () => editor.windowManager.open({
+    title: 'Shortcodes',
+    body: {
+      type: 'panel',
+      items: [
+        {
+          type: 'listbox',
+          name: 'shortcode',
+          label: 'Shortcode',
+          items: [
+            { text: 'Testimonials', items: [
+              { text: 'All Testimonials', value: 'testimonials()' },
+              { text: 'One Random Testimonial', value: 'testimonial()' },
+              { text: 'Ryan Karikas (ID:1)', value: 'testimonial(1)' },
+            ]},
+            { text: 'Videos', items: [
+              { text: '4K Long Relax Video with Music (ID:2)', value: 'video(2)' },
+              { text: 'Meeting of the Black Republicans - Key & Peele (ID:1)', value: 'video(1)' },
+              { text: 'What\'s My Name? (ID:3)', value: 'video(3)' },
+            ]},
+          ],
+        }
+      ]
+    },
+    buttons: [
+      {
+        type: 'cancel',
+        text: 'Close'
+      },
+      {
+        type: 'submit',
+        text: 'Save',
+        buttonType: 'primary'
+      }
+    ],
+    onSubmit: (api) => {
+      const data = api.getData();
+      editor.insertContent('{{ '{{ ' }}' + data.shortcode + '{{ ' }}' }}');
+      api.close();
+    }
+  });
+  editor.ui.registry.addButton('shortcodes', {
+    text: 'Shortcodes',
+    icon: 'code-sample',
+    onAction: () => {
+      openDialog();
+    }
+  });
+  editor.ui.registry.addMenuItem('shortcodes', {
+    text: 'Shortcodes',
+    icon: 'code-sample',
+    onAction: () => {
+      openDialog();
+    }
+  });
+  return {
+    getMetadata: () => ({
+      name: 'Shortcodes',
+      url: 'https://ohmedia.ca'
+    })
+  };
+});
+
 document.addEventListener('DOMContentLoaded', function() {
   OH_MEDIA_TINYMCE(document, 'textarea.wysiwyg');
 
