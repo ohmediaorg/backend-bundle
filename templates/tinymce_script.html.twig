@@ -17,28 +17,65 @@ function OH_MEDIA_TINYMCE(container, selector) {
 }
 
 tinymce.PluginManager.add('shortcodes', (editor, url) => {
+  let shortcode = null;
+
   const openDialog = () => editor.windowManager.open({
     title: 'Shortcodes',
     body: {
       type: 'panel',
       items: [
         {
-          type: 'listbox',
-          name: 'shortcode',
-          label: 'Shortcode',
+          type: 'tree',
+          onLeafAction: (id) => {
+            shortcode = id;
+          },
           items: [
-            { text: 'Testimonials', items: [
-              { text: 'All Testimonials', value: 'testimonials()' },
-              { text: 'One Random Testimonial', value: 'testimonial()' },
-              { text: 'Ryan Karikas (ID:1)', value: 'testimonial(1)' },
-            ]},
-            { text: 'Videos', items: [
-              { text: '4K Long Relax Video with Music (ID:2)', value: 'video(2)' },
-              { text: 'Meeting of the Black Republicans - Key & Peele (ID:1)', value: 'video(1)' },
-              { text: 'What\'s My Name? (ID:3)', value: 'video(3)' },
-            ]},
-          ],
-        }
+            {
+              type: 'directory',
+              id: 'testimonials',
+              title: 'Testimonials',
+              children: [
+                {
+                  type: 'leaf',
+                  title: 'All Testimonials',
+                  id: 'testimonials()'
+                },
+                {
+                  type: 'leaf',
+                  title: 'One Random Testimonial',
+                  id: 'testimonial()',
+                },
+                {
+                  type: 'leaf',
+                  title: 'Ryan Karikas (ID:1)',
+                  id: 'testimonial(1)',
+                },
+              ]
+            },
+            {
+              type: 'directory',
+              id: 'videos',
+              title: 'Videos',
+              children: [
+                {
+                  type: 'leaf',
+                  title: '4K Long Relax Video with Music (ID:2)',
+                  id: 'videos(2)'
+                },
+                {
+                  type: 'leaf',
+                  title: 'Meeting of the Black Republicans - Key & Peele (ID:1)',
+                  id: 'videos(1)',
+                },
+                {
+                  type: 'leaf',
+                  title: 'What\'s My Name (ID:3)',
+                  id: 'videos(3)',
+                },
+              ]
+            },
+          ]
+        },
       ]
     },
     buttons: [
@@ -48,20 +85,23 @@ tinymce.PluginManager.add('shortcodes', (editor, url) => {
       },
       {
         type: 'submit',
-        text: 'Save',
+        text: 'Insert',
         buttonType: 'primary'
       }
     ],
     onSubmit: (api) => {
-      const data = api.getData();
-      editor.insertContent('{{ '{{ ' }}' + data.shortcode + '{{ ' }}' }}');
+      if (shortcode) {
+        editor.insertContent('{{ '{{ ' }}' + shortcode + '{{ ' }}' }}');
+      }
+
       api.close();
     }
   });
   editor.ui.registry.addButton('shortcodes', {
-    text: 'Shortcodes',
+    name: 'Shortcodes',
     icon: 'code-sample',
     onAction: () => {
+      shortcode = null;
       openDialog();
     }
   });
@@ -69,6 +109,7 @@ tinymce.PluginManager.add('shortcodes', (editor, url) => {
     text: 'Shortcodes',
     icon: 'code-sample',
     onAction: () => {
+      shortcode = null;
       openDialog();
     }
   });
