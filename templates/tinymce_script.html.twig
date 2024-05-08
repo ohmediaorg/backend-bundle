@@ -17,102 +17,59 @@ function OH_MEDIA_TINYMCE(container, selector) {
 }
 
 tinymce.PluginManager.add('shortcodes', (editor, url) => {
-  let shortcode = null;
 
-  const openDialog = () => editor.windowManager.open({
-    title: 'Shortcodes',
-    body: {
-      type: 'panel',
-      items: [
-        {
+
+  function openDialog() {
+    let shortcode = null;
+
+    const dialog = editor.windowManager.open({
+      title: 'Shortcodes',
+      body: {
+        type: 'panel',
+        items: [{
           type: 'tree',
           onLeafAction: (id) => {
             shortcode = id;
+            dialog.setEnabled('insert_button', true);
           },
-          items: [
-            {
-              type: 'directory',
-              id: 'testimonials',
-              title: 'Testimonials',
-              children: [
-                {
-                  type: 'leaf',
-                  title: 'All Testimonials',
-                  id: 'testimonials()'
-                },
-                {
-                  type: 'leaf',
-                  title: 'One Random Testimonial',
-                  id: 'testimonial()',
-                },
-                {
-                  type: 'leaf',
-                  title: 'Ryan Karikas (ID:1)',
-                  id: 'testimonial(1)',
-                },
-              ]
-            },
-            {
-              type: 'directory',
-              id: 'videos',
-              title: 'Videos',
-              children: [
-                {
-                  type: 'leaf',
-                  title: '4K Long Relax Video with Music (ID:2)',
-                  id: 'videos(2)'
-                },
-                {
-                  type: 'leaf',
-                  title: 'Meeting of the Black Republicans - Key & Peele (ID:1)',
-                  id: 'videos(1)',
-                },
-                {
-                  type: 'leaf',
-                  title: 'What\'s My Name (ID:3)',
-                  id: 'videos(3)',
-                },
-              ]
-            },
-          ]
-        },
-      ]
-    },
-    buttons: [
-      {
-        type: 'cancel',
-        text: 'Close'
+          items: {{ shortcodes|json_encode|raw }}
+        }],
       },
-      {
-        type: 'submit',
-        text: 'Insert',
-        buttonType: 'primary'
-      }
-    ],
-    onSubmit: (api) => {
-      if (shortcode) {
-        editor.insertContent('{{ '{{ ' }}' + shortcode + '{{ ' }}' }}');
-      }
+      buttons: [
+        {
+          type: 'cancel',
+          text: 'Close'
+        },
+        {
+          type: 'submit',
+          text: 'Insert',
+          name: 'insert_button',
+          buttonType: 'primary',
+          enabled: false,
+        }
+      ],
+      onSubmit: (api) => {
+        if (shortcode) {
+          editor.insertContent('{{ '{{ ' }}' + shortcode + '{{ ' }}' }}');
+        }
 
-      api.close();
-    }
-  });
+        api.close();
+      }
+    });
+  }
+
   editor.ui.registry.addButton('shortcodes', {
     name: 'Shortcodes',
     icon: 'code-sample',
-    onAction: () => {
-      shortcode = null;
-      openDialog();
-    }
+    onAction: openDialog,
   });
+
   editor.ui.registry.addMenuItem('shortcodes', {
     text: 'Shortcodes',
     icon: 'code-sample',
-    onAction: () => {
-      shortcode = null;
-      openDialog();
-    }
+    onAction: openDialog,
   });
+
   return {
     getMetadata: () => ({
       name: 'Shortcodes',
