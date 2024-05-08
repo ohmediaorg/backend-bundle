@@ -36,3 +36,12 @@ services:
 
     OHMedia\BackendBundle\Security\Voter\SettingVoter:
         tags: ["security.voter"]
+
+    OHMedia\BackendBundle\Shortcodes\ShortcodeManager:
+        ~
+
+    oh_media_backend.shortcode_manager: '@OHMedia\BackendBundle\Shortcodes\ShortcodeManager'
+
+    OHMedia\BackendBundle\Controller\ShortcodesController:
+        tags: ["container.service_subscriber", "controller.service_arguments"]
+        autowire: true

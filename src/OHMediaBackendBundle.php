@@ -4,6 +4,7 @@ namespace OHMedia\BackendBundle;
 
 use OHMedia\BackendBundle\DependencyInjection\Compiler\NavPass;
 use OHMedia\BackendBundle\Service\AbstractNavItemProvider;
+use OHMedia\BackendBundle\Shortcodes\AbstractShortcodeProvider;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -56,6 +57,10 @@ class OHMediaBackendBundle extends AbstractBundle
 
         $containerBuilder->registerForAutoconfiguration(AbstractNavItemProvider::class)
             ->addTag('oh_media_backend.nav_item_provider')
+        ;
+
+        $containerBuilder->registerForAutoconfiguration(AbstractShortcodeProvider::class)
+            ->addTag('oh_media_backend.shortcode_provider')
         ;
     }
 }
