@@ -28,13 +28,13 @@ class OHMediaBackendBundle extends AbstractBundle
                 ->arrayNode('tinymce')
                   ->children()
                     ->scalarNode('plugins')
-                        ->defaultValue('code link lists shortcodes')
+                        ->defaultValue('code link lists ohshortcodes ohimages')
                     ->end()
                     ->arrayNode('toolbar')
                         ->scalarPrototype()->end()
                         ->defaultValue([
                             'undo redo',
-                            'blocks shortcodes',
+                            'blocks ohshortcodes ohimages',
                             'bold italic numlist bullist',
                             'alignleft aligncenter alignright alignjustify',
                             'outdent indent',

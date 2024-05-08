@@ -1,27 +1,17 @@
-export default function (shortcodeUrl) {
-  tinymce.PluginManager.add('ohshortcodes', (editor, url) => {
+export default function (imagesUrl) {
+  tinymce.PluginManager.add('ohimages', (editor, url) => {
     async function openDialog() {
-      let shortcode = null;
+      let imageId = null;
 
       const dialogConfig = {
-        title: 'Shortcodes',
+        title: 'File Browser',
         buttons: [
           { type: 'cancel', text: 'Close' },
           { type: 'submit', text: 'Insert', buttonType: 'primary' },
         ],
-        onTabChange: (api, details) => {
-          const data = api.getData();
-
-          shortcode = data[`${details.newTabName}_shortcode`];
-        },
-        onChange: (api, details) => {
-          const data = api.getData();
-
-          shortcode = data[details.name];
-        },
         onSubmit: (api) => {
-          if (shortcode) {
-            editor.insertContent(`{{ ${shortcode} }}`);
+          if (imageId) {
+            editor.insertContent(`{{ image(${imageId}) }}`);
           }
 
           api.close();
@@ -33,7 +23,7 @@ export default function (shortcodeUrl) {
         items: [
           {
             type: 'alertbanner',
-            text: 'Loading shortcodes...',
+            text: 'Loading images...',
             level: 'info',
             icon: 'info',
           },
@@ -43,24 +33,33 @@ export default function (shortcodeUrl) {
       const dialog = editor.windowManager.open(dialogConfig);
 
       try {
-        const response = await fetch(shortcodeUrl);
-        const shortcodes = await response.json();
+        const response = await fetch(imagesUrl);
+        const images = await response.json();
 
         dialogConfig.body = {
-          type: 'tabpanel',
-          tabs: shortcodes,
+          type: 'panel',
+          items: [
+            {
+              type: 'tree',
+              onLeafAction: (id) => {
+                imageId = id;
+              },
+              items: images,
+            },
+          ],
         };
 
         dialog.redial(dialogConfig);
 
-        shortcode = dialog.getData().tab_0_shortcode;
-      } catch {
+        imageId = null;
+      } catch (e) {
+        console.log(e);
         dialogConfig.body = {
           type: 'panel',
           items: [
             {
               type: 'alertbanner',
-              text: 'There was an issue loading shortcodes.',
+              text: 'There was an issue loading the images.',
               level: 'warn',
               icon: 'warning',
             },
@@ -71,21 +70,21 @@ export default function (shortcodeUrl) {
       }
     }
 
-    editor.ui.registry.addButton('ohshortcodes', {
-      name: 'Shortcodes',
-      icon: 'code-sample',
+    editor.ui.registry.addButton('ohimages', {
+      name: 'Images',
+      icon: 'image',
       onAction: openDialog,
     });
 
-    editor.ui.registry.addMenuItem('ohshortcodes', {
-      text: 'Shortcodes',
-      icon: 'code-sample',
+    editor.ui.registry.addMenuItem('ohimages', {
+      text: 'Images',
+      icon: 'image',
       onAction: openDialog,
     });
 
     return {
       getMetadata: () => ({
-        name: 'Shortcodes',
+        name: 'Images',
         url: 'mailto:support@ohmedia.ca',
       }),
     };

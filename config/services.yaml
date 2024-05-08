@@ -42,6 +42,6 @@ services:
 
     oh_media_backend.shortcode_manager: '@OHMedia\BackendBundle\Shortcodes\ShortcodeManager'
 
-    OHMedia\BackendBundle\Controller\ShortcodesController:
+    OHMedia\BackendBundle\Controller\TinyMCEController:
         tags: ["container.service_subscriber", "controller.service_arguments"]
         autowire: true
