@@ -3,6 +3,7 @@
 namespace OHMedia\BackendBundle;
 
 use OHMedia\BackendBundle\DependencyInjection\Compiler\NavPass;
+use OHMedia\BackendBundle\DependencyInjection\Compiler\ShortcodePass;
 use OHMedia\BackendBundle\Service\AbstractNavItemProvider;
 use OHMedia\BackendBundle\Shortcodes\AbstractShortcodeProvider;
 use Symfony\Component\Config\Definition\Configurator\DefinitionConfigurator;
@@ -17,6 +18,7 @@ class OHMediaBackendBundle extends AbstractBundle
         parent::build($container);
 
         $container->addCompilerPass(new NavPass());
+        $container->addCompilerPass(new ShortcodePass());
     }
 
     public function configure(DefinitionConfigurator $definition): void

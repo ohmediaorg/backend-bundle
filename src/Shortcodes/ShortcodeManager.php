@@ -25,6 +25,8 @@ class ShortcodeManager
         $tabs = [];
 
         foreach ($this->shortcodeProviders as $i => $shortcodeProvider) {
+            $shortcodeProvider->buildShortcodes();
+
             $name = 'tab_'.$i;
 
             $selectbox = [
