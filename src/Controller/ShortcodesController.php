@@ -12,9 +12,11 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Admin]
 class ShortcodesController extends AbstractController
 {
-    #[Route('/shortcodes', name: 'shortcodes')]
+    #[Route('/shortcodes', name: 'tinymce_shortcodes')]
     public function __invoke(ShortcodeManager $shortcodeManager): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+
         return new JsonResponse($shortcodeManager->getShortcodes());
     }
 }

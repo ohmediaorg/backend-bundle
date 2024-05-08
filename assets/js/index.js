@@ -1,6 +1,5 @@
 import '@popperjs/core';
 import * as Bootstrap from 'bootstrap';
-
 window.Bootstrap = Bootstrap;
 
 import './alert.js';
@@ -14,6 +13,9 @@ import Sortable from 'sortablejs';
 window.Sortable = Sortable;
 
 import NiceSelect from 'nice-select2';
+
+import initTinyMCEShortcodesPlugin from './tinymce/shortcodes.js';
+window.initTinyMCEShortcodesPlugin = initTinyMCEShortcodesPlugin;
 
 document.querySelectorAll('select.nice-select2').forEach((select) => {
   for (let i = 0; i < select.selectedOptions.length; i++) {
