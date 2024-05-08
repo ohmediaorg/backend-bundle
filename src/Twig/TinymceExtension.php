@@ -83,29 +83,34 @@ class TinymceExtension extends AbstractExtension
             ],
         ];
 
-        // convert to TinyMCE Panel Tree item syntax
+        // convert to TinyMCE Tab Panel syntax
 
-        $items = [];
+        $tabs = [];
 
         foreach ($shortcodeProviders as $i => $shortcodeProvider) {
-            $item = [
-                'type' => 'directory',
-                'id' => (string) $i,
-                'title' => $shortcodeProvider['title'],
-                'children' => [],
+            $name = 'tab_'.$i;
+
+            $selectbox = [
+                'type' => 'selectbox',
+                'name' => $name.'_shortcode',
+                'label' => 'Shortcode',
+                'items' => [],
             ];
 
             foreach ($shortcodeProvider['shortcodes'] as $shortcode) {
-                $item['children'][] = [
-                    'type' => 'leaf',
-                    'id' => trim($shortcode['shortcode'], '{} '),
-                    'title' => $shortcode['label'],
+                $selectbox['items'][] = [
+                    'value' => trim($shortcode['shortcode'], '{} '),
+                    'text' => $shortcode['label'],
                 ];
             }
 
-            $items[] = $item;
+            $tabs[] = [
+                'name' => $name,
+                'title' => $shortcodeProvider['title'],
+                'items' => [$selectbox],
+            ];
         }
 
-        return $items;
+        return $tabs;
     }
 }

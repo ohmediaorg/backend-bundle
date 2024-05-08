@@ -26,29 +26,23 @@ tinymce.PluginManager.add('shortcodes', (editor, url) => {
     const dialog = editor.windowManager.open({
       title: 'Shortcodes',
       body: {
-        type: 'panel',
-        items: [{
-          type: 'tree',
-          onLeafAction: (id) => {
-            shortcode = id;
-            dialog.setEnabled('insert_button', true);
-          },
-          items: {{ shortcodes|json_encode|raw }}
-        }],
+        type: 'tabpanel',
+        tabs: {{ shortcodes|json_encode|raw }}
       },
       buttons: [
-        {
-          type: 'cancel',
-          text: 'Close'
-        },
-        {
-          type: 'submit',
-          text: 'Insert',
-          name: 'insert_button',
-          buttonType: 'primary',
-          enabled: false,
-        }
+        { type: 'cancel', text: 'Close' },
+        { type: 'submit', text: 'Insert', buttonType: 'primary' }
       ],
+      onTabChange: (api, details) => {
+        const data = api.getData();
+
+        shortcode = data[`${details.newTabName}_shortcode`];
+      },
+      onChange: (api, details) => {
+        const data = api.getData();
+
+        shortcode = data[details.name];
+      },
       onSubmit: (api) => {
         if (shortcode) {
           editor.insertContent(twigOpen + shortcode + twigClose);
@@ -57,6 +51,8 @@ tinymce.PluginManager.add('shortcodes', (editor, url) => {
         api.close();
       }
     });
+
+    shortcode = dialog.getData().tab_0_shortcode;
   }
 
   editor.ui.registry.addButton('shortcodes', {
