@@ -19,8 +19,9 @@ function OH_MEDIA_TINYMCE(container, selector) {
 document.addEventListener('DOMContentLoaded', function() {
   window.initTinyMCEShortcodesPlugin('{{ path('tinymce_shortcodes') }}');
 
-  // TODO: check if file browser is enabled
-  window.initTinyMCEImagesPlugin('{{ path('tinymce_images') }}');
+  {% if file_browser_enabled %}
+  window.initTinyMCEImagebrowserPlugin('{{ path('tinymce_imagebrowser') }}');
+  {% endif %}
 
   OH_MEDIA_TINYMCE(document, 'textarea.wysiwyg');
 

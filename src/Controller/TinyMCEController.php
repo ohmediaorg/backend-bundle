@@ -7,7 +7,6 @@ use OHMedia\BackendBundle\Shortcodes\ShortcodeManager;
 use OHMedia\FileBundle\Entity\File;
 use OHMedia\FileBundle\Entity\FileFolder;
 use OHMedia\FileBundle\Service\FileBrowser;
-use OHMedia\FileBundle\Service\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,15 +23,19 @@ class TinyMCEController extends AbstractController
         return new JsonResponse($shortcodeManager->getShortcodes());
     }
 
-    #[Route('/tinymce/images', name: 'tinymce_images')]
-    public function images(ImageManager $imageManager, FileBrowser $fileBrowser): Response
+    #[Route('/tinymce/imagebrowser', name: 'tinymce_imagebrowser')]
+    public function images(FileBrowser $fileBrowser): Response
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
-        return new JsonResponse($this->getTreeItems($imageManager, $fileBrowser));
+        if (!$fileBrowser->isEnabled()) {
+            return new JsonResponse([]);
+        }
+
+        return new JsonResponse($this->getTreeItems($fileBrowser));
     }
 
-    private function getTreeItems(ImageManager $imageManager, FileBrowser $fileBrowser, FileFolder $fileFolder = null)
+    private function getTreeItems(FileBrowser $fileBrowser, FileFolder $fileFolder = null)
     {
         $listing = $fileBrowser->getListing($fileFolder);
 
@@ -42,7 +45,7 @@ class TinyMCEController extends AbstractController
             $id = $item->getId();
 
             if ($item instanceof FileFolder) {
-                $children = $this->getTreeItems($imageManager, $fileBrowser, $item);
+                $children = $this->getTreeItems($fileBrowser, $item);
 
                 if ($children) {
                     $treeItems[] = [
@@ -53,8 +56,6 @@ class TinyMCEController extends AbstractController
                     ];
                 }
             } elseif (($item instanceof File) && $item->isImage()) {
-                // $img = $imageManager->render($item, ['width' => 25, 'height' => 25]);
-
                 $treeItems[] = [
                     'type' => 'leaf',
                     'title' => (string) $item,

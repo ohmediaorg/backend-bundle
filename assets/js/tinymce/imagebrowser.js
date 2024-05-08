@@ -1,10 +1,10 @@
 export default function (imagesUrl) {
-  tinymce.PluginManager.add('ohimages', (editor, url) => {
+  tinymce.PluginManager.add('ohimagebrowser', (editor, url) => {
     async function openDialog() {
       let imageId = null;
 
       const dialogConfig = {
-        title: 'File Browser',
+        title: 'Image Browser',
         buttons: [
           { type: 'cancel', text: 'Close' },
           { type: 'submit', text: 'Insert', buttonType: 'primary' },
@@ -70,21 +70,21 @@ export default function (imagesUrl) {
       }
     }
 
-    editor.ui.registry.addButton('ohimages', {
-      name: 'Images',
+    editor.ui.registry.addButton('ohimagebrowser', {
+      name: 'Image Browser',
       icon: 'image',
       onAction: openDialog,
     });
 
-    editor.ui.registry.addMenuItem('ohimages', {
-      text: 'Images',
+    editor.ui.registry.addMenuItem('ohimagebrowser', {
+      text: 'Image Browser',
       icon: 'image',
       onAction: openDialog,
     });
 
     return {
       getMetadata: () => ({
-        name: 'Images',
+        name: 'Image Browser',
         url: 'mailto:support@ohmedia.ca',
       }),
     };

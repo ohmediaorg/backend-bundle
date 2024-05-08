@@ -17,8 +17,8 @@ import NiceSelect from 'nice-select2';
 import initTinyMCEShortcodesPlugin from './tinymce/shortcodes.js';
 window.initTinyMCEShortcodesPlugin = initTinyMCEShortcodesPlugin;
 
-import initTinyMCEImagesPlugin from './tinymce/images.js';
-window.initTinyMCEImagesPlugin = initTinyMCEImagesPlugin;
+import initTinyMCEImagebrowserPlugin from './tinymce/imagebrowser.js';
+window.initTinyMCEImagebrowserPlugin = initTinyMCEImagebrowserPlugin;
 
 document.querySelectorAll('select.nice-select2').forEach((select) => {
   for (let i = 0; i < select.selectedOptions.length; i++) {
