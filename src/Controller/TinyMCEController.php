@@ -67,7 +67,7 @@ class TinyMCEController extends AbstractController
             } elseif (($item instanceof File) && $item->isImage()) {
                 $treeItems[] = [
                     'type' => 'leaf',
-                    'title' => (string) $item,
+                    'title' => sprintf('%s (ID:%s)', $item, $id),
                     'id' => (string) $id,
                 ];
             }
