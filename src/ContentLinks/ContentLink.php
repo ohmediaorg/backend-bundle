@@ -7,13 +7,18 @@ class ContentLink
     private string $shortcode = '';
     private array $children = [];
 
-    public function __construct(private string $title)
+    public function __construct(private string $leafTitle, private ?string $linkText = null)
     {
     }
 
-    public function getTitle(): string
+    public function getLeafTitle(): string
     {
-        return $this->title;
+        return $this->leafTitle;
+    }
+
+    public function getLinkText(): ?string
+    {
+        return $this->linkText ?: $this->leafTitle;
     }
 
     public function getShortcode(): string

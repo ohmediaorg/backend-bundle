@@ -58,7 +58,7 @@ class ContentLinkManager
         $treeItems = [];
 
         foreach ($contentLinks as $contentLink) {
-            $title = $contentLink->getTitle();
+            $leafTitle = $contentLink->getLeafTitle();
 
             if ($contentLink->hasChildren()) {
                 $children = $this->getTreeItems(...$contentLink->getChildren());
@@ -67,18 +67,20 @@ class ContentLinkManager
                     $treeItems[] = [
                         'type' => 'directory',
                         'id' => 'directory_'.$this->id++,
-                        'title' => $title,
+                        'title' => $leafTitle,
                         'children' => $children,
                     ];
                 }
             } else {
+                $linkText = $contentLink->getLinkText();
+
                 $treeItems[] = [
                     'type' => 'leaf',
-                    'title' => $title,
+                    'title' => $leafTitle,
                     'id' => json_encode([
                         'href' => trim($contentLink->getShortcode(), '{} '),
-                        'title' => $title,
-                        'text' => $title,
+                        'title' => $linkText,
+                        'text' => $linkText,
                     ]),
                 ];
             }
