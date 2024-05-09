@@ -54,7 +54,8 @@ export default function (shortcodeUrl) {
         dialog.redial(dialogConfig);
 
         shortcode = dialog.getData().tab_0_shortcode;
-      } catch {
+      } catch (e) {
+        console.log(e);
         dialogConfig.body = {
           type: 'panel',
           items: [
