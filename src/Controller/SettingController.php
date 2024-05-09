@@ -41,13 +41,13 @@ class SettingController extends AbstractController
 
         $schema = $formBuilder->create('schema', FormType::class);
 
-        $schema->add('organization_name');
-
-        $formBuilder->add($schema, TextType::class, [
+        $schema->add('organization_name', TextType::class, [
             'data' => $settings->get('schema_organization_name'),
             'label' => 'Organization Name',
             'required' => false,
         ]);
+
+        $formBuilder->add($schema);
 
         $formBuilder->add('save', SubmitType::class);
 
@@ -58,9 +58,9 @@ class SettingController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $metaSettings->saveDefaultFields($form->get('meta'));
 
-            $schema = $form->get('meta');
+            $schemaData = $form->get('schema')->getData();
 
-            $settings->set('schema_organization_name', $schema->get('organization_name'));
+            $settings->set('schema_organization_name', $schemaData['organization_name']);
 
             $this->addFlash('notice', 'Global meta settings updated successfully');
 
