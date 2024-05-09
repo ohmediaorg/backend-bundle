@@ -76,7 +76,7 @@ class ContentLinkManager
                     'type' => 'leaf',
                     'title' => $title,
                     'id' => json_encode([
-                        'href' => $contentLink->getShortcode(),
+                        'href' => trim($contentLink->getShortcode(), '{} '),
                         'title' => $title,
                         'text' => $title,
                     ]),
