@@ -73,6 +73,7 @@ export default function (imagesUrl) {
     editor.ui.registry.addButton('ohimagebrowser', {
       name: 'Image Browser',
       icon: 'image',
+      tooltip: 'Image Browser',
       onAction: openDialog,
     });
 

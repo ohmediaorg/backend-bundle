@@ -74,6 +74,7 @@ export default function (shortcodeUrl) {
     editor.ui.registry.addButton('ohshortcodes', {
       name: 'Shortcodes',
       icon: 'code-sample',
+      tooltip: 'Shortcodes',
       onAction: openDialog,
     });
 
