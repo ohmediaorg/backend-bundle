@@ -27,6 +27,12 @@ class ShortcodeManager
         foreach ($this->shortcodeProviders as $i => $shortcodeProvider) {
             $shortcodeProvider->buildShortcodes();
 
+            $shortcodes = $shortcodeProvider->getShortcodes();
+
+            if (!$shortcodes) {
+                continue;
+            }
+
             $name = 'tab_'.$i;
 
             $selectbox = [
@@ -36,7 +42,7 @@ class ShortcodeManager
                 'items' => [],
             ];
 
-            foreach ($shortcodeProvider->getShortcodes() as $shortcode) {
+            foreach ($shortcodes as $shortcode) {
                 $selectbox['items'][] = [
                     'value' => trim($shortcode->shortcode, '{} '),
                     'text' => $shortcode->label,
