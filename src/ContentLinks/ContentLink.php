@@ -29,7 +29,7 @@ class ContentLink
         return $this;
     }
 
-    public function getChildren(): string
+    public function getChildren(): array
     {
         return $this->children;
     }
@@ -42,7 +42,7 @@ class ContentLink
     public function setChildren(ContentLink ...$children): static
     {
         $this->children = $children;
-        $this->shortcode = null;
+        $this->shortcode = '';
 
         return $this;
     }
