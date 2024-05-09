@@ -8,13 +8,13 @@ use OHMedia\SettingsBundle\Entity\Setting;
 
 class SettingVoter extends AbstractEntityVoter
 {
-    public const META = 'meta';
+    public const SEO = 'seo';
     public const SCRIPTS = 'scripts';
 
     protected function getAttributes(): array
     {
         return [
-            self::META,
+            self::SEO,
             self::SCRIPTS,
         ];
     }
@@ -24,7 +24,7 @@ class SettingVoter extends AbstractEntityVoter
         return Setting::class;
     }
 
-    protected function canMeta(Setting $setting, User $loggedIn): bool
+    protected function canSeo(Setting $setting, User $loggedIn): bool
     {
         return true;
     }

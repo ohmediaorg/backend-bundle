@@ -9,6 +9,7 @@ use OHMedia\MetaBundle\Settings\MetaSettings;
 use OHMedia\SettingsBundle\Entity\Setting;
 use OHMedia\SettingsBundle\Service\Settings;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,17 +19,21 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Admin]
 class SettingController extends AbstractController
 {
-    #[Route('/settings/global-meta', name: 'settings_global_meta')]
+    #[Route('/settings/seo', name: 'settings_seo')]
     public function globalMeta(Request $request, MetaSettings $metaSettings): Response
     {
         $this->denyAccessUnlessGranted(
-            SettingVoter::META,
+            SettingVoter::SEO,
             new Setting()
         );
 
         $formBuilder = $this->createFormBuilder();
 
-        $metaSettings->addDefaultFields($formBuilder);
+        $meta = $formBuilder->create('meta', FormType::class);
+
+        $metaSettings->addDefaultFields($meta);
+
+        $formBuilder->add($meta);
 
         $formBuilder->add('save', SubmitType::class);
 
@@ -37,14 +42,14 @@ class SettingController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $metaSettings->saveDefaultFields($form);
+            $metaSettings->saveDefaultFields($form->get('meta'));
 
             $this->addFlash('notice', 'Global meta settings updated successfully');
 
-            return $this->redirectToRoute('settings_global_meta');
+            return $this->redirectToRoute('settings_seo');
         }
 
-        return $this->render('@OHMediaBackend/settings/settings_global_meta.html.twig', [
+        return $this->render('@OHMediaBackend/settings/settings_seo.html.twig', [
             'form' => $form->createView(),
             'meta_default' => [
                 'base_title' => MetaSettings::SETTING_BASE_TITLE,
