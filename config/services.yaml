@@ -45,3 +45,8 @@ services:
     OHMedia\BackendBundle\Controller\TinyMCEController:
         tags: ["container.service_subscriber", "controller.service_arguments"]
         autowire: true
+
+    OHMedia\BackendBundle\ContentLinks\ContentLinkManager:
+        ~
+
+    oh_media_backend.content_link_manager: '@OHMedia\BackendBundle\ContentLinks\ContentLinkManager'

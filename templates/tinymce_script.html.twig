@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
   window.initTinyMCEImagebrowserPlugin('{{ path('tinymce_imagebrowser') }}');
   {% endif %}
 
+  window.initTinyMCEContentlinkPlugin('{{ path('tinymce_content_links') }}');
+
   OH_MEDIA_TINYMCE(document, 'textarea.wysiwyg');
 
   const observer = new MutationObserver(function(mutationList, observer) {

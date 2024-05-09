@@ -2,6 +2,8 @@
 
 namespace OHMedia\BackendBundle;
 
+use OHMedia\BackendBundle\ContentLinks\AbstractContentLinkProvider;
+use OHMedia\BackendBundle\DependencyInjection\Compiler\ContentLinkPass;
 use OHMedia\BackendBundle\DependencyInjection\Compiler\NavPass;
 use OHMedia\BackendBundle\DependencyInjection\Compiler\ShortcodePass;
 use OHMedia\BackendBundle\Service\AbstractNavItemProvider;
@@ -17,6 +19,7 @@ class OHMediaBackendBundle extends AbstractBundle
     {
         parent::build($container);
 
+        $container->addCompilerPass(new ContentLinkPass());
         $container->addCompilerPass(new NavPass());
         $container->addCompilerPass(new ShortcodePass());
     }
@@ -55,6 +58,10 @@ class OHMediaBackendBundle extends AbstractBundle
         $containerConfigurator->parameters()
             ->set('oh_media_backend.tinymce.plugins', $config['tinymce']['plugins'])
             ->set('oh_media_backend.tinymce.toolbar', $config['tinymce']['toolbar'])
+        ;
+
+        $containerBuilder->registerForAutoconfiguration(AbstractContentLinkProvider::class)
+            ->addTag('oh_media_backend.content_link_provider')
         ;
 
         $containerBuilder->registerForAutoconfiguration(AbstractNavItemProvider::class)

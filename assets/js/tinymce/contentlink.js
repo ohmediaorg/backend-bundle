@@ -1,17 +1,19 @@
-export default function (imagesUrl) {
-  tinymce.PluginManager.add('ohimagebrowser', (editor, url) => {
+export default function (contentlinkUrl) {
+  tinymce.PluginManager.add('ohcontentlink', (editor, url) => {
     async function openDialog() {
-      let imageId = null;
+      let data = null;
 
       const dialogConfig = {
-        title: 'Image Browser',
+        title: 'Content Link',
         buttons: [
           { type: 'cancel', text: 'Close' },
           { type: 'submit', text: 'Insert', buttonType: 'primary' },
         ],
         onSubmit: (api) => {
-          if (imageId) {
-            editor.insertContent(`{{ image(${imageId}) }}`);
+          if (data) {
+            editor.insertContent(
+              `<a href="${data.href}" title="${data.title}" target="_blank">${data.text}</a>`
+            );
           }
 
           api.close();
@@ -23,7 +25,7 @@ export default function (imagesUrl) {
         items: [
           {
             type: 'alertbanner',
-            text: 'Loading images...',
+            text: 'Loading content...',
             level: 'info',
             icon: 'info',
           },
@@ -33,27 +35,23 @@ export default function (imagesUrl) {
       const dialog = editor.windowManager.open(dialogConfig);
 
       try {
-        const response = await fetch(imagesUrl);
-        const images = await response.json();
+        const response = await fetch(contentlinkUrl);
+        const tabs = await response.json();
+
+        tabs.forEach((tab) => {
+          tab.items[0].onLeafAction = (id) => {
+            data = JSON.parse(id);
+          };
+        });
 
         dialogConfig.body = {
-          type: 'panel',
-          items: [
-            {
-              // TODO: look at using htmlpanel instead so image thumbnails
-              // can be rendered
-              type: 'tree',
-              onLeafAction: (id) => {
-                imageId = id;
-              },
-              items: images,
-            },
-          ],
+          type: 'tabpanel',
+          tabs: tabs,
         };
 
         dialog.redial(dialogConfig);
 
-        imageId = null;
+        data = null;
       } catch (e) {
         console.log(e);
         dialogConfig.body = {
@@ -61,7 +59,7 @@ export default function (imagesUrl) {
           items: [
             {
               type: 'alertbanner',
-              text: 'There was an issue loading the images.',
+              text: 'There was an issue loading the content.',
               level: 'warn',
               icon: 'warning',
             },
@@ -72,22 +70,22 @@ export default function (imagesUrl) {
       }
     }
 
-    editor.ui.registry.addButton('ohimagebrowser', {
-      name: 'Image Browser',
-      icon: 'image',
-      tooltip: 'Image Browser',
+    editor.ui.registry.addButton('ohcontentlink', {
+      name: 'Content Link',
+      icon: 'link',
+      tooltip: 'Content Link',
       onAction: openDialog,
     });
 
-    editor.ui.registry.addMenuItem('ohimagebrowser', {
-      text: 'Image Browser',
-      icon: 'image',
+    editor.ui.registry.addMenuItem('ohcontentlink', {
+      text: 'Content Link',
+      icon: 'link',
       onAction: openDialog,
     });
 
     return {
       getMetadata: () => ({
-        name: 'Image Browser',
+        name: 'Content Link',
         url: 'mailto:support@ohmedia.ca',
       }),
     };

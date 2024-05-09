@@ -20,6 +20,9 @@ window.initTinyMCEShortcodesPlugin = initTinyMCEShortcodesPlugin;
 import initTinyMCEImagebrowserPlugin from './tinymce/imagebrowser.js';
 window.initTinyMCEImagebrowserPlugin = initTinyMCEImagebrowserPlugin;
 
+import initTinyMCEContentlinkPlugin from './tinymce/contentlink.js';
+window.initTinyMCEContentlinkPlugin = initTinyMCEContentlinkPlugin;
+
 document.querySelectorAll('select.nice-select2').forEach((select) => {
   for (let i = 0; i < select.selectedOptions.length; i++) {
     // ensures the starting/default value is shown as selected in the nice-select2 UI

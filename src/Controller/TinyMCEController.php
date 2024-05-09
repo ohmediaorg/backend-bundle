@@ -2,6 +2,7 @@
 
 namespace OHMedia\BackendBundle\Controller;
 
+use OHMedia\BackendBundle\ContentLinks\ContentLinkManager;
 use OHMedia\BackendBundle\Routing\Attribute\Admin;
 use OHMedia\BackendBundle\Shortcodes\ShortcodeManager;
 use OHMedia\FileBundle\Entity\File;
@@ -21,6 +22,14 @@ class TinyMCEController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
         return new JsonResponse($shortcodeManager->getShortcodes());
+    }
+
+    #[Route('/tinymce/content-links', name: 'tinymce_content_links')]
+    public function contentLinks(ContentLinkManager $contentLinkManager): Response
+    {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
+
+        return new JsonResponse($contentLinkManager->getContentLinks());
     }
 
     #[Route('/tinymce/imagebrowser', name: 'tinymce_imagebrowser')]
