@@ -8,10 +8,17 @@ export default function (contentlinkUrl) {
         size: 'medium',
         buttons: [
           { type: 'cancel', text: 'Close' },
-          { type: 'submit', text: 'Insert', buttonType: 'primary' },
+          {
+            type: 'submit',
+            text: 'Insert',
+            buttonType: 'primary',
+            name: 'insert_button',
+            enabled: false,
+          },
         ],
         onTabChange: () => {
           data = null;
+          dialog.setEnabled('insert_button', false);
         },
         onSubmit: (api) => {
           if (data) {
@@ -45,6 +52,7 @@ export default function (contentlinkUrl) {
         tabs.forEach((tab) => {
           tab.items[0].onLeafAction = (id) => {
             data = JSON.parse(id);
+            dialog.setEnabled('insert_button', true);
           };
         });
 
