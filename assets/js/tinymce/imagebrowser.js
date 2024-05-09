@@ -5,6 +5,7 @@ export default function (imagesUrl) {
 
       const dialogConfig = {
         title: 'Image Browser',
+        size: 'medium',
         buttons: [
           { type: 'cancel', text: 'Close' },
           { type: 'submit', text: 'Insert', buttonType: 'primary' },

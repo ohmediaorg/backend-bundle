@@ -5,10 +5,14 @@ export default function (contentlinkUrl) {
 
       const dialogConfig = {
         title: 'Content Link',
+        size: 'medium',
         buttons: [
           { type: 'cancel', text: 'Close' },
           { type: 'submit', text: 'Insert', buttonType: 'primary' },
         ],
+        onTabChange: () => {
+          data = null;
+        },
         onSubmit: (api) => {
           if (data) {
             editor.insertContent(
