@@ -31,13 +31,13 @@ class OHMediaBackendBundle extends AbstractBundle
                 ->arrayNode('tinymce')
                   ->children()
                     ->scalarNode('plugins')
-                        ->defaultValue('code link lists ohshortcodes ohimagebrowser')
+                        ->defaultValue('code link lists ohshortcodes ohimagebrowser ohcontentlink')
                     ->end()
                     ->arrayNode('toolbar')
                         ->scalarPrototype()->end()
                         ->defaultValue([
                             'undo redo',
-                            'blocks ohshortcodes ohimagebrowser',
+                            'blocks ohshortcodes ohimagebrowser ohcontentlink',
                             'bold italic numlist bullist',
                             'alignleft aligncenter alignright alignjustify',
                             'outdent indent',
