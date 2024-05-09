@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,8 +21,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class SettingController extends AbstractController
 {
     #[Route('/settings/seo', name: 'settings_seo')]
-    public function globalMeta(Request $request, MetaSettings $metaSettings): Response
-    {
+    public function seo(
+        Request $request,
+        MetaSettings $metaSettings,
+        Settings $settings
+    ): Response {
         $this->denyAccessUnlessGranted(
             SettingVoter::SEO,
             new Setting()
@@ -35,6 +39,16 @@ class SettingController extends AbstractController
 
         $formBuilder->add($meta);
 
+        $schema = $formBuilder->create('schema', FormType::class);
+
+        $schema->add('organization_name');
+
+        $formBuilder->add($schema, TextType::class, [
+            'data' => $settings->get('schema_organization_name'),
+            'label' => 'Organization Name',
+            'required' => false,
+        ]);
+
         $formBuilder->add('save', SubmitType::class);
 
         $form = $formBuilder->getForm();
@@ -43,6 +57,10 @@ class SettingController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $metaSettings->saveDefaultFields($form->get('meta'));
+
+            $schema = $form->get('meta');
+
+            $settings->set('schema_organization_name', $schema->get('organization_name'));
 
             $this->addFlash('notice', 'Global meta settings updated successfully');
 
