@@ -8,7 +8,13 @@ export default function (imagesUrl) {
         size: 'medium',
         buttons: [
           { type: 'cancel', text: 'Close' },
-          { type: 'submit', text: 'Insert', buttonType: 'primary' },
+          {
+            type: 'submit',
+            text: 'Insert',
+            buttonType: 'primary',
+            name: 'insert_button',
+            enabled: false,
+          },
         ],
         onSubmit: (api) => {
           if (imageId) {
@@ -46,6 +52,7 @@ export default function (imagesUrl) {
               type: 'tree',
               onLeafAction: (id) => {
                 imageId = id;
+                dialog.setEnabled('insert_button', true);
               },
               items: images,
             },
