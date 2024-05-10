@@ -54,6 +54,8 @@ async function customConfirm(message) {
   });
 }
 
+window.customConfirm = customConfirm;
+
 const confirmLinks = document.querySelectorAll('a[data-confirm]');
 
 confirmLinks.forEach(function (confirmLink) {
