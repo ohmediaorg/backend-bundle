@@ -21,7 +21,7 @@ class DateTimeExtension extends AbstractExtension
 
     public function formatDateTime(
         Environment $env,
-        \DateTime $dateTime,
+        \DateTimeInterface $dateTime,
         $dateFormat = 'M j, Y',
         $timeFormat = 'g:ia',
         $timezone = null
