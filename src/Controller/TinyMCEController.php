@@ -55,24 +55,12 @@ class TinyMCEController extends AbstractController
 
         $items = [];
 
-        if ($fileFolder) {
-            $parent = $fileFolder->getFolder();
-
-            $items[] = [
-                'type' => 'directory',
-                'name' => '..',
-                'url' => $this->generateUrl('tinymce_filebrowser', [
-                    'id' => $parent ? $parent->getId() : null,
-                ]),
-            ];
-        }
-
         foreach ($listingItems as $listingItem) {
             $id = $listingItem->getId();
 
             if ($listingItem instanceof FileFolder) {
                 $items[] = [
-                    'type' => 'directory',
+                    'type' => 'folder',
                     'name' => (string) $listingItem,
                     'url' => $this->generateUrl('tinymce_filebrowser', [
                         'id' => $id,
@@ -99,6 +87,19 @@ class TinyMCEController extends AbstractController
             }
         }
 
-        return new JsonResponse($items);
+        $backPath = null;
+
+        if ($fileFolder) {
+            $parent = $fileFolder->getFolder();
+
+            $backPath = $this->generateUrl('tinymce_filebrowser', [
+                'id' => $parent ? $parent->getId() : null,
+            ]);
+        }
+
+        return new JsonResponse([
+            'back_path' => $backPath,
+            'items' => $items,
+        ]);
     }
 }
