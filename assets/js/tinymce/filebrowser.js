@@ -26,6 +26,8 @@ export default function (filesUrl) {
       let container = null;
 
       async function populateFiles(url) {
+        localStorage.setItem('tinymce_filebrowser_url', url);
+
         if (container) {
           container.innerHTML = '';
         }
@@ -155,7 +157,9 @@ export default function (filesUrl) {
         }
       }
 
-      populateFiles(filesUrl);
+      const savedUrl = localStorage.getItem('tinymce_filebrowser_url');
+
+      populateFiles(savedUrl ?? filesUrl);
     }
 
     editor.ui.registry.addButton('ohfilebrowser', {
