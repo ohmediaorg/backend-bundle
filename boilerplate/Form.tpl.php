@@ -42,7 +42,7 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         // ]);
         // $builder->add('image', FileEntityType::class, [
         //     'image' => true,
-        //     'data' => $<?php echo $singular['camel_case']; ?>->getFile(),
+        //     'data' => $<?php echo $singular['camel_case']; ?>->getImage(),
         // ]);
 
         // always use the datetime-bundle to ensure timezones are good
