@@ -16,6 +16,17 @@ export default function (imagesUrl) {
             enabled: false,
           },
         ],
+        body: {
+          type: 'panel',
+          items: [
+            {
+              type: 'alertbanner',
+              text: 'Loading images...',
+              level: 'info',
+              icon: 'info',
+            },
+          ],
+        },
         onSubmit: (api) => {
           if (imageId) {
             editor.insertContent(`{{ image(${imageId}) }}`);
@@ -25,59 +36,112 @@ export default function (imagesUrl) {
         },
       };
 
-      dialogConfig.body = {
-        type: 'panel',
-        items: [
-          {
-            type: 'alertbanner',
-            text: 'Loading images...',
-            level: 'info',
-            icon: 'info',
-          },
-        ],
-      };
-
       const dialog = editor.windowManager.open(dialogConfig);
 
-      try {
-        const response = await fetch(imagesUrl);
-        const images = await response.json();
+      const containerId = 'tinymce_imagebrowser_tbody';
+      let container = null;
 
-        dialogConfig.body = {
-          type: 'panel',
-          items: [
-            {
-              // TODO: look at using htmlpanel instead so image thumbnails
-              // can be rendered
-              type: 'tree',
-              onLeafAction: (id) => {
-                imageId = id;
-                dialog.setEnabled('insert_button', true);
-              },
-              items: images,
-            },
-          ],
-        };
+      async function populateImages(url) {
+        if (container) {
+          container.innerHTML = '';
+        }
 
-        dialog.redial(dialogConfig);
+        dialog.setEnabled('insert_button', false);
 
-        imageId = null;
-      } catch (e) {
-        console.log(e);
         dialogConfig.body = {
           type: 'panel',
           items: [
             {
               type: 'alertbanner',
-              text: 'There was an issue loading the images.',
-              level: 'warn',
-              icon: 'warning',
+              text: 'Loading images...',
+              level: 'info',
+              icon: 'info',
             },
           ],
         };
 
         dialog.redial(dialogConfig);
+
+        try {
+          const response = await fetch(url);
+          const items = await response.json();
+
+          dialogConfig.body = {
+            type: 'panel',
+            items: [
+              {
+                type: 'htmlpanel',
+                html: `
+                  <table class="tox-dialog__table" style="vertical-align:middle">
+                    <tbody id="${containerId}"></tbody>
+                  </table>`,
+              },
+            ],
+          };
+
+          dialog.redial(dialogConfig);
+
+          imageId = null;
+
+          container = document.getElementById(containerId);
+
+          items.forEach(function (item) {
+            const row = document.createElement('tr');
+            row.style.cursor = 'pointer';
+
+            const col1 = document.createElement('td');
+            col1.style.width = '55px';
+            col1.style.fontSize = '1.5rem';
+            col1.style.textAlign = 'center';
+
+            if ('directory' === item.type) {
+              col1.innerHTML = '<i class="bt bi-folder-fill"></i>';
+
+              row.onclick = populateImages.bind(null, item.url);
+            } else if ('image' === item.type) {
+              col1.innerHTML = item.image;
+
+              row.onclick = () => {
+                imageId = item.id;
+
+                dialog.setEnabled('insert_button', true);
+
+                container.querySelectorAll('tr').forEach((tr) => {
+                  tr.style.fontWeight = '';
+                });
+
+                row.style.fontWeight = 'bold';
+              };
+            }
+
+            row.append(col1);
+
+            const col2 = document.createElement('td');
+            col2.innerHTML = item.text;
+
+            row.append(col2);
+
+            container.append(row);
+          });
+        } catch (e) {
+          console.log(e);
+          dialogConfig.body = {
+            type: 'panel',
+            items: [
+              {
+                type: 'alertbanner',
+                text: 'There was an issue loading the images.',
+                level: 'warn',
+                icon: 'warning',
+              },
+            ],
+          };
+
+          dialog.redial(dialogConfig);
+        }
       }
+
+      populateImages(imagesUrl);
     }
 
     editor.ui.registry.addButton('ohimagebrowser', {

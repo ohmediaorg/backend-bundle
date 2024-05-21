@@ -7,7 +7,9 @@ use OHMedia\BackendBundle\Routing\Attribute\Admin;
 use OHMedia\BackendBundle\Shortcodes\ShortcodeManager;
 use OHMedia\FileBundle\Entity\File;
 use OHMedia\FileBundle\Entity\FileFolder;
+use OHMedia\FileBundle\Repository\FileFolderRepository;
 use OHMedia\FileBundle\Service\FileBrowser;
+use OHMedia\FileBundle\Service\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -32,47 +34,62 @@ class TinyMCEController extends AbstractController
         return new JsonResponse($contentLinkManager->getContentLinks());
     }
 
-    #[Route('/tinymce/imagebrowser', name: 'tinymce_imagebrowser')]
-    public function images(FileBrowser $fileBrowser): Response
-    {
+    #[Route('/tinymce/imagebrowser/{id}', name: 'tinymce_imagebrowser')]
+    public function images(
+        FileBrowser $fileBrowser,
+        FileFolderRepository $fileFolderRepository,
+        ImageManager $imageManager,
+        int $id = null
+    ): Response {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED');
 
         if (!$fileBrowser->isEnabled()) {
             return new JsonResponse([]);
         }
 
-        return new JsonResponse($this->getTreeItems($fileBrowser));
-    }
+        $fileFolder = $id ? $fileFolderRepository->find($id) : null;
 
-    private function getTreeItems(FileBrowser $fileBrowser, FileFolder $fileFolder = null)
-    {
         $listing = $fileBrowser->getListing($fileFolder);
 
-        $treeItems = [];
+        $items = [];
+
+        if ($fileFolder) {
+            $parent = $fileFolder->getFolder();
+
+            $items[] = [
+                'type' => 'directory',
+                'text' => '..',
+                'url' => $this->generateUrl('tinymce_imagebrowser', [
+                    'id' => $parent ? $parent->getId() : null,
+                ]),
+            ];
+        }
 
         foreach ($listing as $item) {
             $id = $item->getId();
 
             if ($item instanceof FileFolder) {
-                $children = $this->getTreeItems($fileBrowser, $item);
-
-                if ($children) {
-                    $treeItems[] = [
-                        'type' => 'directory',
-                        'id' => 'directory_'.$id,
-                        'title' => (string) $item,
-                        'children' => $children,
-                    ];
-                }
+                $items[] = [
+                    'type' => 'directory',
+                    'text' => (string) $item,
+                    'url' => $this->generateUrl('tinymce_imagebrowser', [
+                        'id' => $id,
+                    ]),
+                ];
             } elseif (($item instanceof File) && $item->isImage()) {
-                $treeItems[] = [
-                    'type' => 'leaf',
-                    'title' => sprintf('%s (ID:%s)', $item, $id),
+                $items[] = [
+                    'type' => 'image',
+                    'image' => $imageManager->render($item, [
+                        'width' => 47,
+                        'height' => 47,
+                        'style' => 'height:47px',
+                    ]),
+                    'text' => sprintf('%s (ID:%s)', $item, $id),
                     'id' => (string) $id,
                 ];
             }
         }
 
-        return $treeItems;
+        return new JsonResponse($items);
     }
 }
