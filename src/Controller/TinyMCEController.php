@@ -9,6 +9,7 @@ use OHMedia\FileBundle\Entity\File;
 use OHMedia\FileBundle\Entity\FileFolder;
 use OHMedia\FileBundle\Repository\FileFolderRepository;
 use OHMedia\FileBundle\Service\FileBrowser;
+use OHMedia\FileBundle\Service\FileManager;
 use OHMedia\FileBundle\Service\ImageManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,10 +35,11 @@ class TinyMCEController extends AbstractController
         return new JsonResponse($contentLinkManager->getContentLinks());
     }
 
-    #[Route('/tinymce/imagebrowser/{id}', name: 'tinymce_imagebrowser')]
-    public function images(
+    #[Route('/tinymce/filebrowser/{id}', name: 'tinymce_filebrowser')]
+    public function files(
         FileBrowser $fileBrowser,
         FileFolderRepository $fileFolderRepository,
+        FileManager $fileManager,
         ImageManager $imageManager,
         int $id = null
     ): Response {
@@ -49,7 +51,7 @@ class TinyMCEController extends AbstractController
 
         $fileFolder = $id ? $fileFolderRepository->find($id) : null;
 
-        $listing = $fileBrowser->getListing($fileFolder);
+        $listingItems = $fileBrowser->getListing($fileFolder);
 
         $items = [];
 
@@ -58,35 +60,42 @@ class TinyMCEController extends AbstractController
 
             $items[] = [
                 'type' => 'directory',
-                'text' => '..',
-                'url' => $this->generateUrl('tinymce_imagebrowser', [
+                'name' => '..',
+                'url' => $this->generateUrl('tinymce_filebrowser', [
                     'id' => $parent ? $parent->getId() : null,
                 ]),
             ];
         }
 
-        foreach ($listing as $item) {
-            $id = $item->getId();
+        foreach ($listingItems as $listingItem) {
+            $id = $listingItem->getId();
 
-            if ($item instanceof FileFolder) {
+            if ($listingItem instanceof FileFolder) {
                 $items[] = [
                     'type' => 'directory',
-                    'text' => (string) $item,
-                    'url' => $this->generateUrl('tinymce_imagebrowser', [
+                    'name' => (string) $listingItem,
+                    'url' => $this->generateUrl('tinymce_filebrowser', [
                         'id' => $id,
                     ]),
                 ];
-            } elseif (($item instanceof File) && $item->isImage()) {
-                $items[] = [
-                    'type' => 'image',
-                    'image' => $imageManager->render($item, [
+            } elseif ($listingItem instanceof File) {
+                $item = [
+                    'name' => (string) $listingItem,
+                    'id' => (string) $id,
+                ];
+
+                if ($listingItem->isImage()) {
+                    $item['type'] = 'image';
+                    $item['image'] = $imageManager->render($listingItem, [
                         'width' => 47,
                         'height' => 47,
                         'style' => 'height:47px',
-                    ]),
-                    'text' => sprintf('%s (ID:%s)', $item, $id),
-                    'id' => (string) $id,
-                ];
+                    ]);
+                } else {
+                    $item['type'] = 'file';
+                }
+
+                $items[] = $item;
             }
         }
 

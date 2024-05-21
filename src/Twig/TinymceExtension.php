@@ -20,8 +20,8 @@ class TinymceExtension extends AbstractExtension
         $this->toolbar = implode(' | ', $toolbar);
 
         if (!$this->fileBrowser->isEnabled()) {
-            $this->plugins = str_replace([' ohimagebrowser', 'ohimagebrowser '], '', $this->plugins);
-            $this->toolbar = str_replace([' ohimagebrowser', 'ohimagebrowser '], '', $this->toolbar);
+            $this->plugins = str_replace([' ohfilebrowser', 'ohfilebrowser '], '', $this->plugins);
+            $this->toolbar = str_replace([' ohfilebrowser', 'ohfilebrowser '], '', $this->toolbar);
         }
     }
 

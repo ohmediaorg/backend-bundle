@@ -17,8 +17,8 @@ import NiceSelect from 'nice-select2';
 import initTinyMCEShortcodesPlugin from './tinymce/shortcodes.js';
 window.initTinyMCEShortcodesPlugin = initTinyMCEShortcodesPlugin;
 
-import initTinyMCEImagebrowserPlugin from './tinymce/imagebrowser.js';
-window.initTinyMCEImagebrowserPlugin = initTinyMCEImagebrowserPlugin;
+import initTinyMCEFilebrowserPlugin from './tinymce/filebrowser.js';
+window.initTinyMCEFilebrowserPlugin = initTinyMCEFilebrowserPlugin;
 
 import initTinyMCEContentlinkPlugin from './tinymce/contentlink.js';
 window.initTinyMCEContentlinkPlugin = initTinyMCEContentlinkPlugin;

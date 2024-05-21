@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
   window.initTinyMCEShortcodesPlugin('{{ path('tinymce_shortcodes') }}');
 
   {% if file_browser_enabled %}
-  window.initTinyMCEImagebrowserPlugin('{{ path('tinymce_imagebrowser') }}');
+  window.initTinyMCEFilebrowserPlugin('{{ path('tinymce_filebrowser') }}');
   {% endif %}
 
   window.initTinyMCEContentlinkPlugin('{{ path('tinymce_content_links') }}');
