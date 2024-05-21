@@ -88,7 +88,7 @@ export default function (filesUrl) {
             if ('directory' === item.type) {
               col1.innerHTML = '<i class="bt bi-folder-fill"></i>';
               col2.innerHTML = item.name;
-              col2.colspan = 2;
+              col2.colSpan = 2;
 
               row.onclick = populateFiles.bind(null, item.url);
               row.style.cursor = 'pointer';
@@ -102,12 +102,32 @@ export default function (filesUrl) {
               col2.innerHTML = item.name + ' (ID:' + item.id + ')';
 
               const col3 = document.createElement('td');
+              col3.style.textAlign = 'right';
+
+              if ('image' === item.type) {
+                const buttonImage = document.createElement('button');
+                buttonImage.className = 'tox-button';
+                buttonImage.title = 'Insert Image';
+                buttonImage.style.marginLeft = '8px';
+                buttonImage.style.marginBottom = '8px';
+                buttonImage.style.padding = '4px 8px';
+                buttonImage.innerHTML = '<i class="bi bi-image"></i>';
+                buttonImage.onclick = () => {
+                  editor.insertContent(`{{ image(${item.id}) }}`);
+
+                  dialog.close();
+                };
+
+                col3.append(buttonImage);
+              }
 
               const buttonLink = document.createElement('button');
               buttonLink.className = 'tox-button';
               buttonLink.title = 'Insert Link';
+              buttonLink.style.marginLeft = '8px';
+              buttonLink.style.marginBottom = '8px';
               buttonLink.style.padding = '4px 8px';
-              buttonLink.innerHTML = '<i class="bt bi-link-45deg"></i>';
+              buttonLink.innerHTML = '<i class="bi bi-link-45deg"></i>';
               buttonLink.onclick = () => {
                 editor.insertContent(
                   `<a href="{{ file_href(${item.id}) }}" title="${item.name}" target="_blank">${item.name}</a>`
@@ -117,22 +137,6 @@ export default function (filesUrl) {
               };
 
               col3.append(buttonLink);
-
-              if ('image' === item.type) {
-                const buttonImage = document.createElement('button');
-                buttonImage.className = 'tox-button';
-                buttonLink.title = 'Insert Image';
-                buttonImage.style.marginLeft = '8px';
-                buttonImage.style.padding = '4px 8px';
-                buttonImage.innerHTML = '<i class="bt bi-image"></i>';
-                buttonImage.onclick = () => {
-                  editor.insertContent(`{{ image(${item.id}) }}`);
-
-                  dialog.close();
-                };
-
-                col3.append(buttonImage);
-              }
 
               row.append(col3);
             }
