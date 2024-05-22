@@ -215,6 +215,24 @@ export default function (filesUrl) {
           const response = await fetch(url);
           const data = await response.json();
 
+          if (!data.items.length && !data.back_path) {
+            dialogConfig.body = {
+              type: 'panel',
+              items: [
+                {
+                  type: 'alertbanner',
+                  text: 'No files/folders found.',
+                  level: 'info',
+                  icon: 'info',
+                },
+              ],
+            };
+
+            dialog.redial(dialogConfig);
+
+            return;
+          }
+
           dialogConfig.body = {
             type: 'panel',
             items: [
