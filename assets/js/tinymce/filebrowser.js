@@ -87,6 +87,10 @@ function getImageRow(item, onclickImage, onclickLink) {
   const col2 = getColumn();
   col2.innerHTML = item.name + ' (ID:' + item.id + ')';
 
+  if (item.locked) {
+    col2.innerHTML += '<i class="bi bi-lock-fill text-secondary"></i>';
+  }
+
   row.append(col2);
 
   const col3 = getColumn();
