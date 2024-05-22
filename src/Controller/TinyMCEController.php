@@ -75,9 +75,9 @@ class TinyMCEController extends AbstractController
                 if ($listingItem->isImage()) {
                     $item['type'] = 'image';
                     $item['image'] = $imageManager->render($listingItem, [
-                        'width' => 47,
-                        'height' => 47,
-                        'style' => 'height:47px',
+                        'width' => 40,
+                        'height' => 40,
+                        'style' => 'height:40px;display:block',
                     ]);
                 } else {
                     $item['type'] = 'file';

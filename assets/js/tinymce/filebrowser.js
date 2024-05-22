@@ -1,17 +1,42 @@
+function getRow() {
+  const row = document.createElement('div');
+  row.style.display = 'grid';
+  row.style.gridTemplateColumns = '50px 1fr auto';
+  row.style.alignItems = 'center';
+  row.style.gap = '10px';
+
+  row.onmouseenter = () => {
+    row.style.background = '#f0f0f0';
+  };
+
+  row.onmouseleave = () => {
+    row.style.background = '';
+  };
+
+  return row;
+}
+
+function getColumn() {
+  const column = document.createElement('div');
+  column.style.padding = '5px';
+
+  return column;
+}
+
 function getBackRow(onclick) {
-  const row = document.createElement('tr');
+  const row = getRow();
 
   const col1 = getColumnOne();
   col1.innerHTML = '<i class="bt bi-arrow-up-left-square-fill"></i>';
 
   row.append(col1);
 
-  const col2 = document.createElement('td');
+  const col2 = document.createElement('div');
   col2.innerHTML = 'Back';
 
   row.append(col2);
 
-  const col3 = document.createElement('td');
+  const col3 = document.createElement('div');
   col3.innerHTML = '&nbsp;';
 
   row.append(col3);
@@ -23,19 +48,19 @@ function getBackRow(onclick) {
 }
 
 function getFolderRow(item, onclick) {
-  const row = document.createElement('tr');
+  const row = getRow();
 
   const col1 = getColumnOne();
   col1.innerHTML = '<i class="bt bi-folder-fill"></i>';
 
   row.append(col1);
 
-  const col2 = document.createElement('td');
+  const col2 = getColumn();
   col2.innerHTML = item.name;
 
   row.append(col2);
 
-  const col3 = document.createElement('td');
+  const col3 = getColumn();
   col3.innerHTML = '&nbsp;';
 
   row.append(col3);
@@ -47,19 +72,19 @@ function getFolderRow(item, onclick) {
 }
 
 function getImageRow(item, onclickImage, onclickLink) {
-  const row = document.createElement('tr');
+  const row = getRow();
 
   const col1 = getColumnOne();
   col1.innerHTML = item.image;
 
   row.append(col1);
 
-  const col2 = document.createElement('td');
+  const col2 = getColumn();
   col2.innerHTML = item.name + ' (ID:' + item.id + ')';
 
   row.append(col2);
 
-  const col3 = document.createElement('td');
+  const col3 = getColumn();
   col3.style.textAlign = 'right';
 
   col3.append(getButtonImage(onclickImage));
@@ -71,19 +96,19 @@ function getImageRow(item, onclickImage, onclickLink) {
 }
 
 function getFileRow(item, onclickLink) {
-  const row = document.createElement('tr');
+  const row = getRow();
 
   const col1 = getColumnOne();
   col1.innerHTML = '<i class="bt bi-file-earmark-fill"></i>';
 
   row.append(col1);
 
-  const col2 = document.createElement('td');
+  const col2 = getColumn();
   col2.innerHTML = item.name + ' (ID:' + item.id + ')';
 
   row.append(col2);
 
-  const col3 = document.createElement('td');
+  const col3 = getColumn();
   col3.style.textAlign = 'right';
 
   col3.append(getButtonLink(onclickLink));
@@ -94,8 +119,7 @@ function getFileRow(item, onclickLink) {
 }
 
 function getColumnOne() {
-  const column = document.createElement('td');
-  column.style.width = '55px';
+  const column = getColumn();
   column.style.fontSize = '1.5rem';
   column.style.textAlign = 'center';
 
@@ -104,7 +128,7 @@ function getColumnOne() {
 
 function getButtonLink(onclick) {
   const button = getButton();
-  button.title = 'Insert Link';
+  button.dataset.mceTooltip = 'Insert Link';
   button.innerHTML = '<i class="bi bi-link-45deg"></i>';
   button.onclick = onclick;
 
@@ -113,7 +137,7 @@ function getButtonLink(onclick) {
 
 function getButtonImage(onclick) {
   const button = getButton();
-  button.title = 'Insert Image';
+  button.dataset.mceTooltip = 'Insert Image';
   button.innerHTML = '<i class="bi bi-image"></i>';
   button.onclick = onclick;
 
@@ -123,9 +147,8 @@ function getButtonImage(onclick) {
 function getButton() {
   const button = document.createElement('button');
   button.className = 'tox-button';
-  button.style.marginLeft = '8px';
-  button.style.marginBottom = '8px';
-  button.style.padding = '4px 8px';
+  button.style.margin = '0 5px';
+  button.style.padding = '4px 9px';
 
   return button;
 }
@@ -154,7 +177,7 @@ export default function (filesUrl) {
 
       const dialog = editor.windowManager.open(dialogConfig);
 
-      const containerId = 'tinymce_filebrowser_tbody';
+      const containerId = 'tinymce_filebrowser_rows';
       let container = null;
 
       function onclickFile(item) {
@@ -197,10 +220,7 @@ export default function (filesUrl) {
             items: [
               {
                 type: 'htmlpanel',
-                html: `
-                  <table class="tox-dialog__table" style="vertical-align:middle">
-                    <tbody id="${containerId}"></tbody>
-                  </table>`,
+                html: `<div id="${containerId}" style="display: grid; grid-auto-rows: 1fr;"></div`,
               },
             ],
           };
