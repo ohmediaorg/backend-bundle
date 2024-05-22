@@ -51,7 +51,12 @@ function getFolderRow(item, onclick) {
   const row = getRow();
 
   const col1 = getColumnOne();
-  col1.innerHTML = '<i class="bt bi-folder-fill"></i>';
+
+  if (item.locked) {
+    col1.innerHTML = '<i class="bi bi-folder-x text-secondary"></i>';
+  } else {
+    col1.innerHTML = '<i class="bi bi-folder-check"></i>';
+  }
 
   row.append(col1);
 
@@ -99,7 +104,13 @@ function getFileRow(item, onclickLink) {
   const row = getRow();
 
   const col1 = getColumnOne();
-  col1.innerHTML = '<i class="bt bi-file-earmark-fill"></i>';
+
+  if (item.locked) {
+    col1.innerHTML =
+      '<i class="bi bi-file-earmark-lock2-fill text-secondary"></i>';
+  } else {
+    col1.innerHTML = '<i class="bi bi-file-earmark-fill"></i>';
+  }
 
   row.append(col1);
 

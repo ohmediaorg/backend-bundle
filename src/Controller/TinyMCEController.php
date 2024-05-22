@@ -65,11 +65,13 @@ class TinyMCEController extends AbstractController
                     'url' => $this->generateUrl('tinymce_filebrowser', [
                         'id' => $id,
                     ]),
+                    'locked' => $listingItem->isLocked(),
                 ];
             } elseif ($listingItem instanceof File) {
                 $item = [
                     'name' => (string) $listingItem,
                     'id' => (string) $id,
+                    'locked' => $listingItem->isLocked(),
                 ];
 
                 if ($listingItem->isImage()) {
