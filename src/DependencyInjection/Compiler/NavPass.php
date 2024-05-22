@@ -22,5 +22,17 @@ class NavPass implements CompilerPassInterface
         foreach ($tagged as $id => $tags) {
             $definition->addMethodCall('addNavItemProvider', [new Reference($id)]);
         }
+
+        $tagged = $container->findTaggedServiceIds('oh_media_backend.developer_only_nav_link_provider');
+
+        foreach ($tagged as $id => $tags) {
+            $definition->addMethodCall('addDeveloperOnlyNavLinkProvider', [new Reference($id)]);
+        }
+
+        $tagged = $container->findTaggedServiceIds('oh_media_backend.settings_nav_link_provider');
+
+        foreach ($tagged as $id => $tags) {
+            $definition->addMethodCall('addSettingsNavLinkProvider', [new Reference($id)]);
+        }
     }
 }

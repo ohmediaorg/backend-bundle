@@ -1,6 +1,7 @@
 services:
     oh_media_backend.nav_manager:
         class: OHMedia\BackendBundle\Service\NavManager
+        autowire: true
         public: false
 
     OHMedia\BackendBundle\Twig\DateTimeExtension:
@@ -50,3 +51,9 @@ services:
         ~
 
     oh_media_backend.content_link_manager: '@OHMedia\BackendBundle\ContentLinks\ContentLinkManager'
+
+    OHMedia\BackendBundle\Service\ScriptInjectionNavLinkProvider:
+        tags: ["oh_media_backend.developer_only_nav_link_provider"]
+
+    OHMedia\BackendBundle\Service\SEONavLinkProvider:
+        tags: ["oh_media_backend.settings_nav_link_provider"]
