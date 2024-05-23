@@ -50,16 +50,16 @@
       </li>
       {% endif %}
     </ul>
-  </nav>
 
-  <div class="offcanvas offcanvas-start" tabindex="-1" id="side-nav" aria-labelledby="offcanvasNavbarLabel">
-    <a href="/admin" class="offcanvas-header">
-      {% include '@OHMediaBackend/include/logo.html.twig' %}
-    </a>
-    <div class="offcanvas-body">
-      {{ bootstrap_nav(backend_nav(), 'nav flex-column') }}
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="side-nav" aria-labelledby="offcanvasNavbarLabel">
+      <a href="/admin" class="offcanvas-header">
+        {% include '@OHMediaBackend/include/logo.html.twig' %}
+      </a>
+      <div class="offcanvas-body">
+        {{ bootstrap_nav(backend_nav(), 'navbar-nav') }}
+      </div>
     </div>
-  </div>
+  </nav>
 
   <div id="toasts"></div>
 

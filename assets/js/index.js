@@ -65,12 +65,6 @@ document.querySelectorAll('a[target=_blank]').forEach((a) => {
   a.innerHTML += '&nbsp;<i class="bi bi-box-arrow-up-right"></i>';
 });
 
-const dropdowns = document.querySelectorAll('#side-nav .nav-item.dropdown');
-
-dropdowns.forEach((dropdown) => {
-  dropdown.classList.add('dropend');
-});
-
 document.querySelectorAll('table.table').forEach((table) => {
   if (!table.parentNode.classList.contains('table-responsive')) {
     const wrapper = document.createElement('div');

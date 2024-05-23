@@ -28,18 +28,17 @@ body {
 
 #top-nav {
   height: var(--top-nav-height);
-  line-height: var(--top-nav-height);
   justify-content: space-between;
   background: $white;
   box-shadow: $box-shadow;
 
-  .navbar-nav {
+  > .navbar-nav {
     flex-direction: row;
-  }
 
-  .nav-link {
-    --bs-nav-link-padding-y: 0;
-    --bs-nav-link-padding-x: 0.5rem;
+    .nav-link {
+      --bs-nav-link-padding-y: 0;
+      --bs-nav-link-padding-x: 0.5rem;
+    }
   }
 }
 
@@ -74,9 +73,9 @@ body {
     }
   }
 
-  .offcanvas-body {
-    // necessary for dropdowns to show outside the container
-    overflow: visible;
+  .navbar-nav {
+    --bs-nav-link-padding-x: 1rem;
+    --bs-nav-link-padding-y: 0.5rem;
   }
 
   .nav-link {
@@ -90,6 +89,21 @@ body {
 
     i {
       margin-right: $one-space-width;
+    }
+  }
+
+  .dropdown-menu {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0 0 0 1.55rem;
+
+    > li {
+      @extend .nav-item;
+    }
+
+    > li > a {
+      @extend .nav-link;
     }
   }
 }
