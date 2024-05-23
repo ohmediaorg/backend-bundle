@@ -27,7 +27,7 @@ function getBackRow(onclick) {
   const row = getRow();
 
   const col1 = getColumnOne();
-  col1.innerHTML = '<i class="bt bi-arrow-up-left-square-fill"></i>';
+  col1.innerHTML = '<i class="bi bi-arrow-up-left-square-fill"></i>';
 
   row.append(col1);
 
