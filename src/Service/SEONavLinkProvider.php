@@ -10,7 +10,7 @@ class SEONavLinkProvider extends AbstractSettingsNavLinkProvider
 {
     public function getNavLink(): NavLink
     {
-        return new NavLink('SEO', 'settings_seo');
+        return (new NavLink('SEO', 'settings_seo'))->setIcon('google');
     }
 
     public function getVoterAttribute(): string

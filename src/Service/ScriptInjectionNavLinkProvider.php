@@ -10,7 +10,8 @@ class ScriptInjectionNavLinkProvider extends AbstractDeveloperOnlyNavLinkProvide
 {
     public function getNavLink(): NavLink
     {
-        return new NavLink('Script Injection', 'settings_script_injection');
+        return (new NavLink('Script Injection', 'settings_script_injection'))
+            ->setIcon('code-slash');
     }
 
     public function getVoterAttribute(): string
