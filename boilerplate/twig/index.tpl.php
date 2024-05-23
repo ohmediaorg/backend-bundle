@@ -15,7 +15,7 @@
 {% block actions %}
 {% if can_create_<?php echo $singular['snake_case']; ?> %}
 <a href="{{ create_<?php echo $singular['snake_case']; ?>_href }}" class="btn btn-sm btn-primary">
-  <i class="bi bi-plus"></i> Add <?php echo $singular['title']; ?>
+  {{ bootstrap_icon('plus') }} Add <?php echo $singular['title']; ?>
 </a>
 {% endif %}
 {% endblock %}
