@@ -26,11 +26,15 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Admin]
 class <?php echo $singular['pascal_case']; ?>Controller extends AbstractController
 {
+    public function __construct(private <?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository)
+    {
+    }
+
 <?php if ($has_reorder) { ?>
     private const CSRF_TOKEN_REORDER = '<?php echo $singular['snake_case']; ?>_reorder';
 
     #[Route('/<?php echo $plural['kebab_case']; ?>', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
-    public function index(<?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository): Response
+    public function index(): Response
     {
         $new<?php echo $singular['pascal_case']; ?> = new <?php echo $singular['pascal_case']; ?>();
 
@@ -40,7 +44,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             'You cannot access the list of <?php echo $plural['readable']; ?>.'
         );
 
-        $<?php echo $plural['camel_case']; ?> = $<?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>')
+        $<?php echo $plural['camel_case']; ?> = $this-><?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>')
             ->orderBy('<?php echo $alias; ?>.ordinal', 'asc')
             ->getQuery()
             ->getResult();
@@ -56,7 +60,6 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     #[Route('/<?php echo $plural['kebab_case']; ?>/reorder', name: '<?php echo $singular['snake_case']; ?>_reorder_post', methods: ['POST'])]
     public function reorderPost(
         Connection $connection,
-        <?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository,
         Request $request
     ): Response {
         $this->denyAccessUnlessGranted(
@@ -77,12 +80,12 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         try {
             foreach ($<?php echo $plural['camel_case']; ?> as $ordinal => $id) {
-                $<?php echo $singular['camel_case']; ?> = $<?php echo $singular['camel_case']; ?>Repository->find($id);
+                $<?php echo $singular['camel_case']; ?> = $this-><?php echo $singular['camel_case']; ?>Repository->find($id);
 
                 if ($<?php echo $singular['camel_case']; ?>) {
                     $<?php echo $singular['camel_case']; ?>->setOrdinal($ordinal);
 
-                    $<?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
+                    $this-><?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
                 }
             }
 
@@ -97,10 +100,8 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     }
 <?php } else { ?>
     #[Route('/<?php echo $plural['kebab_case']; ?>', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
-    public function index(
-        <?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository,
-        Paginator $paginator
-    ): Response {
+    public function index(Paginator $paginator): Response
+    {
         $new<?php echo $singular['pascal_case']; ?> = new <?php echo $singular['pascal_case']; ?>();
 
         $this->denyAccessUnlessGranted(
@@ -109,7 +110,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             'You cannot access the list of <?php echo $plural['readable']; ?>.'
         );
 
-        $qb = $<?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>');
+        $qb = $this-><?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>');
         $qb->orderBy('<?php echo $alias; ?>.id', 'desc');
 
         return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_index.html.twig', [
@@ -121,10 +122,8 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 <?php } ?>
 
     #[Route('/<?php echo $singular['kebab_case']; ?>/create', name: '<?php echo $singular['snake_case']; ?>_create', methods: ['GET', 'POST'])]
-    public function create(
-        Request $request,
-        <?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository
-    ): Response {
+    public function create(Request $request): Response
+    {
         $<?php echo $singular['camel_case']; ?> = new <?php echo $singular['pascal_case']; ?>();
 
         $this->denyAccessUnlessGranted(
@@ -140,7 +139,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $<?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
+            $this-><?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
 
             $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was created successfully.');
 
@@ -174,7 +173,6 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     public function edit(
         Request $request,
         <?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>,
-        <?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository
     ): Response {
         $this->denyAccessUnlessGranted(
             <?php echo $singular['pascal_case']; ?>Voter::EDIT,
@@ -189,7 +187,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $<?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
+            $this-><?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
 
             $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was updated successfully.');
 
@@ -212,7 +210,6 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     public function delete(
         Request $request,
         <?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>,
-        <?php echo $singular['pascal_case']; ?>Repository $<?php echo $singular['camel_case']; ?>Repository
     ): Response {
         $this->denyAccessUnlessGranted(
             <?php echo $singular['pascal_case']; ?>Voter::DELETE,
@@ -227,7 +224,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $<?php echo $singular['camel_case']; ?>Repository->remove($<?php echo $singular['camel_case']; ?>, true);
+            $this-><?php echo $singular['camel_case']; ?>Repository->remove($<?php echo $singular['camel_case']; ?>, true);
 
             $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was deleted successfully.');
 
