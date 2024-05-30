@@ -138,12 +138,16 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this-><?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this-><?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
 
-            $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was created successfully.');
+                $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was created successfully.');
 
-            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
+                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
+            }
+
+            $this->addFlash('error', 'There are some errors in the form below.');
         }
 
         return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_create.html.twig', [
@@ -186,18 +190,22 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this-><?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this-><?php echo $singular['camel_case']; ?>Repository->save($<?php echo $singular['camel_case']; ?>, true);
 
-            $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was updated successfully.');
+                $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was updated successfully.');
 
 <?php if ($has_view_route) { ?>
-            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
-                'id' => $<?php echo $singular['camel_case']; ?>->getId(),
-            ]);
+                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
+                    'id' => $<?php echo $singular['camel_case']; ?>->getId(),
+                ]);
 <?php } else { ?>
-            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
+                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
 <?php } ?>
+            }
+
+            $this->addFlash('error', 'There are some errors in the form below.');
         }
 
         return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_edit.html.twig', [
@@ -223,12 +231,16 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this-><?php echo $singular['camel_case']; ?>Repository->remove($<?php echo $singular['camel_case']; ?>, true);
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $this-><?php echo $singular['camel_case']; ?>Repository->remove($<?php echo $singular['camel_case']; ?>, true);
 
-            $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was deleted successfully.');
+                $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was deleted successfully.');
 
-            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
+                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
+            }
+
+            $this->addFlash('error', 'There are some errors in the form below.');
         }
 
         return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_delete.html.twig', [
