@@ -55,16 +55,20 @@ class SettingController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $metaSettings->saveDefaultFields($form->get('meta'));
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $metaSettings->saveDefaultFields($form->get('meta'));
 
-            $schemaData = $form->get('schema')->getData();
+                $schemaData = $form->get('schema')->getData();
 
-            $settings->set('schema_organization_name', $schemaData['organization_name']);
+                $settings->set('schema_organization_name', $schemaData['organization_name']);
 
-            $this->addFlash('notice', 'Global meta settings updated successfully');
+                $this->addFlash('notice', 'Global meta settings updated successfully');
 
-            return $this->redirectToRoute('settings_seo');
+                return $this->redirectToRoute('settings_seo');
+            }
+
+            $this->addFlash('error', 'There are some errors in the form below.');
         }
 
         return $this->render('@OHMediaBackend/settings/settings_seo.html.twig', [
@@ -111,16 +115,20 @@ class SettingController extends AbstractController
 
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $formData = $form->getData();
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $formData = $form->getData();
 
-            foreach ($scripts as $id => $label) {
-                $settings->set($id, $formData[$id]);
+                foreach ($scripts as $id => $label) {
+                    $settings->set($id, $formData[$id]);
+                }
+
+                $this->addFlash('notice', 'Script injection settings updated successfully');
+
+                return $this->redirectToRoute('settings_script_injection');
             }
 
-            $this->addFlash('notice', 'Script injection settings updated successfully');
-
-            return $this->redirectToRoute('settings_script_injection');
+            $this->addFlash('error', 'There are some errors in the form below.');
         }
 
         return $this->render('@OHMediaBackend/settings/settings_script_injection.html.twig', [
