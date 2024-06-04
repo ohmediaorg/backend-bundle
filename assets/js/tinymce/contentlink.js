@@ -23,7 +23,7 @@ export default function (contentlinkUrl) {
         onSubmit: (api) => {
           if (data) {
             editor.insertContent(
-              `<a href="{{ ${data.href} }}" title="${data.title}" target="_blank">${data.text}</a>`
+              `<a href="{{${data.href}}}" title="${data.title}" target="_blank">${data.text}</a>`
             );
           }
 

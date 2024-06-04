@@ -21,7 +21,7 @@ export default function (shortcodeUrl) {
         },
         onSubmit: (api) => {
           if (shortcode) {
-            editor.insertContent(`{{ ${shortcode} }}`);
+            editor.insertContent(`{{${shortcode}}}`);
           }
 
           api.close();
