@@ -21,6 +21,10 @@ services:
         tags:
             - { name: twig.extension }
 
+    OHMedia\BackendBundle\Twig\ShortcodeExtension:
+        tags:
+            - { name: twig.extension }
+
     OHMedia\BackendBundle\Twig\TinymceExtension:
         arguments: ["@oh_media_file.file_browser", "%oh_media_backend.tinymce.plugins%", "%oh_media_backend.tinymce.toolbar%"]
         public: false
