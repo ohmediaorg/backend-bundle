@@ -99,6 +99,10 @@ body {
     padding: 0 0 0 1.55rem;
     margin: 0;
 
+    &.collapsing {
+      display: block;
+    }
+
     > li {
       @extend .nav-item;
     }

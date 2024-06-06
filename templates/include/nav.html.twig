@@ -1,0 +1,61 @@
+{% macro nav_dropdown(dropdown, id) %}
+  {% if dropdown.items|length > 0 %}
+    {% set dropdown_active = is_bootstrap_nav_item_active(dropdown) %}
+
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle {{ dropdown_active ? 'active' : '' }}" href="#dropdown-{{ id }}" role="button" data-bs-toggle="collapse" aria-expanded="false">
+        {% if dropdown.icon %}{{ bootstrap_icon(dropdown.icon) }}{% endif %}
+        <span class="nav-link-text">{{ dropdown.text }}</span>
+      </a>
+      <ul class="dropdown-menu" id="dropdown-{{ id }}">
+        {% for item in dropdown.items %}
+        <li>
+          {% if is_bootstrap_nav_dropdown_divider(item) %}
+          <hr class="dropdown-divider" />
+          {% else %}
+          {{ _self.nav_link(item, 'dropdown-item') }}
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endif %}
+{% endmacro %}
+
+{% macro nav_item(item) %}
+  <li class="nav-item">
+    {{ _self.nav_link(item, 'nav-link') }}
+  </li>
+{% endmacro %}
+
+{% macro nav_link(link, class_name) %}
+  {% set active = is_bootstrap_nav_item_active(link) %}
+
+  {% if link.disabled %}
+    {% set class_name = class_name ~ ' disabled' %}
+  {% elseif active %}
+    {% set class_name = class_name ~ ' active' %}
+  {% endif %}
+
+  <a class="{{ class_name }}"
+    {% if not link.disabled %}
+      href="{{ path(link.route, link.routeParams) }}"
+      {% if active %}aria-current="page"{% endif %}
+    {% else %}
+      aria-disabled="true"
+    {% endif %}
+  >
+    {% if link.icon %}{{ bootstrap_icon(link.icon) }}{% endif %}
+    <span class="nav-link-text">{{ link.text }}</span>
+  </a>
+{% endmacro %}
+
+{% set nav = backend_nav() %}
+
+<ul class="navbar-nav">
+  {% for i, item in nav.items %}
+    {{ is_bootstrap_nav_dropdown(item)
+      ? _self.nav_dropdown(item, i)
+      : _self.nav_item(item) }}
+  {% endfor %}
+</ul>
