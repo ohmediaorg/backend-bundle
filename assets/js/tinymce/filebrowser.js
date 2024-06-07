@@ -181,8 +181,6 @@ function getButton() {
 export default function (filesUrl) {
   tinymce.PluginManager.add('ohfilebrowser', (editor, url) => {
     async function openDialog() {
-      let selectedItem = null;
-
       const dialogConfig = {
         title: 'File Browser',
         size: 'medium',
@@ -269,8 +267,6 @@ export default function (filesUrl) {
           };
 
           dialog.redial(dialogConfig);
-
-          selectedItem = null;
 
           container = document.getElementById(containerId);
 
