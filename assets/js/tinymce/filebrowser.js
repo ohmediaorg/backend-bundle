@@ -94,6 +94,7 @@ function getImageRow(item, onclickImage, onclickLink) {
   row.append(col2);
 
   const col3 = getColumn();
+  col3.className = 'tox-toolbar__group';
   col3.style.textAlign = 'right';
 
   col3.append(getButtonImage(onclickImage));
@@ -124,6 +125,7 @@ function getFileRow(item, onclickLink) {
   row.append(col2);
 
   const col3 = getColumn();
+  col3.className = 'tox-toolbar__group';
   col3.style.textAlign = 'right';
 
   col3.append(getButtonLink(onclickLink));
@@ -161,9 +163,17 @@ function getButtonImage(onclick) {
 
 function getButton() {
   const button = document.createElement('button');
-  button.className = 'tox-button';
-  button.style.margin = '0 5px';
-  button.style.padding = '4px 9px';
+  button.type = 'button';
+  button.className = 'tox-tbtn';
+  button.style.background = 'transparent';
+
+  button.onmouseenter = () => {
+    button.style.background = '#fff';
+  };
+
+  button.onmouseleave = () => {
+    button.style.background = 'transparent';
+  };
 
   return button;
 }
