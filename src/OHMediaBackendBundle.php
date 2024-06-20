@@ -32,7 +32,7 @@ class OHMediaBackendBundle extends AbstractBundle
                 ->arrayNode('tinymce')
                   ->children()
                     ->scalarNode('plugins')
-                        ->defaultValue('code link lists ohshortcodes ohfilebrowser ohcontentlink')
+                        ->defaultValue('autoresize code link lists ohshortcodes ohfilebrowser ohcontentlink')
                     ->end()
                     ->arrayNode('toolbar')
                         ->scalarPrototype()->end()
