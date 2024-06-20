@@ -12,6 +12,7 @@ function OH_MEDIA_TINYMCE(container, selector) {
       plugins: {{ plugins|json_encode|raw }},
       toolbar: {{ toolbar|json_encode|raw }},
       license_key: 'gpl',
+      max_height: 600,
     });
   });
 }
