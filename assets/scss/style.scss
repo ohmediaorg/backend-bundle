@@ -84,7 +84,8 @@ body {
     &:hover,
     &.active {
       background: $primary;
-      color: color-contrast($primary);
+      --bs-navbar-active-color: #{color-contrast($primary)};
+      --bs-nav-link-hover-color: #{color-contrast($primary)};
     }
 
     i {
