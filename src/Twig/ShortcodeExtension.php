@@ -2,6 +2,7 @@
 
 namespace OHMedia\BackendBundle\Twig;
 
+use OHMedia\WysiwygBundle\Util\Shortcode;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -18,6 +19,6 @@ class ShortcodeExtension extends AbstractExtension
 
     public function shortcode(string $shortcode)
     {
-        return '<code>{{'.trim($shortcode).'}}</code>';
+        return '<code>'.Shortcode::format($shortcode).'</code>';
     }
 }
