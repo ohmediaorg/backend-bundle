@@ -105,3 +105,44 @@ $ php bin/console make:entity
 
 You may want to represent some of these custom fields in the
 `App\Form\PostType` class that was auto-generated.
+
+# TinyMCE Integration
+
+## Shortcodes
+
+Shortcodes can be made available to the TinyMCE editor simply by extending
+`OHMedia\BackendBundle\Shortcodes\AbstractShortcodeProvider`.
+
+See [EventShortcodeProvider](https://github.com/ohmediaorg/event-bundle/blob/main/src/Service/EventShortcodeProvider.php).
+
+## Content Links
+
+Content Links can be made available to the TinyMCE editor simply by extending
+`OHMedia\BackendBundle\ContentLinks\AbstractContentLinkProvider`.
+
+See [PageContentLinkProvider](https://github.com/ohmediaorg/page-bundle/blob/main/src/Service/PageContentLinkProvider.php).
+
+# Navigation
+
+## Sidebar
+
+The sidebar nav is populated by extending `OHMedia\BackendBundle\Service\AbstractNavItemProvider`.
+
+See [TestimonialNavItemProvider](https://github.com/ohmediaorg/testimonial-bundle/blob/main/src/Service/TestimonialNavItemProvider.php) for an example with just a link.
+
+See [LogoNavItemProvider](https://github.com/ohmediaorg/logo-bundle/blob/main/src/Service/LogoNavItemProvider.php)
+for an example with a dropdown.
+
+### Developer Only
+
+Links can be added to the Developer Only dropdown by extending
+`OHMedia\BackendBundle\Service\AbstractDeveloperOnlyNavLinkProvider`.
+
+See [EmailsNavLinkProvider](https://github.com/ohmediaorg/email-bundle/blob/main/src/Service/EmailsNavLinkProvider.php).
+
+### Settings
+
+Links can be added to the Settings dropdown by extending
+`OHMedia\BackendBundle\Service\AbstractDeveloperOnlyNavLinkProvider`.
+
+See [ContactFormNavLinkProvider](https://github.com/ohmediaorg/contact-bundle/blob/main/src/Service/ContactFormNavLinkProvider.php).
