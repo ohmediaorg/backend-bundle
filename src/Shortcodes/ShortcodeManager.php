@@ -26,8 +26,6 @@ class ShortcodeManager
 
         $i = 0;
         foreach ($this->shortcodeProviders as $shortcodeProvider) {
-            $shortcodeProvider->buildShortcodes();
-
             $shortcodes = $shortcodeProvider->getShortcodes();
 
             if (!$shortcodes) {

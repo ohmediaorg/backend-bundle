@@ -5,6 +5,7 @@ namespace OHMedia\BackendBundle\Shortcodes;
 abstract class AbstractShortcodeProvider
 {
     private array $shortcodes = [];
+    private bool $built = false;
 
     abstract public function getTitle(): string;
 
@@ -12,6 +13,12 @@ abstract class AbstractShortcodeProvider
 
     final public function getShortcodes(): array
     {
+        if (!$this->built) {
+            $this->built = true;
+
+            $this->buildShortcodes();
+        }
+
         return $this->shortcodes;
     }
 
