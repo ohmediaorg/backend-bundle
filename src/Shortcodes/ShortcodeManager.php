@@ -57,4 +57,21 @@ class ShortcodeManager
 
         return $tabs;
     }
+
+    public function getDynamicShortcodes(): array
+    {
+        $dynamicShortcodes = [];
+
+        foreach ($this->shortcodeProviders as $shortcodeProvider) {
+            $shortcodes = $shortcodeProvider->getShortcodes();
+
+            foreach ($shortcodes as $shortcode) {
+                if ($shortcode->dynamic) {
+                    $dynamicShortcodes[] = $shortcode;
+                }
+            }
+        }
+
+        return $dynamicShortcodes;
+    }
 }
