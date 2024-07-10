@@ -2,6 +2,8 @@
 
 namespace OHMedia\BackendBundle\Shortcodes;
 
+use OHMedia\WysiwygBundle\Util\Shortcode as ShortcodeUtil;
+
 class ShortcodeManager
 {
     private array $shortcodeProviders = [];
@@ -67,7 +69,7 @@ class ShortcodeManager
 
             foreach ($shortcodes as $shortcode) {
                 if ($shortcode->dynamic) {
-                    $dynamicShortcodes[] = $shortcode;
+                    $dynamicShortcodes[] = ShortcodeUtil::format($shortcode->shortcode);
                 }
             }
         }
