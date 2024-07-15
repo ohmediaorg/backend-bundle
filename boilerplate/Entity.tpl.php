@@ -7,12 +7,12 @@ use App\Repository\<?php echo $singular['pascal_case']; ?>Repository;
 use Doctrine\DBAL\Types\Types;
 <?php } ?>
 use Doctrine\ORM\Mapping as ORM;
-use OHMedia\SecurityBundle\Entity\Traits\BlameableTrait;
+use OHMedia\UtilityBundle\Entity\BlameableEntityTrait;
 
 #[ORM\Entity(repositoryClass: <?php echo $singular['pascal_case']; ?>Repository::class)]
 class <?php echo $singular['pascal_case']."\n"; ?>
 {
-    use BlameableTrait;
+    use BlameableEntityTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
