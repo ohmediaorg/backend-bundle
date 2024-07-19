@@ -31,6 +31,6 @@ class SettingVoter extends AbstractEntityVoter
 
     protected function canScripts(Setting $setting, User $loggedIn): bool
     {
-        return $loggedIn->isDeveloper();
+        return $loggedIn->isTypeDeveloper();
     }
 }
