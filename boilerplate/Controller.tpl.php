@@ -144,7 +144,13 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
                 $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was created successfully.');
 
+<?php if ($has_view_route) { ?>
+                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
+                    'id' => $<?php echo $singular['camel_case']; ?>->getId(),
+                ]);
+<?php } else { ?>
                 return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
+<?php } ?>
             }
 
             $this->addFlash('error', 'There are some errors in the form below.');
