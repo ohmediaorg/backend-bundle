@@ -21,16 +21,6 @@ services:
         tags:
             - { name: twig.extension }
 
-    OHMedia\BackendBundle\Twig\ShortcodeExtension:
-        tags:
-            - { name: twig.extension }
-
-    OHMedia\BackendBundle\Twig\TinymceExtension:
-        arguments: ["@oh_media_file.file_browser", "%oh_media_backend.tinymce.plugins%", "%oh_media_backend.tinymce.toolbar%"]
-        public: false
-        tags:
-            - { name: twig.extension }
-
     OHMedia\BackendBundle\Command\BoilerplateCommand:
         arguments: ["%kernel.project_dir%"]
         tags: ["console.command"]
@@ -41,20 +31,6 @@ services:
 
     OHMedia\BackendBundle\Security\Voter\SettingVoter:
         tags: ["security.voter"]
-
-    OHMedia\BackendBundle\Shortcodes\ShortcodeManager:
-        ~
-
-    oh_media_backend.shortcode_manager: '@OHMedia\BackendBundle\Shortcodes\ShortcodeManager'
-
-    OHMedia\BackendBundle\Controller\TinyMCEController:
-        tags: ["container.service_subscriber", "controller.service_arguments"]
-        autowire: true
-
-    OHMedia\BackendBundle\ContentLinks\ContentLinkManager:
-        ~
-
-    oh_media_backend.content_link_manager: '@OHMedia\BackendBundle\ContentLinks\ContentLinkManager'
 
     OHMedia\BackendBundle\Service\ScriptInjectionNavLinkProvider:
         tags: ["oh_media_backend.developer_only_nav_link_provider"]
