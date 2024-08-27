@@ -20,16 +20,7 @@ oh_media_backend:
 
 Run `php bin/console make:migration` then run the subsequent migration.
 
-Also run `npm install bootstrap bootstrap-icons sortablejs tinymce nice-select2`
-
-# Config
-
-Create `config/packages/oh_media_backend.yaml` with the minimum config:
-
-```yaml
-oh_media_backend:
-    tinymce:
-```
+Also run `npm install bootstrap bootstrap-icons sortablejs nice-select2`
 
 # JS/Styles
 
@@ -46,26 +37,6 @@ Add the following to your backend Sass file:
 ```
 
 This should typically be all that is needed for backend styles.
-
-## TinyMCE
-
-Make sure webpack encore is setup to copy TinyMCE files:
-
-```js
-.copyFiles({
-  from: './node_modules/tinymce',
-  to: 'js/tinymce/[path][name].[ext]',
-  pattern: /\.(js|min\.css)$/,
-})
-```
-
-Such that `<script src="/backend/js/tinymce/tinymce.min.js"></script>` is valid.
-
-There is a function to initialize a TinyMCE instance:
-
-```js
-OH_MEDIA_TINYMCE(container, selector);
-```
 
 ## Templates
 
@@ -105,22 +76,6 @@ $ php bin/console make:entity
 
 You may want to represent some of these custom fields in the
 `App\Form\PostType` class that was auto-generated.
-
-# TinyMCE Integration
-
-## Shortcodes
-
-Shortcodes can be made available to the TinyMCE editor simply by extending
-`OHMedia\BackendBundle\Shortcodes\AbstractShortcodeProvider`.
-
-See [EventShortcodeProvider](https://github.com/ohmediaorg/event-bundle/blob/main/src/Service/EventShortcodeProvider.php).
-
-## Content Links
-
-Content Links can be made available to the TinyMCE editor simply by extending
-`OHMedia\BackendBundle\ContentLinks\AbstractContentLinkProvider`.
-
-See [PageContentLinkProvider](https://github.com/ohmediaorg/page-bundle/blob/main/src/Service/PageContentLinkProvider.php).
 
 # Navigation
 
