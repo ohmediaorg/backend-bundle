@@ -3,6 +3,7 @@
 namespace OHMedia\BackendBundle;
 
 use OHMedia\BackendBundle\DependencyInjection\Compiler\NavPass;
+use OHMedia\BackendBundle\Service\AbstractDeveloperOnlyNavLinkProvider;
 use OHMedia\BackendBundle\Service\AbstractNavItemProvider;
 use OHMedia\BackendBundle\Service\AbstractSettingsNavLinkProvider;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
