@@ -1,0 +1,55 @@
+{% extends '@OHMediaBackend/base.html.twig' %}
+
+{% block meta_title %}Emails{% endblock %}
+
+{% block breadcrumbs %}
+{{ bootstrap_breadcrumbs(
+  bootstrap_breadcrumb(bootstrap_icon('envelope-fill') ~ ' Emails', 'email_index'),
+) }}
+{% endblock %}
+
+{% block main %}
+<div class="card">
+  <div class="card-body">
+    <div class="card-title card-title-with-count">
+      <h1 class="card-title-heading">Emails</h1>
+      <div class="card-title-count">
+        {{ bootstrap_badge_primary(pagination.count) }}
+      </div>
+    </div>
+
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>To</th>
+        <th>Subject</th>
+        <th>Sent</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for email in pagination.results %}
+        <tr>
+          <td>{{ email.to|join("\n")|nl2br }}</td>
+          <td>{{ email.subject }}</td>
+          <td>{{ email.createdAt|datetime }}</td>
+          <td>
+            {% if is_granted(view_attribute, email) %}
+            <a href="{{ path('email_view', {id: email.id}) }}" target="_blank">
+              View
+            </a>
+            {% endif %}
+          </td>
+        </tr>
+      {% else %}
+      <tr><td colspan="100%" class="text-center">No emails found.</td></tr>
+      {% endfor %}
+    </tbody>
+    </table>
+
+    {{ bootstrap_pagination(pagination) }}
+
+    <small>{{ bootstrap_pagination_info(pagination) }}</small>
+  </div>
+</div>
+{% endblock %}

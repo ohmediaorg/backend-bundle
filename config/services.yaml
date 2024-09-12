@@ -37,3 +37,13 @@ services:
 
     OHMedia\BackendBundle\Service\SEONavLinkProvider:
         tags: ["oh_media_backend.settings_nav_link_provider"]
+
+    OHMedia\BackendBundle\Controller\EmailController:
+        tags: ["container.service_subscriber", "controller.service_arguments"]
+        autowire: true
+
+    OHMedia\BackendBundle\Security\Voter\EmailVoter:
+        tags: ["security.voter"]
+
+    OHMedia\BackendBundle\Service\EmailsNavLinkProvider:
+        tags: ["oh_media_backend.developer_only_nav_link_provider"]
