@@ -54,9 +54,11 @@ document.querySelectorAll('[data-bs-toggle="popover"]').forEach((el) => {
   new Bootstrap.Popover(el);
 });
 
-document.querySelectorAll('a[target=_blank]').forEach((a) => {
-  a.innerHTML += '&nbsp;<i class="bi bi-box-arrow-up-right"></i>';
-});
+document
+  .querySelectorAll('a[target=_blank]:not([data-bypass])')
+  .forEach((a) => {
+    a.innerHTML += '&nbsp;<i class="bi bi-box-arrow-up-right"></i>';
+  });
 
 document.querySelectorAll('table.table').forEach((table) => {
   if (!table.parentNode.classList.contains('table-responsive')) {
