@@ -3,7 +3,7 @@
     {% set dropdown_active = is_bootstrap_nav_item_active(dropdown) %}
 
     <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle {{ dropdown_active ? 'active' : '' }}" href="#dropdown-{{ id }}" role="button" data-bs-toggle="collapse" aria-expanded="false">
+      <a class="nav-link dropdown-toggle {{ dropdown_active ? 'active' : '' }} {{ dropdown.icon ? 'with-icon' : '' }}" href="#dropdown-{{ id }}" role="button" data-bs-toggle="collapse" aria-expanded="false">
         {% if dropdown.icon %}{{ bootstrap_icon(dropdown.icon) }}{% endif %}
         <span class="nav-link-text">{{ dropdown.text }}</span>
       </a>
@@ -35,6 +35,10 @@
     {% set class_name = class_name ~ ' disabled' %}
   {% elseif active %}
     {% set class_name = class_name ~ ' active' %}
+  {% endif %}
+
+  {% if link.icon %}
+    {% set class_name = class_name ~ ' with-icon' %}
   {% endif %}
 
   <a class="{{ class_name }}"

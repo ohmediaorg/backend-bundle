@@ -92,9 +92,16 @@ $oh-side-nav-padding-y: 0.5rem;
     &.active {
       background: $primary;
     }
+  }
+
+  .nav-link.with-icon,
+  .dropdown-item.with-icon {
+    position: relative;
+    padding-left: $oh-side-nav-padding-x + 1.5rem;
 
     i {
-      margin-right: $one-space-width;
+      position: absolute;
+      left: $oh-side-nav-padding-x;
     }
   }
 
@@ -116,6 +123,10 @@ $oh-side-nav-padding-y: 0.5rem;
 
     &.collapsing {
       display: block;
+    }
+
+    .dropdown-item {
+      white-space: normal;
     }
   }
 }
