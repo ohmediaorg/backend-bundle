@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 <?php } ?>
 use Doctrine\ORM\Mapping as ORM;
 use OHMedia\UtilityBundle\Entity\BlameableEntityTrait;
+// use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: <?php echo $singular['pascal_case']; ?>Repository::class)]
 class <?php echo $singular['pascal_case']."\n"; ?>
