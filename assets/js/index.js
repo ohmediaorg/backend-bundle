@@ -15,17 +15,24 @@ window.Sortable = Sortable;
 import '../../../wysiwyg-bundle/assets/js/index.js';
 
 import NiceSelect from 'nice-select2';
+window.NiceSelect = NiceSelect;
 
-document.querySelectorAll('select.nice-select2').forEach((select) => {
+function NiceSelectInit(select) {
   for (let i = 0; i < select.selectedOptions.length; i++) {
     // ensures the starting/default value is shown as selected in the nice-select2 UI
     select.selectedOptions.item(i).setAttribute('selected', '');
   }
 
-  new NiceSelect(select, {
+  return new window.NiceSelect(select, {
     searchable: true,
     placeholder: select.placeholder,
   });
+}
+
+window.NiceSelectInit = NiceSelectInit;
+
+document.querySelectorAll('select.nice-select2').forEach((select) => {
+  NiceSelectInit(select);
 });
 
 function preventDoubleSubmit(form) {
