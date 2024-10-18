@@ -279,12 +279,18 @@ form {
   }
 }
 
-@import '~nice-select2/dist/css/nice-select2.css';
+@import '~nice-select2/dist/css/nice-select2';
 
 .nice-select {
-  float: none;
-  font-size: inherit;
   @extend .form-select;
+}
+
+.nice-select {
+  float: none !important;
+  font-size: inherit !important;
+  line-height: 1.5 !important;
+  padding: $form-select-padding-y $form-select-indicator-padding
+    $form-select-padding-y $form-select-padding-x !important;
 
   &.open,
   &:active,
@@ -304,14 +310,10 @@ form {
   }
 
   &::after {
-    display: none;
+    display: none !important;
   }
 
   .nice-select-dropdown {
     right: 0;
-  }
-
-  .list {
-    padding: 5px 10px;
   }
 }
