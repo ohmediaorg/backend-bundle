@@ -7,6 +7,7 @@ use OHMedia\BackendBundle\Security\Voter\EmailVoter;
 use OHMedia\BootstrapBundle\Service\Paginator;
 use OHMedia\EmailBundle\Entity\Email;
 use OHMedia\EmailBundle\Repository\EmailRepository;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,8 +38,9 @@ class EmailController extends AbstractController
     }
 
     #[Route('/email/{id}', name: 'email_view', methods: ['GET'])]
-    public function view(Email $email): Response
-    {
+    public function view(
+        #[MapEntity(id: 'id')] Email $email,
+    ): Response {
         $this->denyAccessUnlessGranted(
             EmailVoter::VIEW,
             $email,

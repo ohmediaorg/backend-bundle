@@ -14,6 +14,7 @@ use OHMedia\BackendBundle\Routing\Attribute\Admin;
 use OHMedia\BootstrapBundle\Service\Paginator;
 <?php } ?>
 use OHMedia\UtilityBundle\Form\DeleteType;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 <?php if ($has_reorder) { ?>
@@ -60,7 +61,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     #[Route('/<?php echo $plural['kebab_case']; ?>/reorder', name: '<?php echo $singular['snake_case']; ?>_reorder_post', methods: ['POST'])]
     public function reorderPost(
         Connection $connection,
-        Request $request
+        Request $request,
     ): Response {
         $this->denyAccessUnlessGranted(
             <?php echo $singular['pascal_case']; ?>Voter::INDEX,
@@ -164,8 +165,9 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 <?php if ($has_view_route) { ?>
 
     #[Route('/<?php echo $singular['kebab_case']; ?>/{id}', name: '<?php echo $singular['snake_case']; ?>_view', methods: ['GET'])]
-    public function view(<?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>): Response
-    {
+    public function view(
+        #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>,
+    ): Response {
         $this->denyAccessUnlessGranted(
             <?php echo $singular['pascal_case']; ?>Voter::VIEW,
             $<?php echo $singular['camel_case']; ?>,
@@ -182,7 +184,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     #[Route('/<?php echo $singular['kebab_case']; ?>/{id}/edit', name: '<?php echo $singular['snake_case']; ?>_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
-        <?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>,
+        #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>,
     ): Response {
         $this->denyAccessUnlessGranted(
             <?php echo $singular['pascal_case']; ?>Voter::EDIT,
@@ -223,7 +225,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     #[Route('/<?php echo $singular['kebab_case']; ?>/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_delete', methods: ['GET', 'POST'])]
     public function delete(
         Request $request,
-        <?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>,
+        #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>,
     ): Response {
         $this->denyAccessUnlessGranted(
             <?php echo $singular['pascal_case']; ?>Voter::DELETE,
