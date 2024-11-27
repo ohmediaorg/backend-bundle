@@ -11,10 +11,13 @@ $oh-logo: url("data:image/svg+xml,<svg width='90px' height='100px' viewBox='0 0 
 
 $one-space-width: 0.25em;
 
+$oh-primary-contrast: color-contrast($primary);
+
 :root {
   --top-nav-height: 60px;
   --side-nav-width: 250px;
   --container-padding: #{$spacer * 3};
+  --oh-primary-contrast: #{$oh-primary-contrast};
 }
 
 img {
@@ -36,13 +39,11 @@ body {
     flex-direction: row;
 
     .nav-link {
-      --bs-nav-link-padding-y: 0;
-      --bs-nav-link-padding-x: 0.5rem;
+      --#{$prefix}nav-link-padding-y: 0;
+      --#{$prefix}nav-link-padding-x: 0.5rem;
     }
   }
 }
-
-$oh-primary-contrast: color-contrast($primary);
 
 $oh-side-nav-padding-x: 1rem;
 $oh-side-nav-padding-y: 0.5rem;
@@ -79,18 +80,18 @@ $oh-side-nav-padding-y: 0.5rem;
   }
 
   .navbar-nav {
-    --bs-nav-link-padding-x: #{$oh-side-nav-padding-x};
-    --bs-nav-link-padding-y: #{$oh-side-nav-padding-y};
-    --bs-nav-link-hover-color: #{$oh-primary-contrast};
-    --bs-navbar-active-color: #{$oh-primary-contrast};
-    --bs-nav-link-color: #{$white};
+    --#{$prefix}nav-link-padding-x: #{$oh-side-nav-padding-x};
+    --#{$prefix}nav-link-padding-y: #{$oh-side-nav-padding-y};
+    --#{$prefix}nav-link-hover-color: var(--oh-primary-contrast);
+    --#{$prefix}navbar-active-color: var(--oh-primary-contrast);
+    --#{$prefix}nav-link-color: #{$white};
   }
 
   .nav-link {
     &:focus,
     &:hover,
     &.active {
-      background: $primary;
+      background: var(--#{$prefix}primary);
     }
   }
 
@@ -106,18 +107,18 @@ $oh-side-nav-padding-y: 0.5rem;
   }
 
   .dropdown-menu {
-    --bs-dropdown-bg: none;
-    --bs-dropdown-border-width: 0;
-    --bs-dropdown-box-shadow: none;
-    --bs-dropdown-padding-x: 0;
-    --bs-dropdown-padding-y: 0;
-    --bs-dropdown-item-padding-x: #{$oh-side-nav-padding-x};
-    --bs-dropdown-item-padding-y: #{$oh-side-nav-padding-y};
-    --bs-dropdown-link-color: #{$white};
-    --bs-dropdown-link-hover-color: #{$oh-primary-contrast};
-    --bs-dropdown-link-hover-bg: #{$primary};
-    --bs-dropdown-link-active-color: #{$oh-primary-contrast};
-    --bs-dropdown-link-active-bg: #{$primary};
+    --#{$prefix}dropdown-bg: none;
+    --#{$prefix}dropdown-border-width: 0;
+    --#{$prefix}dropdown-box-shadow: none;
+    --#{$prefix}dropdown-padding-x: 0;
+    --#{$prefix}dropdown-padding-y: 0;
+    --#{$prefix}dropdown-item-padding-x: #{$oh-side-nav-padding-x};
+    --#{$prefix}dropdown-item-padding-y: #{$oh-side-nav-padding-y};
+    --#{$prefix}dropdown-link-color: #{$white};
+    --#{$prefix}dropdown-link-hover-color: var(--oh-primary-contrast);
+    --#{$prefix}dropdown-link-hover-bg: var(--#{$prefix}primary);
+    --#{$prefix}dropdown-link-active-color: var(--oh-primary-contrast);
+    --#{$prefix}dropdown-link-active-bg: var(--#{$prefix}primary);
 
     padding-left: 1.55rem;
 
