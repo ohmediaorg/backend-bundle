@@ -50,9 +50,14 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         //     'data' => $<?php echo $singular['camel_case']; ?>->getImage(),
         // ]);
 
+        // <input type="datetime-local">
         // always use the timezone-bundle to ensure timezones are good
-        // $builder->add('start_datetime', DateTimeType::class);
-        // $builder->add('end_datetime', DateTimeType::class);
+        // $builder->add('starts_at', DateTimeType::class, [
+        //     'widget' => 'single_text',
+        // ]);
+        // $builder->add('ends_at', DateTimeType::class, [
+        //     'widget' => 'single_text',
+        // ]);
 
         // if you have a checkbox for a toggle, make sure it is not required
         // $builder->add('is_featured', CheckboxType::class, [
