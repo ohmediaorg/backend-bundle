@@ -87,6 +87,7 @@
                     <span class="visually-hidden">View</span>
                   </a>
                 {% endif %}
+
 <?php } ?>
                 {% if is_granted(attributes.edit, <?php echo $singular['snake_case']; ?>) %}
                   <a class="btn btn-sm btn-primary btn-action" href="{{ path('<?php echo $singular['snake_case']; ?>_edit', {id: <?php echo $singular['snake_case']; ?>.id}) }}" title="Edit">
