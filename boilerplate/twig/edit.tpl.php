@@ -5,9 +5,9 @@
 {% block breadcrumbs %}
   {{ bootstrap_breadcrumbs(
     bootstrap_breadcrumb(bootstrap_icon('<?php echo $icon; ?>') ~ ' <?php echo $plural['title']; ?>', '<?php echo $singular['snake_case']; ?>_index'),
-  <?php if ($has_view_route) { ?>
+<?php if ($has_view_route) { ?>
     bootstrap_breadcrumb(<?php echo $singular['snake_case']; ?>, '<?php echo $singular['snake_case']; ?>_view', {id: <?php echo $singular['snake_case']; ?>.id}),
-  <?php } ?>
+<?php } ?>
     bootstrap_breadcrumb('Edit'),
   ) }}
 {% endblock %}
