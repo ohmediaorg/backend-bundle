@@ -8,6 +8,7 @@ use App\Entity\<?php echo $singular['pascal_case']; ?>;
 // use OHMedia\FileBundle\Form\Type\FileEntityType;
 // use OHMedia\MetaBundle\Form\Type\MetaEntityType;
 // use OHMedia\TimezoneBundle\Form\Type\DateTimeType;
+// use OHMedia\WysiwygBundle\Form\Type\WysiwygType;
 // use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 // use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -45,7 +46,7 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         //     'data' => $<?php echo $singular['camel_case']; ?>->getImage(),
         // ]);
 
-        // always use the datetime-bundle to ensure timezones are good
+        // always use the timezone-bundle to ensure timezones are good
         // $builder->add('start_datetime', DateTimeType::class);
         // $builder->add('end_datetime', DateTimeType::class);
 
@@ -72,6 +73,14 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         //     'expanded' => true,
         //     'multiple' => true,
         // ]);
+
+        // <input type="url">
+        // $builder->add('url', UrlType::class, [
+        //     'default_protocol' => null,
+        // ]);
+
+        // TinyMCE
+        // $builder->add('content', WysiwygType::class);
 
         // for a OneToOne or ManyToOne relationship selection
         // $builder->add('owner', EntityType::class, [
