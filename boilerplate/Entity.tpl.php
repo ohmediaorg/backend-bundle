@@ -7,6 +7,9 @@ use App\Repository\<?php echo $singular['pascal_case']; ?>Repository;
 use Doctrine\DBAL\Types\Types;
 <?php } ?>
 use Doctrine\ORM\Mapping as ORM;
+<?php if ($is_publishable) { ?>
+use OHMedia\TimezoneBundle\Util\DateTimeUtil;
+<?php } ?>
 use OHMedia\UtilityBundle\Entity\BlameableEntityTrait;
 // use Symfony\Component\Validator\Constraints as Assert;
 
@@ -23,6 +26,11 @@ class <?php echo $singular['pascal_case']."\n"; ?>
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $ordinal = 9999;
+<?php } ?>
+<?php if ($is_publishable) { ?>
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $published_at = null;
 <?php } ?>
 
     public function __toString(): string
@@ -46,6 +54,30 @@ class <?php echo $singular['pascal_case']."\n"; ?>
         $this->ordinal = $ordinal;
 
         return $this;
+    }
+<?php } ?>
+<?php if ($is_publishable) { ?>
+
+    public function getPublishedAt(): ?\DateTimeImmutable
+    {
+        return $this->published_at;
+    }
+
+    public function setPublishedAt(?\DateTimeImmutable $published_at): static
+    {
+        $this->published_at = $published_at;
+
+        return $this;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->published_at && DateTimeUtil::isPast($this->published_at);
+    }
+
+    public function isScheduled(): bool
+    {
+        return $this->published_at && DateTimeUtil::isFuture($this->published_at);
     }
 <?php } ?>
 }

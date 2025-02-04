@@ -7,7 +7,11 @@ use App\Entity\<?php echo $singular['pascal_case']; ?>;
 // use Doctrine\ORM\QueryBuilder;
 // use OHMedia\FileBundle\Form\Type\FileEntityType;
 // use OHMedia\MetaBundle\Form\Type\MetaEntityType;
+<?php if ($is_publishable) { ?>
+use OHMedia\TimezoneBundle\Form\Type\DateTimeType;
+<?php } else { ?>
 // use OHMedia\TimezoneBundle\Form\Type\DateTimeType;
+<?php } ?>
 // use OHMedia\WysiwygBundle\Form\Type\WysiwygType;
 // use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -91,6 +95,15 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         //     },
         //     'choice_label' => 'email',
         // ]);
+<?php if ($is_publishable) { ?>
+
+        $builder->add('published_at', DateTimeType::class, [
+            'label' => 'Published Date/Time',
+            'required' => false,
+            'help' => 'The <?php echo $singular['readable']; ?> will only be shown if this value is populated and in the past.',
+            'widget' => 'single_text',
+        ]);
+<?php } ?>
     }
 
     public function configureOptions(OptionsResolver $resolver): void

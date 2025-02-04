@@ -63,7 +63,21 @@
             {% for <?php echo $singular['snake_case']; ?> in pagination.results %}
             <tr>
 <?php } ?>
+<?php if ($is_publishable) { ?>
+              <td>
+                {{ <?php echo $singular['snake_case']; ?> }}
+                <br>
+                {% if <?php echo $singular['snake_case']; ?>.isPublished %}
+                  {{ bootstrap_badge_success('Published') }}
+                {% elseif <?php echo $singular['snake_case']; ?>.isScheduled %}
+                  {{ bootstrap_badge_warning('Scheduled') }}
+                {% else %}
+                  {{ bootstrap_badge_secondary('Draft') }}
+                {% endif %}
+              </td>
+<?php } else { ?>
               <td>{{ <?php echo $singular['snake_case']; ?> }}</td>
+<?php } ?>
               <td>{{ <?php echo $singular['snake_case']; ?>.updatedAt|datetime }}</td>
               <td>
 <?php if ($has_view_route) { ?>

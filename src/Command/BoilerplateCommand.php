@@ -85,6 +85,11 @@ class BoilerplateCommand extends Command
             $pascalCase
         ), true);
 
+        $parameters['is_publishable'] = $this->io->confirm(sprintf(
+            'Should the %s entity be publishable?',
+            $pascalCase
+        ), true);
+
         $entityPhpFile = sprintf('src/Entity/%s.php', $pascalCase);
         $repositoryPhpFile = sprintf('src/Repository/%sRepository.php', $pascalCase);
         $formPhpFile = sprintf('src/Form/%sType.php', $pascalCase);
