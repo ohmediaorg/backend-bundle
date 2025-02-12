@@ -4,6 +4,9 @@ namespace App\Repository;
 
 use App\Entity\<?php echo $singular['pascal_case']; ?>;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+<?php if ($is_publishable) { ?>
+use Doctrine\ORM\QueryBuilder;
+<?php } ?>
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -36,4 +39,19 @@ class <?php echo $singular['pascal_case']; ?>Repository extends ServiceEntityRep
             $this->getEntityManager()->flush();
         }
     }
+<?php if ($is_publishable) { ?>
+
+    public function createPublishedQueryBuilder(string $alias, string|null $indexBy = null): QueryBuilder
+    {
+        return $this->createQueryBuilder($alias, $indexBy)
+            ->andWhere($alias.'.published_at IS NOT NULL')
+            ->andWhere($alias.'.published_at <= :now')
+            ->setParameter('now', DateTimeUtil::getDateTimeUtc())
+<?php if ($has_reorder) { ?>
+            ->orderBy($alias.'.ordinal', 'ASC');
+<?php } else { ?>
+            ->orderBy($alias.'.published_at', 'DESC');
+<?php } ?>
+    }
+<?php } ?>
 }

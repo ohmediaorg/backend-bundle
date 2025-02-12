@@ -7,7 +7,12 @@ use App\Entity\<?php echo $singular['pascal_case']; ?>;
 // use Doctrine\ORM\QueryBuilder;
 // use OHMedia\FileBundle\Form\Type\FileEntityType;
 // use OHMedia\MetaBundle\Form\Type\MetaEntityType;
+<?php if ($is_publishable) { ?>
+use OHMedia\TimezoneBundle\Form\Type\DateTimeType;
+<?php } else { ?>
 // use OHMedia\TimezoneBundle\Form\Type\DateTimeType;
+<?php } ?>
+// use OHMedia\WysiwygBundle\Form\Type\WysiwygType;
 // use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 // use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -45,9 +50,14 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         //     'data' => $<?php echo $singular['camel_case']; ?>->getImage(),
         // ]);
 
-        // always use the datetime-bundle to ensure timezones are good
-        // $builder->add('start_datetime', DateTimeType::class);
-        // $builder->add('end_datetime', DateTimeType::class);
+        // <input type="datetime-local">
+        // always use the timezone-bundle to ensure timezones are good
+        // $builder->add('starts_at', DateTimeType::class, [
+        //     'widget' => 'single_text',
+        // ]);
+        // $builder->add('ends_at', DateTimeType::class, [
+        //     'widget' => 'single_text',
+        // ]);
 
         // if you have a checkbox for a toggle, make sure it is not required
         // $builder->add('is_featured', CheckboxType::class, [
@@ -73,6 +83,14 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         //     'multiple' => true,
         // ]);
 
+        // <input type="url">
+        // $builder->add('url', UrlType::class, [
+        //     'default_protocol' => null,
+        // ]);
+
+        // TinyMCE
+        // $builder->add('content', WysiwygType::class);
+
         // for a OneToOne or ManyToOne relationship selection
         // $builder->add('owner', EntityType::class, [
         //     'class' => User::class,
@@ -82,6 +100,15 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         //     },
         //     'choice_label' => 'email',
         // ]);
+<?php if ($is_publishable) { ?>
+
+        $builder->add('published_at', DateTimeType::class, [
+            'label' => 'Published Date/Time',
+            'required' => false,
+            'help' => 'The <?php echo $singular['readable']; ?> will only be shown if this value is populated and in the past.',
+            'widget' => 'single_text',
+        ]);
+<?php } ?>
     }
 
     public function configureOptions(OptionsResolver $resolver): void

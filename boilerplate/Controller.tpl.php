@@ -112,7 +112,12 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         );
 
         $qb = $this-><?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>');
+<?php if ($is_publishable) { ?>
+        $qb->orderBy('CASE WHEN <?php echo $alias; ?>.published_at IS NULL THEN 0 ELSE 1 END', 'ASC');
+        $qb->addOrderBy('<?php echo $alias; ?>.published_at', 'DESC');
+<?php } else { ?>
         $qb->orderBy('<?php echo $alias; ?>.id', 'desc');
+<?php } ?>
 
         return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_index.html.twig', [
             'pagination' => $paginator->paginate($qb, 20),
