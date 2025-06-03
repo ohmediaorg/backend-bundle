@@ -40,14 +40,9 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         // $builder->add('name', TextType::class);
 
         // always use the file-bundle for files
-        // for some reason it is necessary to specify 'data'
-        // when usually 'mapped' => true (default) is enough
-        // $builder->add('file', FileEntityType::class, [
-        //     'data' => $<?php echo $singular['camel_case']; ?>->getFile(),
-        // ]);
+        // $builder->add('file', FileEntityType::class);
         // $builder->add('image', FileEntityType::class, [
         //     'image' => true,
-        //     'data' => $<?php echo $singular['camel_case']; ?>->getImage(),
         // ]);
 
         // <input type="datetime-local">
