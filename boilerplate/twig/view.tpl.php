@@ -30,7 +30,7 @@
 {% block main %}
   <div class="card">
     <div class="card-body">
-      <h1 class="card-title h3"><?php echo $singular['title']; ?></h1>
+      <h1 class="card-title"><?php echo $singular['title']; ?></h1>
 
       {{ dump(<?php echo $singular['snake_case']; ?>) }}
     </div>

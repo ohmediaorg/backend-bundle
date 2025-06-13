@@ -196,7 +196,6 @@ footer {
   gap: $spacer * 0.5;
 
   .card-title-heading {
-    @include font-size($h3-font-size);
     margin: 0;
   }
 
