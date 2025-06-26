@@ -14,6 +14,12 @@ window.Sortable = Sortable;
 
 import '../../../wysiwyg-bundle/assets/js/index.js';
 
+import MaxLengthDisplay from './maxlength.js';
+
+MaxLengthDisplay(document);
+
+window.MaxLengthDisplay = MaxLengthDisplay;
+
 import NiceSelect from 'nice-select2';
 window.NiceSelect = NiceSelect;
 
