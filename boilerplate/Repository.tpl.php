@@ -44,7 +44,7 @@ class <?php echo $singular['pascal_case']; ?>Repository extends ServiceEntityRep
     }
 <?php if ($is_publishable) { ?>
 
-    public function createPublishedQueryBuilder(string $alias, string|null $indexBy = null): QueryBuilder
+    public function createPublishedQueryBuilder(string $alias, ?string $indexBy = null): QueryBuilder
     {
         return $this->createQueryBuilder($alias, $indexBy)
             ->andWhere($alias.'.published_at IS NOT NULL')
