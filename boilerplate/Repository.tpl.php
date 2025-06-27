@@ -8,6 +8,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 <?php } ?>
 use Doctrine\Persistence\ManagerRegistry;
+<?php if ($is_publishable) { ?>
+use OHMedia\TimezoneBundle\Util\DateTimeUtil;
+<?php } ?>
 
 /**
  * @method <?php echo $singular['pascal_case']; ?>|null find($id, $lockMode = null, $lockVersion = null)
