@@ -8,6 +8,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 <?php } ?>
 use Doctrine\Persistence\ManagerRegistry;
+<?php if ($is_publishable) { ?>
+use OHMedia\TimezoneBundle\Util\DateTimeUtil;
+<?php } ?>
 
 /**
  * @method <?php echo $singular['pascal_case']; ?>|null find($id, $lockMode = null, $lockVersion = null)
@@ -41,7 +44,7 @@ class <?php echo $singular['pascal_case']; ?>Repository extends ServiceEntityRep
     }
 <?php if ($is_publishable) { ?>
 
-    public function createPublishedQueryBuilder(string $alias, string|null $indexBy = null): QueryBuilder
+    public function createPublishedQueryBuilder(string $alias, ?string $indexBy = null): QueryBuilder
     {
         return $this->createQueryBuilder($alias, $indexBy)
             ->andWhere($alias.'.published_at IS NOT NULL')
