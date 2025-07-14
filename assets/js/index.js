@@ -29,6 +29,8 @@ function NiceSelectInit(select) {
     select.selectedOptions.item(i).setAttribute('selected', '');
   }
 
+  select.style.borderWidth = 0;
+
   return new window.NiceSelect(select, {
     searchable: true,
     placeholder: select.placeholder,
