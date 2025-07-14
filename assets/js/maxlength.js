@@ -11,7 +11,7 @@ function init(input) {
 
   input.dataset.maxlengthInit = 1;
 
-  label.style.display = 'block';
+  label.style.width = '100%';
 
   const badge = document.createElement('span');
 
