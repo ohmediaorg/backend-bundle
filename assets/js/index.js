@@ -14,6 +14,12 @@ window.Sortable = Sortable;
 
 import '../../../wysiwyg-bundle/assets/js/index.js';
 
+import MaxLengthDisplay from './maxlength.js';
+
+MaxLengthDisplay(document);
+
+window.MaxLengthDisplay = MaxLengthDisplay;
+
 import NiceSelect from 'nice-select2';
 window.NiceSelect = NiceSelect;
 
@@ -22,6 +28,8 @@ function NiceSelectInit(select) {
     // ensures the starting/default value is shown as selected in the nice-select2 UI
     select.selectedOptions.item(i).setAttribute('selected', '');
   }
+
+  select.style.borderWidth = 0;
 
   return new window.NiceSelect(select, {
     searchable: true,
