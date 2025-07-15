@@ -117,8 +117,10 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     }
 <?php } else { ?>
     #[Route('/<?php echo $plural['kebab_case']; ?>', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
-    public function index(Paginator $paginator): Response
-    {
+    public function index(
+        Paginator $paginator,
+        Request $request,
+    ): Response {
         $new<?php echo $singular['pascal_case']; ?> = new <?php echo $singular['pascal_case']; ?>();
 
         $this->denyAccessUnlessGranted(
@@ -205,12 +207,12 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         if ('published' === $status) {
             $qb->andWhere('<?php echo $alias; ?>.published_at IS NOT NULL');
-            $qb->andWhere('<?php echo $alias; ?>.published_at >= :now');
-            $qb->setParameter('now', DateTimeUtil::getTimezoneUtc());
+            $qb->andWhere('<?php echo $alias; ?>.published_at <= :now');
+            $qb->setParameter('now', DateTimeUtil::getDateTimeUtc());
         } elseif ('scheduled' === $status) {
             $qb->andWhere('<?php echo $alias; ?>.published_at IS NOT NULL');
-            $qb->andWhere('<?php echo $alias; ?>.published_at < :now');
-            $qb->setParameter('now', DateTimeUtil::getTimezoneUtc());
+            $qb->andWhere('<?php echo $alias; ?>.published_at > :now');
+            $qb->setParameter('now', DateTimeUtil::getDateTimeUtc());
         } elseif ('draft' === $status) {
             $qb->andWhere('<?php echo $alias; ?>.published_at IS NULL');
         }
