@@ -35,6 +35,25 @@
           {{ bootstrap_badge_primary(<?php echo $singular['snake_case']; ?>_count) }}
         </div>
       </div>
+<?php if (!$has_reorder) { ?>
+
+      {{ form_start(search_form) }}
+        <div class="row align-items-end">
+          <div class="col-lg-4 col-sm-6">
+            {{ form_row(search_form.search) }}
+          </div>
+<?php if ($is_publishable) { ?>
+          <div class="col-lg-4 col-sm-6">
+            {{ form_row(search_form.status) }}
+          </div>
+<?php } ?>
+          <div class="col-lg-12 col-sm-6">
+            <button class="btn btn-primary mb-3" type="submit">Search</button>
+            <a class="btn btn-dark mb-3" href="{{ path('<?php echo $singular['snake_case']; ?>_index') }}">Reset</a>
+          </div>
+        </div>
+      {{ form_end(search_form) }}
+<?php } ?>
 
       {% if <?php echo $singular['snake_case']; ?>_count %}
         <table class="table table-striped">
