@@ -9,14 +9,30 @@ use App\Security\Voter\<?php echo $singular['pascal_case']; ?>Voter;
 <?php if ($has_reorder) { ?>
 use Doctrine\DBAL\Connection;
 <?php } ?>
+<?php if (!$has_reorder) { ?>
+use Doctrine\ORM\QueryBuilder;
+<?php } ?>
 use OHMedia\BackendBundle\Routing\Attribute\Admin;
 <?php if (!$has_reorder) { ?>
 use OHMedia\BootstrapBundle\Service\Paginator;
 <?php } ?>
+<?php if (!$has_reorder && $is_publishable) { ?>
+use OHMedia\TimezoneBundle\Util\DateTimeUtil;
+<?php } ?>
 use OHMedia\UtilityBundle\Form\DeleteType;
 use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+<?php if (!$has_reorder && $is_publishable) { ?>
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+<?php } ?>
+<?php if (!$has_reorder) { ?>
+use Symfony\Component\Form\Extension\Core\Type\FormType;
+<?php } ?>
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+<?php if (!$has_reorder) { ?>
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
+<?php } ?>
 <?php if ($has_reorder) { ?>
 use Symfony\Component\HttpFoundation\JsonResponse;
 <?php } ?>
@@ -101,8 +117,10 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
     }
 <?php } else { ?>
     #[Route('/<?php echo $plural['kebab_case']; ?>', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
-    public function index(Paginator $paginator): Response
-    {
+    public function index(
+        Paginator $paginator,
+        Request $request,
+    ): Response {
         $new<?php echo $singular['pascal_case']; ?> = new <?php echo $singular['pascal_case']; ?>();
 
         $this->denyAccessUnlessGranted(
@@ -119,11 +137,84 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         $qb->orderBy('<?php echo $alias; ?>.id', 'desc');
 <?php } ?>
 
+        $searchForm = $this->getSearchForm($request);
+
+        $this->applySearch($searchForm, $qb);
+
         return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_index.html.twig', [
             'pagination' => $paginator->paginate($qb, 20),
             'new_<?php echo $singular['snake_case']; ?>' => $new<?php echo $singular['pascal_case']; ?>,
             'attributes' => $this->getAttributes(),
+            'search_form' => $searchForm,
         ]);
+    }
+
+    private function getSearchForm(Request $request): FormInterface
+    {
+        $formBuilder = $this->container->get('form.factory')
+            ->createNamedBuilder('', FormType::class, null, [
+                'csrf_protection' => false,
+            ]);
+
+        $formBuilder->setMethod('GET');
+
+        $formBuilder->add('search', TextType::class, [
+            'required' => false,
+        ]);
+<?php if ($is_publishable) { ?>
+
+        $formBuilder->add('status', ChoiceType::class, [
+            'required' => false,
+            'choices' => [
+                'All' => '',
+                'Published' => 'published',
+                'Scheduled' => 'scheduled',
+                'Draft' => 'draft',
+            ],
+        ]);
+<?php } ?>
+
+        $form = $formBuilder->getForm();
+
+        $form->handleRequest($request);
+
+        return $form;
+    }
+
+    private function applySearch(FormInterface $form, QueryBuilder $qb): void
+    {
+        $search = $form->get('search')->getData();
+
+        if ($search) {
+            $searchFields = [
+                // TODO: put your search fields here
+                '<?php echo $alias; ?>.created_by',
+            ];
+
+            $searchLikes = [];
+            foreach ($searchFields as $searchField) {
+                $searchLikes[] = "$searchField LIKE :search";
+            }
+
+            $qb->andWhere('('.implode(' OR ', $searchLikes).')')
+                ->setParameter('search', '%'.$search.'%');
+        }
+<?php if ($is_publishable) { ?>
+
+        $status = $form->get('status')->getData();
+
+        if ('published' === $status) {
+            $qb->andWhere('<?php echo $alias; ?>.published_at IS NOT NULL');
+            $qb->andWhere('<?php echo $alias; ?>.published_at <= :now');
+            $qb->setParameter('now', DateTimeUtil::getDateTimeUtc());
+        } elseif ('scheduled' === $status) {
+            $qb->andWhere('<?php echo $alias; ?>.published_at IS NOT NULL');
+            $qb->andWhere('<?php echo $alias; ?>.published_at > :now');
+            $qb->setParameter('now', DateTimeUtil::getDateTimeUtc());
+        } elseif ('draft' === $status) {
+            $qb->andWhere('<?php echo $alias; ?>.published_at IS NULL');
+        }
+<?php } ?>
     }
 <?php } ?>
 
