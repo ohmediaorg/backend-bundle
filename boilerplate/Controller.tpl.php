@@ -188,9 +188,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         if ($search) {
             $searchFields = [
                 // TODO: put your search fields here
-                // '<?php echo $alias; ?>.name',
-                // '<?php echo $alias; ?>.description',
-                // etc.
+                '<?php echo $alias; ?>.created_by',
             ];
 
             $searchLikes = [];
