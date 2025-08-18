@@ -26,12 +26,10 @@ function init(input) {
 
     badge.textContent = `${currentLength} / ${maxlength}`;
 
-    if (100 <= percent) {
-      badge.className = 'badge text-bg-danger float-end';
-    } else if (90 <= percent) {
-      badge.className = 'badge text-bg-warning float-end';
-    } else {
+    if (100 >= percent) {
       badge.className = 'badge text-bg-success float-end';
+    } else {
+      badge.className = 'badge text-bg-danger float-end';
     }
   }
 
