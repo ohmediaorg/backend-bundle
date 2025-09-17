@@ -21,7 +21,7 @@
     <table class="table table-striped">
     <thead>
       <tr>
-        <th>To</th>
+        <th>Recipients</th>
         <th>Subject</th>
         <th>Sent</th>
         <th>&nbsp;</th>
@@ -30,7 +30,21 @@
     <tbody>
       {% for email in pagination.results %}
         <tr>
-          <td>{{ email.to|join("\n")|nl2br }}</td>
+          <td>
+            <small class="d-block">
+              {{ email.to|join("\n")|nl2br }}
+            </small>
+            {% if email.cc %}
+              <small class="d-block">
+                <b>cc:</b> {{ email.cc|join("\n")|nl2br }}
+              </small>
+            {% endif %}
+            {% if email.bcc %}
+              <small class="d-block">
+                <b>bcc:</b> {{ email.bcc|join("\n")|nl2br }}
+              </small>
+            {% endif %}
+          </td>
           <td>{{ email.subject }}</td>
           <td>{{ email.createdAt|datetime }}</td>
           <td>
