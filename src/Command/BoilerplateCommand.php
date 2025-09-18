@@ -42,13 +42,18 @@ class BoilerplateCommand extends Command
     {
         $this->io = new SymfonyStyle($input, $output);
 
-        $className = $this->io->ask('Class name of the entity');
+        $className = $this->io->ask('Enter the singular class name of the entity');
 
         if (!$className) {
-            $this->io->error('Please provide the class name');
+            $this->io->error('Please provide the singular class name');
 
             return Command::INVALID;
         }
+
+        $plural = $this->io->ask(
+            'Enter the plural class name of the entity',
+            $this->inflector->pluralize($className)[0],
+        );
 
         $icon = $this->io->ask('Enter a Bootstrap icon name excluding the "bi-" prefix');
 
@@ -58,11 +63,8 @@ class BoilerplateCommand extends Command
             return Command::INVALID;
         }
 
-        $singular = $this->inflector->singularize($className)[0];
-        $plural = $this->inflector->pluralize($singular)[0];
-
         $parameters = [
-            'singular' => $this->generateParameters($singular),
+            'singular' => $this->generateParameters($className),
             'plural' => $this->generateParameters($plural),
             'icon' => $icon,
         ];
