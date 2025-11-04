@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
-## [[7fec1bf](https://github.com/ohmediaorg/antispam-bundle/commit/7fec1bfd14bfaf6a2f5c70577b42aaf76caa2196)] - 2025-09-18
+## [[7fec1bf](https://github.com/ohmediaorg/backend-bundle/commit/7fec1bfd14bfaf6a2f5c70577b42aaf76caa2196)] - 2025-09-18
 
 ### Added
 
@@ -14,7 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 - better distinction between singular and plural entity names in boilerplate
 
-## [[3f37291](https://github.com/ohmediaorg/antispam-bundle/commit/3f37291e124bc6b3d951c1a234c9f7e43275e581)] - 2025-07-15
+## [[3f37291](https://github.com/ohmediaorg/backend-bundle/commit/3f37291e124bc6b3d951c1a234c9f7e43275e581)] - 2025-07-15
 
 ### Added
 
@@ -24,7 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-## [[73211a5](https://github.com/ohmediaorg/antispam-bundle/commit/73211a5c0680cc644722d769382a4f730be6b44b)] - 2025-07-14
+## [[73211a5](https://github.com/ohmediaorg/backend-bundle/commit/73211a5c0680cc644722d769382a4f730be6b44b)] - 2025-07-14
 
 ### Added
 
@@ -35,7 +35,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Fixed
 
-## [[94b36ac](https://github.com/ohmediaorg/antispam-bundle/commit/94b36ac6eecbad9b77bf9977438b3d1bb6a9427e)] - 2025-02-12
+## [[94b36ac](https://github.com/ohmediaorg/backend-bundle/commit/94b36ac6eecbad9b77bf9977438b3d1bb6a9427e)] - 2025-02-12
 
 ### Added
 
