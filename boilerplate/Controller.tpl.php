@@ -12,6 +12,7 @@ use Doctrine\DBAL\Connection;
 <?php if (!$has_reorder) { ?>
 use Doctrine\ORM\QueryBuilder;
 <?php } ?>
+use OHMedia\BackendBundle\Form\MultiSaveType;
 use OHMedia\BackendBundle\Routing\Attribute\Admin;
 <?php if (!$has_reorder) { ?>
 use OHMedia\BootstrapBundle\Service\Paginator;
@@ -31,8 +32,8 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 <?php if (!$has_reorder) { ?>
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\FormInterface;
 <?php } ?>
+use Symfony\Component\Form\FormInterface;
 <?php if ($has_reorder) { ?>
 use Symfony\Component\HttpFoundation\JsonResponse;
 <?php } ?>
@@ -241,13 +242,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
                 $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was created successfully.');
 
-<?php if ($has_view_route) { ?>
-                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
-                    'id' => $<?php echo $singular['camel_case']; ?>->getId(),
-                ]);
-<?php } else { ?>
-                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
-<?php } ?>
+                return $this->redirectForm($<?php echo $singular['camel_case']; ?>, $form);
             }
 
             $this->addFlash('error', 'There are some errors in the form below.');
@@ -300,13 +295,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
                 $this->addFlash('notice', 'The <?php echo $singular['readable']; ?> was updated successfully.');
 
-<?php if ($has_view_route) { ?>
-                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
-                    'id' => $<?php echo $singular['camel_case']; ?>->getId(),
-                ]);
-<?php } else { ?>
-                return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
-<?php } ?>
+                return $this->redirectForm($<?php echo $singular['camel_case']; ?>, $form);
             }
 
             $this->addFlash('error', 'There are some errors in the form below.');
@@ -316,6 +305,25 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             'form' => $form->createView(),
             '<?php echo $singular['snake_case']; ?>' => $<?php echo $singular['camel_case']; ?>,
         ]);
+    }
+
+    private function redirectForm(<?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>, FormInterface $form): Response
+    {
+        if ($form->get('save')->get('keep_editing')->isClicked()) {
+            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_edit', [
+                'id' => $<?php echo $singular['camel_case']; ?>->getId(),
+            ]);
+        } elseif ($form->get('save')->get('add_another')->isClicked()) {
+            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_create');
+        } else {
+<?php if ($has_view_route) { ?>
+            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
+                'id' => $<?php echo $singular['camel_case']; ?>->getId(),
+            ]);
+<?php } else { ?>
+            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
+<?php } ?>
+        }
     }
 
     #[Route('/<?php echo $singular['kebab_case']; ?>/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_delete', methods: ['GET', 'POST'])]
