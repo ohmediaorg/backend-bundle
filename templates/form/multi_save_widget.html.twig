@@ -6,15 +6,19 @@
       <span class="visually-hidden">Save and</span>
       go back
     </button>
+
     <button type="submit" id="{{ form.keep_editing.vars.id }}" name="{{ form.keep_editing.vars.full_name }}" class="btn-primary btn" title="Save and keep editing">
       {{ bootstrap_icon('arrow-repeat') }}
       <span class="visually-hidden">Save and</span>
       keep editing
     </button>
-    <button type="submit" id="{{ form.add_another.vars.id }}" name="{{ form.add_another.vars.full_name }}" class="btn-primary btn" title="Save and add another">
-      {{ bootstrap_icon('plus') }}
-      <span class="visually-hidden">Save and</span>
-      add another
-    </button>
+
+    {% if form.add_another is defined %}
+      <button type="submit" id="{{ form.add_another.vars.id }}" name="{{ form.add_another.vars.full_name }}" class="btn-primary btn" title="Save and add another">
+        {{ bootstrap_icon('plus') }}
+        <span class="visually-hidden">Save and</span>
+        add another
+      </button>
+    {% endif %}
   </div>
 {%- endblock -%}

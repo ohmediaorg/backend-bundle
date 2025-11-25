@@ -13,8 +13,12 @@ class MultiSaveType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('go_back', SubmitType::class);
+
         $builder->add('keep_editing', SubmitType::class);
-        $builder->add('add_another', SubmitType::class);
+
+        if ($options['add_another']) {
+            $builder->add('add_another', SubmitType::class);
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -26,6 +30,7 @@ class MultiSaveType extends AbstractType
             'row_attr' => [
                 'class' => 'fieldset-nostyle mb-3',
             ],
+            'add_another' => true,
         ]);
     }
 
