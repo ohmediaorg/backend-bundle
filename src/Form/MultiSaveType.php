@@ -21,6 +21,11 @@ class MultiSaveType extends AbstractType
     {
         $resolver->setDefaults([
             'button_class' => 'btn bt-primary',
+            'mapped' => false,
+            'label' => false,
+            'row_attr' => [
+                'class' => 'fieldset-nostyle mb-3',
+            ],
         ]);
     }
 
