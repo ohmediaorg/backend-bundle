@@ -1,0 +1,50 @@
+{#
+  An action can have:
+  {
+    route: '',
+    route_params: {},
+    class: '',
+    icon: '',
+    label: '',
+    confirm: '', (required for csrf_name, optional otherwise)
+    csrf_name: '', (turns it into a <form> element)
+  }
+#}
+
+{% if actions|length > 1 %}
+  <div class="{{ dropdown_class }}" role="group">
+    <button class="{{ button_class }} dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      {{ label }}
+    </button>
+    <ul class="dropdown-menu">
+      {% for action in actions %}
+        <li>
+          {% if action.csrf_name is defined %}
+            {% embed '@OHMediaBackend/embed/form_post_confirm.html.twig' %}
+              {% block form_action %}{{ path(action.route, action.route_params) }}{% endblock %}
+              {% block confirm_message %}{{ action.confirm }}{% endblock %}
+              {% block csrf_name %}{{ action.csrf_name }}{% endblock %}
+              {% block button_class %}{{ action.class }}{% endblock %}
+              {% block button_html %}
+                {{ bootstrap_icon(action.icon) }}
+                {{ action.label }}
+              {% endblock %}
+            {% endembed %}
+          {% else %}
+            <a
+              href="{{ path(action.route, action.route_params) }}"
+              class="{{ action.class }}"
+              {% if action.confirm is defined %}
+                data-confirm="{{ action.confirm }}"
+              {% endif %}
+            >
+              {{ bootstrap_icon(action.icon) }}
+              {{ action.label }}
+            </a>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% else %}
+{% endif %}
