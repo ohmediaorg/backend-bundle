@@ -1,50 +1,95 @@
 {#
-  An action can have:
-  {
+  Template parameters:
+  - `dropdown_class` (string)
+  - `dropdown_button_class` (string)
+  - `dropdown_button_text` (string)
+  - `actions` (array)
+
+  If there are multiple `actions`, a Bootstrap dropdown is shown.
+
+  If there is only one item in `actions`, it is rendered as a Bootstrap button.
+
+  This is a GET action:
+
+  {% set action = {
     route: '',
     route_params: {},
-    class: '',
     icon: '',
-    label: '',
-    confirm: '', (required for csrf_name, optional otherwise)
-    csrf_name: '', (turns it into a <form> element)
-  }
+    text: '',
+    confirm: '', (optional)
+    color: '', (optional, primary, danger, dark, etc.)
+  } %}
+
+  This is a POST action:
+
+  {% set action = {
+    route: '',
+    route_params: {},
+    icon: '',
+    text: '',
+    confirm: '',
+    csrf_name: '',
+    form_class: '', (optional)
+    color: '', (optional, primary, danger, dark, etc.)
+  } %}
 #}
 
 {% if actions|length > 1 %}
   <div class="{{ dropdown_class }}" role="group">
-    <button class="{{ button_class }} dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      {{ label }}
+    <button class="{{ dropdown_button_class }} dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      {{ dropdown_button_text }}
     </button>
     <ul class="dropdown-menu">
       {% for action in actions %}
         <li>
+          {% set dropdown_item_class = 'dropdown-item' %}
+
+          {% if action.color is defined and action.color != '' %}
+            {% set dropdown_item_class = dropdown_item_class ~ ' text-bg-' ~ action.color %}
+          {% endif %}
+
           {% if action.csrf_name is defined %}
             {% embed '@OHMediaBackend/embed/form_post_confirm.html.twig' %}
               {% block form_action %}{{ path(action.route, action.route_params) }}{% endblock %}
+              {% block form_class %}{{ action.form_class is defined ? action.form_class : '' }}{% endblock %}
               {% block confirm_message %}{{ action.confirm }}{% endblock %}
               {% block csrf_name %}{{ action.csrf_name }}{% endblock %}
-              {% block button_class %}{{ action.class }}{% endblock %}
+              {% block button_class %}{{ dropdown_item_class }}{% endblock %}
               {% block button_html %}
                 {{ bootstrap_icon(action.icon) }}
-                {{ action.label }}
+                {{ action.text }}
               {% endblock %}
             {% endembed %}
           {% else %}
             <a
               href="{{ path(action.route, action.route_params) }}"
-              class="{{ action.class }}"
+              class="{{ dropdown_item_class }}"
               {% if action.confirm is defined %}
                 data-confirm="{{ action.confirm }}"
               {% endif %}
             >
               {{ bootstrap_icon(action.icon) }}
-              {{ action.label }}
+              {{ action.text }}
             </a>
           {% endif %}
         </li>
       {% endfor %}
     </ul>
   </div>
-{% else %}
+{% elseif actions|length == 1 %}
+  {% set color = action.color is defined and action.color != ''
+    ? action.color
+    : 'primary'
+  %}
+
+  <a
+    href="{{ path(action.route, action.route_params) }}"
+    class="btn btn-{{ color }}"
+    {% if action.confirm is defined %}
+      data-confirm="{{ action.confirm }}"
+    {% endif %}
+  >
+    {{ bootstrap_icon(action.icon) }}
+    {{ action.text }}
+  </a>
 {% endif %}
