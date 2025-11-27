@@ -1,0 +1,56 @@
+{#
+  Template parameters:
+  - `actions` (array)
+
+  This is a GET action:
+
+  {% set action = {
+    route: '',
+    route_params: {},
+    color: '', (primary, danger, dark, etc.)
+    icon: '',
+    text: '',
+    confirm: '', (optional)
+  } %}
+
+  To make it a POST action, simply add `crsf_name`:
+
+  {% set action = {
+    route: '',
+    route_params: {},
+    color: '', (primary, danger, dark, etc.)
+    icon: '',
+    text: '',
+    confirm: '',
+    csrf_name: '',
+  } %}
+#}
+
+<div class="d-flex gap-1">
+  {% for action in row_actions %}
+    {% set url = path(action.route, action.route_params) %}
+    {% set btn_class = 'btn btn-' ~ action.color ~ ' btn-sm' %}
+
+    {% if action.csrf_name is defined %}
+      <form method="post" action="{{ url }}" data-confirm="{{ action.confirm }}">
+        <input type="hidden" name="{{ action.csrf_name }}" value="{{ csrf_token(action.csrf_name) }}">
+        <button class="{{ btn_class }}" type="submit" title="{{ action.text }}">
+          {{ bootstrap_icon(action.icon) }}
+          <span class="visually-hidden">{{ action.text }}</span>
+        </button>
+      </form>
+    {% else %}
+      <a
+        href="{{ url }}"
+        class="{{ btn_class }}"
+        title="{{ action.text }}"
+        {% if action.confirm is defined %}
+          data-confirm="{{ action.confirm }}"
+        {% endif %}
+      >
+        {{ bootstrap_icon(action.icon) }}
+        <span class="visually-hidden">{{ action.text }}</span>
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
