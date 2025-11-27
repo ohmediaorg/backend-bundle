@@ -270,6 +270,12 @@ form {
   :root {
     --container-padding: #{$spacer};
   }
+
+  .card {
+    --#{$prefix}card-spacer-y: #{$spacer};
+    --#{$prefix}card-spacer-x: #{$spacer};
+    --#{$prefix}card-title-spacer-y: #{$spacer};
+  }
 }
 
 @import '~nice-select2/dist/css/nice-select2';
