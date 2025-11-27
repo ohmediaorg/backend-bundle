@@ -26,7 +26,7 @@
   } %}
 #}
 
-<div class="d-flex gap-1">
+<div class="d-flex gap-1 justify-content-end">
   {% for action in row_actions %}
     {% set url = path(action.route, action.route_params) %}
     {% set btn_class = 'btn btn-' ~ action.color ~ ' btn-sm' %}
