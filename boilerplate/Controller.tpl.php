@@ -232,7 +232,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         $form = $this->createForm(<?php echo $singular['pascal_case']; ?>Type::class, $<?php echo $singular['camel_case']; ?>);
 
-        $form->add('save', SubmitType::class);
+        $form->add('save', MultiSaveType::class);
 
         $form->handleRequest($request);
 
@@ -285,7 +285,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         $form = $this->createForm(<?php echo $singular['pascal_case']; ?>Type::class, $<?php echo $singular['camel_case']; ?>);
 
-        $form->add('save', SubmitType::class);
+        $form->add('save', MultiSaveType::class);
 
         $form->handleRequest($request);
 

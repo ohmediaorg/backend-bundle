@@ -115,7 +115,7 @@
       route: '<?php echo $singular['snake_case']; ?>_view',
       route_params: {id: <?php echo $singular['snake_case']; ?>.id},
       color: 'outline-dark',
-      icon: 'pen',
+      icon: 'eye',
       text: 'View <?php echo $singular['title']; ?>',
     }]) %}
   {% endif %}
@@ -137,7 +137,7 @@
       route_params: {id: <?php echo $singular['snake_case']; ?>.id},
       color: 'danger',
       icon: 'trash',
-      text: 'Delete A<?php echo $singular['title']; ?>lert',
+      text: 'Delete <?php echo $singular['title']; ?>',
       confirm: 'Are you sure you want to delete this <?php echo $singular['readable']; ?>? Clicking OK will take you to a verification step to delete this entry.',
     }]) %}
   {% endif %}
