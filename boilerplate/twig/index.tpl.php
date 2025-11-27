@@ -77,12 +77,14 @@
             {% for <?php echo $singular['snake_case']; ?> in <?php echo $plural['snake_case']; ?> %}
               {{ _self.table_row(<?php echo $singular['snake_case']; ?>, attributes) }}
             {% endfor %}
+          </tbody>
 <?php } else { ?>
           <tbody>
             {% for <?php echo $singular['snake_case']; ?> in pagination.results %}
               {{ _self.table_row(<?php echo $singular['snake_case']; ?>, attributes) }}
             {% endfor %}
           </tbody>
+<?php } ?>
         </table>
 <?php if (!$has_reorder) { ?>
 
