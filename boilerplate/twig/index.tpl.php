@@ -114,7 +114,7 @@
     {% set row_actions = row_actions|merge([{
       route: '<?php echo $singular['snake_case']; ?>_view',
       route_params: {id: <?php echo $singular['snake_case']; ?>.id},
-      color: 'outline-dark',
+      color: 'outline-secondary',
       icon: 'eye',
       text: 'View <?php echo $singular['title']; ?>',
     }]) %}
@@ -125,7 +125,7 @@
     {% set row_actions = row_actions|merge([{
       route: '<?php echo $singular['snake_case']; ?>_edit',
       route_params: {id: <?php echo $singular['snake_case']; ?>.id},
-      color: 'dark',
+      color: 'secondary',
       icon: 'pen',
       text: 'Edit <?php echo $singular['title']; ?>',
     }]) %}
