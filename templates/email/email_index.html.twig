@@ -3,67 +3,67 @@
 {% block meta_title %}Emails{% endblock %}
 
 {% block breadcrumbs %}
-{{ bootstrap_breadcrumbs(
-  bootstrap_breadcrumb(bootstrap_icon('envelope') ~ ' Emails', 'email_index'),
-) }}
+  {{ bootstrap_breadcrumbs(
+    bootstrap_breadcrumb(bootstrap_icon('envelope') ~ ' Emails', 'email_index'),
+  ) }}
 {% endblock %}
 
 {% block main %}
-<div class="card">
-  <div class="card-body">
-    <div class="card-title card-title-with-count">
-      <h1 class="card-title-heading">Emails</h1>
-      <div class="card-title-count">
-        {{ bootstrap_badge_primary(pagination.count) }}
+  <div class="card">
+    <div class="card-body">
+      <div class="card-title card-title-with-count">
+        <h1 class="card-title-heading">Emails</h1>
+        <div class="card-title-count">
+          {{ bootstrap_badge_primary(pagination.count) }}
+        </div>
       </div>
-    </div>
 
-    <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Recipients</th>
-        <th>Subject</th>
-        <th>Sent</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for email in pagination.results %}
+      <table class="table table-striped">
+      <thead>
         <tr>
-          <td>
-            <small class="d-block">
-              {{ email.to|join("\n")|nl2br }}
-            </small>
-            {% if email.cc %}
-              <small class="d-block">
-                <b>cc:</b> {{ email.cc|join("\n")|nl2br }}
-              </small>
-            {% endif %}
-            {% if email.bcc %}
-              <small class="d-block">
-                <b>bcc:</b> {{ email.bcc|join("\n")|nl2br }}
-              </small>
-            {% endif %}
-          </td>
-          <td>{{ email.subject }}</td>
-          <td>{{ email.createdAt|datetime }}</td>
-          <td>
-            {% if is_granted(view_attribute, email) %}
-            <a href="{{ path('email_view', {id: email.id}) }}" target="_blank">
-              View
-            </a>
-            {% endif %}
-          </td>
+          <th>Recipients</th>
+          <th>Subject</th>
+          <th>Sent</th>
+          <th>&nbsp;</th>
         </tr>
-      {% else %}
-      <tr><td colspan="100%" class="text-center">No emails found.</td></tr>
-      {% endfor %}
-    </tbody>
-    </table>
+      </thead>
+      <tbody>
+        {% for email in pagination.results %}
+          <tr>
+            <td>
+              <small class="d-block">
+                {{ email.to|join("\n")|nl2br }}
+              </small>
+              {% if email.cc %}
+                <small class="d-block">
+                  <b>cc:</b> {{ email.cc|join("\n")|nl2br }}
+                </small>
+              {% endif %}
+              {% if email.bcc %}
+                <small class="d-block">
+                  <b>bcc:</b> {{ email.bcc|join("\n")|nl2br }}
+                </small>
+              {% endif %}
+            </td>
+            <td>{{ email.subject }}</td>
+            <td>{{ email.createdAt|datetime }}</td>
+            <td>
+              {% if is_granted(view_attribute, email) %}
+                <a href="{{ path('email_view', {id: email.id}) }}" target="_blank">
+                  View
+                </a>
+              {% endif %}
+            </td>
+          </tr>
+        {% else %}
+        <tr><td colspan="100%" class="text-center">No emails found.</td></tr>
+        {% endfor %}
+      </tbody>
+      </table>
 
-    {{ bootstrap_pagination(pagination) }}
+      {{ bootstrap_pagination(pagination) }}
 
-    <small>{{ bootstrap_pagination_info(pagination) }}</small>
+      <small>{{ bootstrap_pagination_info(pagination) }}</small>
+    </div>
   </div>
-</div>
 {% endblock %}
