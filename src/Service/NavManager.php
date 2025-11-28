@@ -19,10 +19,10 @@ class NavManager
     public function __construct(private AuthorizationCheckerInterface $authorizationChecker)
     {
         $this->developerOnlyDropdown = (new NavDropdown('Developer Only'))
-            ->setIcon('shield-slash-fill');
+            ->setIcon('shield-slash');
 
         $this->settingsDropdown = (new NavDropdown('Settings'))
-            ->setIcon('gear-fill');
+            ->setIcon('gear');
     }
 
     public function addNavItemProvider(AbstractNavItemProvider $navItemProvider): self
