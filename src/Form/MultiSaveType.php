@@ -14,10 +14,6 @@ class MultiSaveType extends AbstractType
     {
         $builder->add('go_back', SubmitType::class);
 
-        if ($options['view']) {
-            $builder->add('view', SubmitType::class);
-        }
-
         $builder->add('keep_editing', SubmitType::class);
 
         if ($options['add_another']) {
@@ -34,7 +30,6 @@ class MultiSaveType extends AbstractType
             'row_attr' => [
                 'class' => 'fieldset-nostyle mb-3',
             ],
-            'view' => false,
             'add_another' => true,
         ]);
     }
