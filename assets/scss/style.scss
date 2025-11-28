@@ -135,6 +135,15 @@ $oh-side-nav-padding-y: 0.5rem;
   margin-bottom: $spacer;
 }
 
+#top-bar-actions-inner {
+  display: flex;
+  justify-content: end;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+
+  @extend .btn-group-sm;
+}
+
 main,
 footer {
   @include make-container;
