@@ -1,20 +1,20 @@
 {%- block multi_save_widget -%}
-  <div aria-hidden="true"><b>Save and&hellip;</b></div>
-  <div class="d-flex gap-2 btn-group-sm">
-    <button type="submit" id="{{ form.go_back.vars.id }}" name="{{ form.go_back.vars.full_name }}" class="btn-primary btn" title="Save and go back">
+  <div aria-hidden="true" class="my-3"><b>Save and&hellip;</b></div>
+  <div class="d-flex gap-3 btn-group-sm">
+    <button type="submit" id="{{ form.go_back.vars.id }}" name="{{ form.go_back.vars.full_name }}" class="btn-outline-dark btn" title="Save and go back">
       {{ bootstrap_icon('arrow-left') }}
       <span class="visually-hidden">Save and</span>
       go back
     </button>
 
-    <button type="submit" id="{{ form.keep_editing.vars.id }}" name="{{ form.keep_editing.vars.full_name }}" class="btn-primary btn" title="Save and keep editing">
+    <button type="submit" id="{{ form.keep_editing.vars.id }}" name="{{ form.keep_editing.vars.full_name }}" class="btn-secondary btn" title="Save and keep editing">
       {{ bootstrap_icon('arrow-clockwise') }}
       <span class="visually-hidden">Save and</span>
       keep editing
     </button>
 
     {% if form.add_another is defined %}
-      <button type="submit" id="{{ form.add_another.vars.id }}" name="{{ form.add_another.vars.full_name }}" class="btn-primary btn" title="Save and add another">
+      <button type="submit" id="{{ form.add_another.vars.id }}" name="{{ form.add_another.vars.full_name }}" class="btn-outline-dark btn" title="Save and add another">
         {{ bootstrap_icon('plus-lg') }}
         <span class="visually-hidden">Save and</span>
         add another
