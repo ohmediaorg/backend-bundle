@@ -24,7 +24,7 @@
 #}
 
 {% set url = path(row_action.route, row_action.route_params) %}
-{% set btn_class = 'btn btn-' ~ row_action.color ~ ' btn-sm' %}
+{% set btn_class = 'btn btn-' ~ row_action.color %}
 
 {% if row_action.csrf_name is defined %}
   <form method="post" action="{{ url }}" data-confirm="{{ row_action.confirm }}">

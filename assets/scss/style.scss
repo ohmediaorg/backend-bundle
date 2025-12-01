@@ -142,12 +142,7 @@ $oh-side-nav-padding-y: 0.5rem;
   gap: 0.25rem;
   flex-wrap: wrap;
 
-  > a,
-  // within a Bootstrap dropdown
-  .dropdown-toggle,
-  // within a <form>
-  > form > button,
-  > form > input[type='submit'] {
+  .btn {
     @extend .btn-sm;
   }
 }
