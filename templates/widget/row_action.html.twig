@@ -1,0 +1,49 @@
+{#
+  This is a GET row_action:
+
+  {% set row_action = {
+    route: '',
+    route_params: {},
+    color: '', (primary, danger, dark, etc.)
+    icon: '',
+    text: '',
+    confirm: '', (optional)
+  } %}
+
+  To make it a POST row_action, simply add `crsf_name`:
+
+  {% set row_action = {
+    route: '',
+    route_params: {},
+    color: '', (primary, danger, dark, etc.)
+    icon: '',
+    text: '',
+    confirm: '',
+    csrf_name: '',
+  } %}
+#}
+
+{% set url = path(row_action.route, row_action.route_params) %}
+{% set btn_class = 'btn btn-' ~ row_action.color ~ ' btn-sm' %}
+
+{% if row_action.csrf_name is defined %}
+  <form method="post" action="{{ url }}" data-confirm="{{ row_action.confirm }}">
+    <input type="hidden" name="{{ row_action.csrf_name }}" value="{{ csrf_token(row_action.csrf_name) }}">
+    <button class="{{ btn_class }}" type="submit" title="{{ row_action.text }}">
+      {{ bootstrap_icon(row_action.icon) }}
+      <span class="visually-hidden">{{ row_action.text }}</span>
+    </button>
+  </form>
+{% else %}
+  <a
+    href="{{ url }}"
+    class="{{ btn_class }}"
+    title="{{ row_action.text }}"
+    {% if row_action.confirm is defined %}
+      data-confirm="{{ row_action.confirm }}"
+    {% endif %}
+  >
+    {{ bootstrap_icon(row_action.icon) }}
+    <span class="visually-hidden">{{ row_action.text }}</span>
+  </a>
+{% endif %}

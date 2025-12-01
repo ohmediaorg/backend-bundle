@@ -135,20 +135,19 @@ $oh-side-nav-padding-y: 0.5rem;
   margin-bottom: $spacer;
 }
 
-#top-bar-actions-inner {
+#top-bar-actions-inner,
+.row-actions {
   display: flex;
   justify-content: end;
   gap: 0.25rem;
   flex-wrap: wrap;
 
-  // only select immediate <a>
-  // <a> can exist within a Bootstrap dropdown
-  // and should not appear as a button
   > a,
-  // <button> could be in a Bootstrap dropdown or within a <form>
-  button,
-  // could be within a <form>
-  input[type='submit'] {
+  // within a Bootstrap dropdown
+  .dropdown-toggle,
+  // within a <form>
+  > form > button,
+  > form > input[type='submit'] {
     @extend .btn-sm;
   }
 }
