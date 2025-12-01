@@ -309,11 +309,13 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
     private function redirectForm(<?php echo $singular['pascal_case']; ?> $<?php echo $singular['camel_case']; ?>, FormInterface $form): Response
     {
-        if ($form->get('save')->get('keep_editing')->isClicked()) {
+        $clickedButtonName = $form->getClickedButton()->getName() ?? null;
+
+        if ('keep_editing' === $clickedButtonName) {
             return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_edit', [
                 'id' => $<?php echo $singular['camel_case']; ?>->getId(),
             ]);
-        } elseif ($form->get('save')->get('add_another')->isClicked()) {
+        } elseif ('add_another' === $clickedButtonName) {
             return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_create');
         } else {
 <?php if ($has_view_route) { ?>
