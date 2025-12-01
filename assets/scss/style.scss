@@ -141,7 +141,16 @@ $oh-side-nav-padding-y: 0.5rem;
   gap: 0.25rem;
   flex-wrap: wrap;
 
-  @extend .btn-group-sm;
+  // only select immediate <a>
+  // <a> can exist within a Bootstrap dropdown
+  // and should not appear as a button
+  > a,
+  // <button> could be in a Bootstrap dropdown or within a <form>
+  button,
+  // could be within a <form>
+  input[type='submit'] {
+    @extend .btn-sm;
+  }
 }
 
 main,
