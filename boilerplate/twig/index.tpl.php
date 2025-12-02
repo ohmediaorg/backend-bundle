@@ -48,8 +48,8 @@
           </div>
 <?php } ?>
           <div class="col-lg-12 col-sm-6">
-            <button class="btn btn-primary mb-3" type="submit">Search</button>
-            <a class="btn btn-dark mb-3" href="{{ path('<?php echo $singular['snake_case']; ?>_index') }}">Reset</a>
+            <button class="btn btn-outline-dark mb-3" type="submit">Search</button>
+            <a class="btn btn-secondary mb-3" href="{{ path('<?php echo $singular['snake_case']; ?>_index') }}">Reset</a>
           </div>
         </div>
       {{ form_end(search_form) }}
