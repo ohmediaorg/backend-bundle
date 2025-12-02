@@ -12,7 +12,7 @@ class MultiSaveType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $builder->add('go_back', SubmitType::class);
+        $builder->add('finish', SubmitType::class);
 
         $builder->add('keep_editing', SubmitType::class);
 
