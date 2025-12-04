@@ -29,10 +29,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 <?php if (!$has_reorder) { ?>
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 <?php } ?>
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 <?php if (!$has_reorder) { ?>
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SearchType;
 <?php } ?>
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormInterface;
 <?php if ($has_reorder) { ?>
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -159,8 +159,10 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         $formBuilder->setMethod('GET');
 
-        $formBuilder->add('search', TextType::class, [
+        $formBuilder->add('search', SearchType::class, [
             'required' => false,
+            // TODO: label describing which fields are searched
+            // 'label' => 'Name, email, phone',
         ]);
 <?php if ($is_publishable) { ?>
 
