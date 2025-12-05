@@ -127,7 +127,7 @@
       route: '<?php echo $singular['snake_case']; ?>_edit',
       route_params: {id: <?php echo $singular['snake_case']; ?>.id},
       color: 'secondary',
-      icon: 'pen',
+      icon: 'pencil',
       text: 'Edit <?php echo $singular['title']; ?>',
     }]) %}
   {% endif %}
