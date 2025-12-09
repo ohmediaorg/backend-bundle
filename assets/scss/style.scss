@@ -237,7 +237,6 @@ form {
   .form-label {
     margin: 0;
     font-weight: bold;
-    font-size: $font-size-sm;
 
     &.required::after {
       content: '*';
