@@ -27,9 +27,12 @@
   </div>
 
   <nav id="top-nav" class="navbar navbar-light fixed-top">
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-nav" aria-controls="side-nav" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    {# wrapper preserves flex box for when button is hidden #}
+    <div>
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-nav" aria-controls="side-nav" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
 
     {% include '@OHMediaBackend/include/nav_top_right.html.twig' %}
 
