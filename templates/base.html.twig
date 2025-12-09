@@ -20,6 +20,12 @@
   {% block stylesheets %}{% endblock %}
 </head>
 <body>
+  <div class="visually-hidden">
+    <a href="#main-content">Skip to main content</a>
+    <a href="#primary-navigation">Skip to primary navigation</a>
+    <a href="#secondary-navigation">Skip to secondary navigation</a>
+  </div>
+
   <nav id="top-nav" class="navbar navbar-light fixed-top">
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-nav" aria-controls="side-nav" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -28,6 +34,9 @@
     {% include '@OHMediaBackend/include/nav_top_right.html.twig' %}
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="side-nav">
+      {# used for a keyboard navigation skip link #}
+      <div id="primary-navigation"></div>
+
       <a href="/admin" class="offcanvas-header" aria-label="Home">
         {% include '@OHMediaBackend/include/logo.html.twig' %}
       </a>
@@ -38,6 +47,9 @@
   </nav>
 
   <div id="toasts"></div>
+
+  {# used for a keyboard navigation skip link #}
+  <div id="main-content"></div>
 
   <main>
     <div id="top-bar">
