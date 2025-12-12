@@ -20,11 +20,7 @@
   {% block stylesheets %}{% endblock %}
 </head>
 <body>
-  <div class="visually-hidden">
-    <a href="#main-content">Skip to main content</a>
-    <a href="#primary-navigation">Skip to primary navigation</a>
-    <a href="#secondary-navigation">Skip to secondary navigation</a>
-  </div>
+  {% include '@OHMediaBackend/include/skip_to_content.html.twig' %}
 
   <nav id="top-nav" class="navbar navbar-light fixed-top">
     {# wrapper preserves flex box for when button is hidden #}
@@ -51,8 +47,12 @@
 
   <div id="toasts"></div>
 
-  {# used for a keyboard navigation skip link #}
-  <div id="main-content"></div>
+  {#
+    used for a keyboard navigation skip link
+    positioned at top of page to avoid jumping
+    must remain here so next TAB is into <main>
+  #}
+  <div id="main-content" style="position:absolute;top:0"></div>
 
   <main>
     <div id="top-bar">
