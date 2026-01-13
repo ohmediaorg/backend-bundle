@@ -1,49 +1,16 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    OHMedia\BackendBundle\:
+        resource: '../src/'
+        exclude:
+            - '../src/Entity/'
+            - '../src/OHMediaBackendBundle.php'
+
+    # alias used in NavPass
     oh_media_backend.nav_manager:
         class: OHMedia\BackendBundle\Service\NavManager
         autowire: true
         public: false
-
-    OHMedia\BackendBundle\Twig\DateTimeExtension:
-        public: false
-        tags:
-            - { name: twig.extension }
-
-    OHMedia\BackendBundle\Twig\NavExtension:
-        arguments: ["@oh_media_backend.nav_manager"]
-        public: false
-        tags:
-            - { name: twig.extension }
-
-    OHMedia\BackendBundle\Twig\ScriptInjectionExtension:
-        autowire: true
-        public: false
-        tags:
-            - { name: twig.extension }
-
-    OHMedia\BackendBundle\Command\BoilerplateCommand:
-        arguments: ["%kernel.project_dir%"]
-        tags: ["console.command"]
-
-    OHMedia\BackendBundle\Controller\SettingController:
-        tags: ["container.service_subscriber", "controller.service_arguments"]
-        autowire: true
-
-    OHMedia\BackendBundle\Security\Voter\SettingVoter:
-        tags: ["security.voter"]
-
-    OHMedia\BackendBundle\Service\ScriptInjectionNavLinkProvider:
-        tags: ["oh_media_backend.developer_only_nav_link_provider"]
-
-    OHMedia\BackendBundle\Service\SEONavLinkProvider:
-        tags: ["oh_media_backend.settings_nav_link_provider"]
-
-    OHMedia\BackendBundle\Controller\EmailController:
-        tags: ["container.service_subscriber", "controller.service_arguments"]
-        autowire: true
-
-    OHMedia\BackendBundle\Security\Voter\EmailVoter:
-        tags: ["security.voter"]
-
-    OHMedia\BackendBundle\Service\EmailsNavLinkProvider:
-        tags: ["oh_media_backend.developer_only_nav_link_provider"]
