@@ -8,9 +8,3 @@ services:
         exclude:
             - '../src/Entity/'
             - '../src/OHMediaBackendBundle.php'
-
-    # alias used in NavPass
-    oh_media_backend.nav_manager:
-        class: OHMedia\BackendBundle\Service\NavManager
-        autowire: true
-        public: false
