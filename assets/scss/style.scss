@@ -2,8 +2,6 @@ $oh-font-url: 'https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..7
 
 @import url($oh-font-url);
 
-$oh-logo: url("data:image/svg+xml,<svg width='90px' height='100px' viewBox='0 0 90 100' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g id='Page-1' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'><g id='services' transform='translate(-56.000000, -46.000000)' fill-rule='nonzero'><g id='OH!-Media-Logo_2022' transform='translate(56.000000, 46.400000)'><rect id='Rectangle' fill='#FF5B16' x='0' y='0' width='89.6' height='99.2'></rect><g id='Group' transform='translate(9.848889, 9.827423)' fill='#FFFFFF'><path d='M9.56444444,8.68801149 L17.3511111,8.68801149 L17.3511111,56.2228284 L9.56444444,56.2228284 L9.56444444,8.68801149 Z M0,1.77635684e-15 L0,64.9108399 L26.88,64.9108399 L26.88,1.77635684e-15 L0,1.77635684e-15 Z' id='Shape'></path><polygon id='Path' points='47.5022222 1.77635684e-15 47.5022222 29.3042355 39.7155556 29.3042355 39.7155556 1.77635684e-15 30.1866667 1.77635684e-15 30.1866667 64.9108399 39.7155556 64.9108399 39.7155556 36.2119167 47.5022222 36.2119167 47.5022222 64.9108399 57.0311111 64.9108399 57.0311111 1.77635684e-15'></polygon><rect id='Rectangle' x='60.3377778' y='1.77635684e-15' width='9.52888889' height='48.4605887'></rect><rect id='Rectangle' x='60.3377778' y='56.2228284' width='9.52888889' height='8.68801149'></rect></g><g id='Group' transform='translate(9.884444, 80.364106)' fill='#FFFFFF'><polygon id='Path' points='0 0 2.48888889 0 3.66222222 8.15391242 4.83555556 0 7.32444444 0 7.32444444 11.2160804 5.65333333 11.2160804 5.65333333 2.70610194 4.33777778 11.2160804 2.88 11.2160804 1.56444444 2.70610194 1.56444444 11.2160804 0.0355555556 11.2160804 0.0355555556 0'></polygon><polygon id='Path' points='18.7022222 0 23.5022222 0 23.5022222 1.6022972 20.4444444 1.6022972 20.4444444 4.55764537 22.8622222 4.55764537 22.8622222 6.15994257 20.4444444 6.15994257 20.4444444 9.6137832 23.5022222 9.6137832 23.5022222 11.2160804 18.7022222 11.2160804'></polygon><path d='M34.5244444,0 L37.2266667,0 C39.0044444,0 39.8577778,0.96137832 39.8577778,2.77731515 L39.8577778,8.43876525 C39.8577778,10.2190955 39.0044444,11.2160804 37.2266667,11.2160804 L34.5244444,11.2160804 L34.5244444,0 Z M37.1911111,9.64938981 C37.76,9.64938981 38.08,9.36453697 38.08,8.54558507 L38.08,2.70610194 C38.08,1.88715004 37.76,1.6022972 37.1911111,1.6022972 L36.3022222,1.6022972 L36.3022222,9.6137832 L37.1911111,9.6137832 L37.1911111,9.64938981 Z' id='Shape'></path><polygon id='Path' points='51.1288889 0 52.9066667 0 52.9066667 11.2160804 51.1288889 11.2160804'></polygon><path d='M67.7688889,9.04407753 L65.7422222,9.04407753 L65.4222222,11.251687 L63.7866667,11.251687 L65.6,0.0356066045 L67.9822222,0.0356066045 L69.7955556,11.251687 L68.0177778,11.251687 L67.7688889,9.04407753 Z M67.5555556,7.51299354 L66.7377778,1.85154343 L65.9555556,7.51299354 L67.5555556,7.51299354 Z' id='Shape'></path></g></g></g></g></svg>") !default;
-
 @import 'bootstrap';
 
 @import '~bootstrap/scss/bootstrap';
@@ -57,11 +55,6 @@ $oh-side-nav-padding-y: 0.5rem;
     display: block;
 
     .oh-logo {
-      background-image: $oh-logo;
-      height: 90px;
-      background-repeat: no-repeat;
-      aspect-ratio: 9 / 10;
-      background-size: 100%;
       margin-left: $spacer;
     }
 
@@ -140,6 +133,18 @@ $oh-side-nav-padding-y: 0.5rem;
   display: flex;
   justify-content: space-between;
   margin-bottom: $spacer;
+}
+
+#top-bar-actions-inner,
+.row-actions {
+  display: flex;
+  justify-content: end;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+
+  .btn {
+    @extend .btn-sm;
+  }
 }
 
 main,
@@ -276,6 +281,12 @@ form {
 @include media-breakpoint-down(md) {
   :root {
     --container-padding: #{$spacer};
+  }
+
+  .card {
+    --#{$prefix}card-spacer-y: #{$spacer};
+    --#{$prefix}card-spacer-x: #{$spacer};
+    --#{$prefix}card-title-spacer-y: #{$spacer};
   }
 }
 

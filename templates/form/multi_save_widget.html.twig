@@ -1,0 +1,28 @@
+{%- block multi_save_widget -%}
+  <div aria-hidden="true" class="my-3"><b>Save and&hellip;</b></div>
+  <div class="d-flex gap-3">
+    {% if form.finish is defined %}
+      <button type="submit" id="{{ form.finish.vars.id }}" name="{{ form.finish.vars.full_name }}" class="btn-secondary btn" title="Save and finish">
+        {{ bootstrap_icon('arrow-left') }}
+        <span class="visually-hidden">Save and</span>
+        finish
+      </button>
+    {% endif %}
+
+    {% if form.keep_editing is defined %}
+      <button type="submit" id="{{ form.keep_editing.vars.id }}" name="{{ form.keep_editing.vars.full_name }}" class="btn-outline-dark btn" title="Save and keep editing">
+        {{ bootstrap_icon('arrow-clockwise') }}
+        <span class="visually-hidden">Save and</span>
+        keep editing
+      </button>
+    {% endif %}
+
+    {% if form.add_another is defined %}
+      <button type="submit" id="{{ form.add_another.vars.id }}" name="{{ form.add_another.vars.full_name }}" class="btn-outline-dark btn" title="Save and add another">
+        {{ bootstrap_icon('plus-lg') }}
+        <span class="visually-hidden">Save and</span>
+        add another
+      </button>
+    {% endif %}
+  </div>
+{%- endblock -%}

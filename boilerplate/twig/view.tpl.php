@@ -10,21 +10,19 @@
 {% endblock %}
 
 {% block actions %}
-  <div class="btn-group btn-group-sm">
-    {% if is_granted(attributes.edit, <?php echo $singular['snake_case']; ?>) %}
-      <a class="btn btn-primary" href="{{ path('<?php echo $singular['snake_case']; ?>_edit', {id: <?php echo $singular['snake_case']; ?>.id}) }}">
-        {{ bootstrap_icon('pen-fill') }}
-        Edit
-      </a>
-    {% endif %}
+  {% if is_granted(attributes.edit, <?php echo $singular['snake_case']; ?>) %}
+    <a class="btn btn-primary" href="{{ path('<?php echo $singular['snake_case']; ?>_edit', {id: <?php echo $singular['snake_case']; ?>.id}) }}">
+      {{ bootstrap_icon('pencil') }}
+      Edit
+    </a>
+  {% endif %}
 
-    {% if is_granted(attributes.delete, <?php echo $singular['snake_case']; ?>) %}
-      <a class="btn btn-danger" href="{{ path('<?php echo $singular['snake_case']; ?>_delete', {id: <?php echo $singular['snake_case']; ?>.id}) }}" data-confirm="Are you sure you want to delete this <?php echo $singular['readable']; ?>? Clicking OK will take you to a verification step to delete this entry.">
-        {{ bootstrap_icon('trash-fill') }}
-        Delete
-      </a>
-    {% endif %}
-  </div>
+  {% if is_granted(attributes.delete, <?php echo $singular['snake_case']; ?>) %}
+    <a class="btn btn-danger" href="{{ path('<?php echo $singular['snake_case']; ?>_delete', {id: <?php echo $singular['snake_case']; ?>.id}) }}" data-confirm="Are you sure you want to delete this <?php echo $singular['readable']; ?>? Clicking OK will take you to a verification step to delete this entry.">
+      {{ bootstrap_icon('trash') }}
+      Delete
+    </a>
+  {% endif %}
 {% endblock %}
 
 {% block main %}

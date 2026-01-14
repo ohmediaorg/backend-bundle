@@ -1,0 +1,35 @@
+{#
+  Template parameters:
+  - `actions` (array)
+
+  This is a GET action:
+
+  {% set action = {
+    route: '',
+    route_params: {},
+    color: '', (primary, danger, dark, etc.)
+    icon: '',
+    text: '',
+    confirm: '', (optional)
+  } %}
+
+  To make it a POST action, simply add `crsf_name`:
+
+  {% set action = {
+    route: '',
+    route_params: {},
+    color: '', (primary, danger, dark, etc.)
+    icon: '',
+    text: '',
+    confirm: '',
+    csrf_name: '',
+  } %}
+#}
+
+<div class="row-actions">
+  {% for row_action in row_actions %}
+    {% include '@OHMediaBackend/widget/row_action.html.twig' with {
+      row_action: row_action,
+    } only %}
+  {% endfor %}
+</div>

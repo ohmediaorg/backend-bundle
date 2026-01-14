@@ -3,25 +3,25 @@
 {% block meta_title %}Script Injection | Developer Only{% endblock %}
 
 {% block breadcrumbs %}
-{{ bootstrap_breadcrumbs(
-  bootstrap_breadcrumb(bootstrap_icon('code-slash') ~ ' Script Injection'),
-) }}
+  {{ bootstrap_breadcrumbs(
+    bootstrap_breadcrumb(bootstrap_icon('code-slash') ~ ' Script Injection'),
+  ) }}
 {% endblock %}
 
 {% block main %}
-<div class="card">
-  <div class="card-body">
-    <h1 class="card-title">Script Injection</h1>
+  <div class="card">
+    <div class="card-body">
+      <h1 class="card-title">Script Injection</h1>
 
-    {{ form_start(form) }}
-    <div class="row">
-      {% for id, label in scripts %}
-      <div class="col-lg-6">
-        {{ form_row(form.offsetGet(id)) }}
+      {{ form_start(form) }}
+      <div class="row">
+        {% for id, label in scripts %}
+        <div class="col-lg-6">
+          {{ form_row(form.offsetGet(id)) }}
+        </div>
+        {% endfor %}
       </div>
-      {% endfor %}
+      {{ form_end(form) }}
     </div>
-    {{ form_end(form) }}
   </div>
-</div>
 {% endblock %}

@@ -99,5 +99,3 @@ See [EmailsNavLinkProvider](https://github.com/ohmediaorg/email-bundle/blob/main
 
 Links can be added to the Settings dropdown by extending
 `OHMedia\BackendBundle\Service\AbstractDeveloperOnlyNavLinkProvider`.
-
-See [ContactFormNavLinkProvider](https://github.com/ohmediaorg/contact-bundle/blob/main/src/Service/ContactFormNavLinkProvider.php).

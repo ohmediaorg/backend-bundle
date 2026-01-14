@@ -37,5 +37,20 @@ class OHMediaBackendBundle extends AbstractBundle
         $containerBuilder->registerForAutoconfiguration(AbstractSettingsNavLinkProvider::class)
             ->addTag('oh_media_backend.settings_nav_link_provider')
         ;
+
+        $this->registerWidget($containerBuilder);
+    }
+
+    /**
+     * Registers the form widget.
+     */
+    protected function registerWidget(ContainerBuilder $containerBuilder)
+    {
+        $resource = '@OHMediaBackend/form/multi_save_widget.html.twig';
+
+        $containerBuilder->setParameter('twig.form.resources', array_merge(
+            $containerBuilder->getParameter('twig.form.resources'),
+            [$resource]
+        ));
     }
 }

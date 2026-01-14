@@ -14,8 +14,9 @@
 
 {% block actions %}
   {% if can_create_<?php echo $singular['snake_case']; ?> %}
-    <a href="{{ create_<?php echo $singular['snake_case']; ?>_href }}" class="btn btn-sm btn-primary">
-      {{ bootstrap_icon('plus') }} Add <?php echo $singular['title']."\n"; ?>
+    <a href="{{ create_<?php echo $singular['snake_case']; ?>_href }}" class="btn btn-primary">
+      {{ bootstrap_icon('plus-lg') }}
+      Add <?php echo $singular['title']."\n"; ?>
     </a>
   {% endif %}
 {% endblock %}
@@ -48,8 +49,8 @@
           </div>
 <?php } ?>
           <div class="col-lg-12 col-sm-6">
-            <button class="btn btn-primary mb-3" type="submit">Search</button>
-            <a class="btn btn-dark mb-3" href="{{ path('<?php echo $singular['snake_case']; ?>_index') }}">Reset</a>
+            <button class="btn btn-outline-dark mb-3" type="submit">Search</button>
+            <a class="btn btn-secondary mb-3" href="{{ path('<?php echo $singular['snake_case']; ?>_index') }}">Reset</a>
           </div>
         </div>
       {{ form_end(search_form) }}
@@ -74,57 +75,17 @@
             data-sortable-csrf-token="{{ csrf_token(csrf_token_name) }}"
             data-sortable-url="{{ path('<?php echo $singular['snake_case']; ?>_reorder_post') }}"
           >
-          {% for <?php echo $singular['snake_case']; ?> in <?php echo $plural['snake_case']; ?> %}
-            <tr data-id="{{ <?php echo $singular['snake_case']; ?>.id }}">
-              <td data-handle>{{ bootstrap_icon('arrows-move') }}</td>
+            {% for <?php echo $singular['snake_case']; ?> in <?php echo $plural['snake_case']; ?> %}
+              {{ _self.table_row(<?php echo $singular['snake_case']; ?>, attributes) }}
+            {% endfor %}
+          </tbody>
 <?php } else { ?>
           <tbody>
             {% for <?php echo $singular['snake_case']; ?> in pagination.results %}
-            <tr>
-<?php } ?>
-<?php if ($is_publishable) { ?>
-              <td>
-                {{ <?php echo $singular['snake_case']; ?> }}
-                <br>
-                {% if <?php echo $singular['snake_case']; ?>.isPublished %}
-                  {{ bootstrap_badge_success('Published') }}
-                {% elseif <?php echo $singular['snake_case']; ?>.isScheduled %}
-                  {{ bootstrap_badge_warning('Scheduled') }}
-                {% else %}
-                  {{ bootstrap_badge_secondary('Draft') }}
-                {% endif %}
-              </td>
-<?php } else { ?>
-              <td>{{ <?php echo $singular['snake_case']; ?> }}</td>
-<?php } ?>
-              <td>{{ <?php echo $singular['snake_case']; ?>.updatedAt|datetime }}</td>
-              <td>
-<?php if ($has_view_route) { ?>
-                {% if is_granted(attributes.view, <?php echo $singular['snake_case']; ?>) %}
-                  <a class="btn btn-sm btn-primary btn-action" href="{{ path('<?php echo $singular['snake_case']; ?>_view', {id: <?php echo $singular['snake_case']; ?>.id}) }}" title="View">
-                    {{ bootstrap_icon('eye-fill') }}
-                    <span class="visually-hidden">View</span>
-                  </a>
-                {% endif %}
-
-<?php } ?>
-                {% if is_granted(attributes.edit, <?php echo $singular['snake_case']; ?>) %}
-                  <a class="btn btn-sm btn-primary btn-action" href="{{ path('<?php echo $singular['snake_case']; ?>_edit', {id: <?php echo $singular['snake_case']; ?>.id}) }}" title="Edit">
-                    {{ bootstrap_icon('pen-fill') }}
-                    <span class="visually-hidden">Edit</span>
-                  </a>
-                {% endif %}
-
-                {% if is_granted(attributes.delete, <?php echo $singular['snake_case']; ?>) %}
-                  <a class="btn btn-sm btn-danger btn-action" href="{{ path('<?php echo $singular['snake_case']; ?>_delete', {id: <?php echo $singular['snake_case']; ?>.id}) }}" title="Delete" data-confirm="Are you sure you want to delete this <?php echo $singular['readable']; ?>? Clicking OK will take you to a verification step to delete this entry.">
-                    {{ bootstrap_icon('trash-fill') }}
-                    <span class="visually-hidden">Delete</span>
-                  </a>
-                {% endif %}
-              </td>
-            </tr>
+              {{ _self.table_row(<?php echo $singular['snake_case']; ?>, attributes) }}
             {% endfor %}
           </tbody>
+<?php } ?>
         </table>
 <?php if (!$has_reorder) { ?>
 
@@ -145,3 +106,69 @@
     </div>
   </div>
 {% endblock %}
+
+{% macro table_row(<?php echo $singular['snake_case']; ?>, attributes) %}
+  {% set row_actions = [] %}
+
+<?php if ($has_view_route) { ?>
+  {% if is_granted(attributes.view, <?php echo $singular['snake_case']; ?>) %}
+    {% set row_actions = row_actions|merge([{
+      route: '<?php echo $singular['snake_case']; ?>_view',
+      route_params: {id: <?php echo $singular['snake_case']; ?>.id},
+      color: 'outline-dark',
+      icon: 'eye',
+      text: 'View <?php echo $singular['title']; ?>',
+    }]) %}
+  {% endif %}
+
+<?php } ?>
+  {% if is_granted(attributes.edit, <?php echo $singular['snake_case']; ?>) %}
+    {% set row_actions = row_actions|merge([{
+      route: '<?php echo $singular['snake_case']; ?>_edit',
+      route_params: {id: <?php echo $singular['snake_case']; ?>.id},
+      color: 'secondary',
+      icon: 'pencil',
+      text: 'Edit <?php echo $singular['title']; ?>',
+    }]) %}
+  {% endif %}
+
+  {% if is_granted(attributes.delete, <?php echo $singular['snake_case']; ?>) %}
+    {% set row_actions = row_actions|merge([{
+      route: '<?php echo $singular['snake_case']; ?>_delete',
+      route_params: {id: <?php echo $singular['snake_case']; ?>.id},
+      color: 'danger',
+      icon: 'trash',
+      text: 'Delete <?php echo $singular['title']; ?>',
+      confirm: 'Are you sure you want to delete this <?php echo $singular['readable']; ?>? Clicking OK will take you to a verification step to delete this entry.',
+    }]) %}
+  {% endif %}
+
+<?php if ($has_reorder) { ?>
+  <tr data-id="{{ <?php echo $singular['snake_case']; ?>.id }}">
+    <td data-handle>{{ bootstrap_icon('arrows-move') }}</td>
+<?php } else { ?>
+  <tr>
+<?php } ?>
+<?php if ($is_publishable) { ?>
+    <td>
+      {{ <?php echo $singular['snake_case']; ?> }}
+      <br>
+      {% if <?php echo $singular['snake_case']; ?>.isPublished %}
+        {{ bootstrap_badge_success('Published') }}
+      {% elseif <?php echo $singular['snake_case']; ?>.isScheduled %}
+        {{ bootstrap_badge_warning('Scheduled') }}
+      {% else %}
+        {{ bootstrap_badge_secondary('Draft') }}
+      {% endif %}
+    </td>
+<?php } else { ?>
+    <td>{{ <?php echo $singular['snake_case']; ?> }}</td>
+<?php } ?>
+    <td>{{ <?php echo $singular['snake_case']; ?>.updatedAt|datetime }}</td>
+    <td>
+      {% include '@OHMediaBackend/widget/row_actions.html.twig' with {
+        row_actions: row_actions,
+      } only %}
+    </td>
+  </tr>
+{% endmacro %}

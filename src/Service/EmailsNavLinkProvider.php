@@ -10,7 +10,7 @@ class EmailsNavLinkProvider extends AbstractDeveloperOnlyNavLinkProvider
 {
     public function getNavLink(): NavLink
     {
-        return (new NavLink('Emails', 'email_index'))->setIcon('envelope-fill');
+        return (new NavLink('Emails', 'email_index'))->setIcon('envelope');
     }
 
     public function getVoterAttribute(): string
