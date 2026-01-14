@@ -20,15 +20,23 @@
   {% block stylesheets %}{% endblock %}
 </head>
 <body>
+  {% include '@OHMediaBackend/include/skip_to_content.html.twig' %}
+
   <nav id="top-nav" class="navbar navbar-light fixed-top">
-    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-nav" aria-controls="side-nav" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    {# wrapper preserves flex box for when button is hidden #}
+    <div>
+      <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#side-nav" aria-controls="side-nav" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
 
     {% include '@OHMediaBackend/include/nav_top_right.html.twig' %}
 
     <div class="offcanvas offcanvas-start" tabindex="-1" id="side-nav">
-      <a href="/admin" class="offcanvas-header">
+      {# used for a keyboard navigation skip link #}
+      <div id="primary-navigation"></div>
+
+      <a href="/admin" class="offcanvas-header" aria-label="Home">
         {% include '@OHMediaBackend/include/logo.html.twig' %}
       </a>
       <div class="offcanvas-body">
@@ -38,6 +46,13 @@
   </nav>
 
   <div id="toasts"></div>
+
+  {#
+    used for a keyboard navigation skip link
+    positioned at top of page to avoid jumping
+    must remain here so next TAB is into <main>
+  #}
+  <div id="main-content" style="position:absolute;top:0"></div>
 
   <main>
     <div id="top-bar">

@@ -1,0 +1,15 @@
+{% macro skip_to_content_link(target_id, text) %}
+  <a href="#{{ target_id }}">
+    {{ text }}
+    <span class="badge">
+      {{ bootstrap_icon('arrow-return-left') }}
+      Enter
+    </span>
+  </a>
+{% endmacro %}
+
+<div id="skip-to-content">
+  {{ _self.skip_to_content_link('main-content', 'Skip to main content') }}
+  {{ _self.skip_to_content_link('primary-navigation', 'Skip to primary navigation') }}
+  {{ _self.skip_to_content_link('secondary-navigation', 'Skip to secondary navigation') }}
+</div>

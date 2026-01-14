@@ -31,10 +31,26 @@ function NiceSelectInit(select) {
 
   select.style.borderWidth = 0;
 
-  return new window.NiceSelect(select, {
+  const niceSelect = new window.NiceSelect(select, {
     searchable: true,
     placeholder: select.placeholder,
   });
+
+  const label = document.querySelector(`label[for="${select.id}"]`);
+  label.id = select.id + '_label_' + Math.floor(Math.random() * 1000);
+
+  const niceSelectContainer = select.nextSibling;
+
+  niceSelectContainer.setAttribute('aria-labelledby', label.id);
+
+  select.tabIndex = -1;
+  select.setAttribute('aria-hidden', 'true');
+
+  const niceSelectInput = select.nextSibling.querySelector('input');
+
+  niceSelectInput.setAttribute('aria-label', niceSelectInput.title);
+
+  return niceSelect;
 }
 
 window.NiceSelectInit = NiceSelectInit;

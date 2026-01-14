@@ -27,6 +27,37 @@ body {
   padding-left: var(--side-nav-width);
 }
 
+#skip-to-content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 99999;
+
+  &:not(:focus-within) {
+    @extend .visually-hidden;
+  }
+
+  a {
+    @extend .btn;
+    @extend .btn-info;
+
+    position: absolute;
+    top: 3em;
+    left: 3em;
+
+    &:not(:focus) {
+      @extend .visually-hidden;
+    }
+
+    .badge {
+      @extend .text-bg-dark;
+    }
+  }
+}
+
 #top-nav {
   height: var(--top-nav-height);
   justify-content: space-between;
@@ -61,7 +92,7 @@ $oh-side-nav-padding-y: 0.5rem;
     .oh-version {
       vertical-align: top;
       line-height: 1;
-      color: $gray-600;
+      color: $gray-400;
       margin-left: $spacer * 0.5;
     }
 
@@ -192,7 +223,7 @@ footer {
 
 footer {
   font-size: $font-size-sm;
-  color: $secondary;
+  color: $gray-700;
 }
 
 .card-title-with-count {
@@ -237,7 +268,6 @@ form {
   .form-label {
     margin: 0;
     font-weight: bold;
-    font-size: $font-size-sm;
 
     &.required::after {
       content: '*';

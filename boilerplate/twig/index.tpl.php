@@ -61,11 +61,11 @@
           <thead>
             <tr>
 <?php if ($has_reorder) { ?>
-              <th style="width:1rem">&nbsp;</th>
+              <th style="width:1rem" aria-label="Reorder Rows"></th>
 <?php } ?>
               <th><?php echo $singular['title']; ?></th>
               <th>Last Updated</th>
-              <th></th>
+              <th aria-label="Row Actions"></th>
             </tr>
           </thead>
 <?php if ($has_reorder) { ?>

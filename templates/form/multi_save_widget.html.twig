@@ -2,26 +2,23 @@
   <div aria-hidden="true" class="my-3"><b>Save and&hellip;</b></div>
   <div class="d-flex gap-3">
     {% if form.finish is defined %}
-      <button type="submit" id="{{ form.finish.vars.id }}" name="{{ form.finish.vars.full_name }}" class="btn-secondary btn" title="Save and finish">
+      <button type="submit" id="{{ form.finish.vars.id }}" name="{{ form.finish.vars.full_name }}" class="btn-secondary btn" title="Save and Finish" aria-label="Save and Finish">
         {{ bootstrap_icon('arrow-left') }}
-        <span class="visually-hidden">Save and</span>
-        finish
+        Finish
       </button>
     {% endif %}
 
     {% if form.keep_editing is defined %}
-      <button type="submit" id="{{ form.keep_editing.vars.id }}" name="{{ form.keep_editing.vars.full_name }}" class="btn-outline-dark btn" title="Save and keep editing">
+      <button type="submit" id="{{ form.keep_editing.vars.id }}" name="{{ form.keep_editing.vars.full_name }}" class="btn-outline-dark btn" title="Save and Keep Editing" aria-label="Save and Keep Editing">
         {{ bootstrap_icon('arrow-clockwise') }}
-        <span class="visually-hidden">Save and</span>
-        keep editing
+        Keep Editing
       </button>
     {% endif %}
 
     {% if form.add_another is defined %}
-      <button type="submit" id="{{ form.add_another.vars.id }}" name="{{ form.add_another.vars.full_name }}" class="btn-outline-dark btn" title="Save and add another">
+      <button type="submit" id="{{ form.add_another.vars.id }}" name="{{ form.add_another.vars.full_name }}" class="btn-outline-dark btn" title="Save and Add Another" aria-label="Save and Add Another">
         {{ bootstrap_icon('plus-lg') }}
-        <span class="visually-hidden">Save and</span>
-        add another
+        Add Another
       </button>
     {% endif %}
   </div>
