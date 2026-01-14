@@ -6,6 +6,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\String\Inflector\EnglishInflector;
 
@@ -19,8 +20,10 @@ class BoilerplateCommand extends Command
     private EnglishInflector $inflector;
     private SymfonyStyle $io;
 
-    public function __construct(string $projectDir)
-    {
+    public function __construct(
+        #[Autowire('%kernel.project_dir%')]
+        string $projectDir,
+    ) {
         $this->projectDir = $projectDir.'/';
         $this->templateDir = __DIR__.'/../../boilerplate/';
         $this->filesystem = new Filesystem();
