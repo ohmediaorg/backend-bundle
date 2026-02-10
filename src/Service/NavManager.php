@@ -6,7 +6,7 @@ use OHMedia\BootstrapBundle\Component\Nav\Nav;
 use OHMedia\BootstrapBundle\Component\Nav\NavDropdown;
 use OHMedia\BootstrapBundle\Component\Nav\NavItemInterface;
 use OHMedia\BootstrapBundle\Component\Nav\NavLink;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class NavManager
 {
@@ -16,7 +16,7 @@ class NavManager
     private array $settingsNavLinkProviders = [];
     private NavDropdown $settingsDropdown;
 
-    public function __construct(private AuthorizationCheckerInterface $authorizationChecker)
+    public function __construct(private Security $security)
     {
         $this->developerOnlyDropdown = (new NavDropdown('Developer Only'))
             ->setIcon('shield-slash');
@@ -58,13 +58,17 @@ class NavManager
             }
         }
 
-        $developerOnlyNavLinks = $this->getDeveloperOnlyNavLinks();
+        $user = $this->security->getUser();
 
-        foreach ($developerOnlyNavLinks as $navLink) {
-            $this->developerOnlyDropdown->addLink($navLink);
+        if ($user && $user->isTypeDeveloper()) {
+            $developerOnlyNavLinks = $this->getDeveloperOnlyNavLinks();
+
+            foreach ($developerOnlyNavLinks as $navLink) {
+                $this->developerOnlyDropdown->addLink($navLink);
+            }
+
+            $navItems[] = $this->developerOnlyDropdown;
         }
-
-        $navItems[] = $this->developerOnlyDropdown;
 
         $settingsNavLinks = $this->getSettingsNavLinks();
 
@@ -105,7 +109,7 @@ class NavManager
             $attribute = $navLinkProvider->getVoterAttribute();
             $subject = $navLinkProvider->getVoterSubject();
 
-            if ($this->authorizationChecker->isGranted($attribute, $subject)) {
+            if ($this->security->isGranted($attribute, $subject)) {
                 $navLink = $navLinkProvider->getNavLink();
 
                 $navLinks[] = $navLink;
