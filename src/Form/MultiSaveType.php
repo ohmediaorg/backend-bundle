@@ -32,7 +32,7 @@ class MultiSaveType extends AbstractType
             'mapped' => false,
             'label' => false,
             'row_attr' => [
-                'class' => 'fieldset-nostyle mb-3',
+                'class' => 'fieldset-nostyle',
             ],
             'finish' => true,
             'keep_editing' => true,

@@ -274,6 +274,10 @@ form {
       margin-left: $one-space-width;
     }
   }
+
+  .form-group {
+    @extend .mb-3;
+  }
 }
 
 .btn-action {
