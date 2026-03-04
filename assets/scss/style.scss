@@ -336,6 +336,7 @@ form {
   line-height: 1.5 !important;
   padding: $form-select-padding-y $form-select-indicator-padding
     $form-select-padding-y $form-select-padding-x !important;
+  width: auto;
 
   &.open,
   &:active,
