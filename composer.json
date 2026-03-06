@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony BackendBundle",
     "keywords": ["Backend"],
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Justin Hoffman",
