@@ -39,14 +39,14 @@ function NiceSelectInit(select) {
   const label = document.querySelector(`label[for="${select.id}"]`);
   label.id = select.id + '_label_' + Math.floor(Math.random() * 1000);
 
-  const niceSelectContainer = select.nextSibling;
+  const niceSelectContainer = select.nextElementSibling;
 
   niceSelectContainer.setAttribute('aria-labelledby', label.id);
 
   select.tabIndex = -1;
   select.setAttribute('aria-hidden', 'true');
 
-  const niceSelectInput = select.nextSibling.querySelector('input');
+  const niceSelectInput = niceSelectContainer.querySelector('input');
 
   niceSelectInput.setAttribute('aria-label', niceSelectInput.title);
 

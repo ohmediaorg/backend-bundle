@@ -3,7 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony BackendBundle",
     "keywords": ["Backend"],
-    "license": "MIT",
+    "license": "proprietary",
     "authors": [
         {
             "name": "Justin Hoffman",
@@ -12,7 +12,7 @@
     ],
     "require": {
         "php": ">=8.2",
-        "symfony/framework-bundle": "6.4.*"
+        "symfony/framework-bundle": "6.4.*|7.4.*"
     },
     "autoload": {
         "psr-4": { "OHMedia\\BackendBundle\\": "src/" }
