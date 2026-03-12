@@ -319,15 +319,15 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             ]);
         } elseif ('add_another' === $clickedButtonName) {
             return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_create');
-        } else {
-<?php if ($has_view_route) { ?>
-            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
-                'id' => $<?php echo $singular['camel_case']; ?>->getId(),
-            ]);
-<?php } else { ?>
-            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
-<?php } ?>
         }
+
+<?php if ($has_view_route) { ?>
+        return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_view', [
+            'id' => $<?php echo $singular['camel_case']; ?>->getId(),
+        ]);
+<?php } else { ?>
+        return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_index');
+<?php } ?>
     }
 
     #[Route('/<?php echo $singular['kebab_case']; ?>/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_delete', methods: ['GET', 'POST'])]
