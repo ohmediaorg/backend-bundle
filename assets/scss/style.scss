@@ -261,6 +261,14 @@ form {
 
     > div {
       padding: $spacer;
+
+      &[aria-describedby] {
+        padding-bottom: 0;
+      }
+
+      &.help-text {
+        padding-top: 0;
+      }
     }
   }
 
