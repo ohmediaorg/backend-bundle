@@ -156,7 +156,11 @@
       {% if <?php echo $singular['snake_case']; ?>.isPublished %}
         {{ bootstrap_badge_success('Published') }}
       {% elseif <?php echo $singular['snake_case']; ?>.isScheduled %}
-        {{ bootstrap_badge_warning('Scheduled') }}
+        <span
+          class="badge text-bg-warning"
+          data-bs-toggle="tooltip"
+          title="{{ <?php echo $singular['snake_case']; ?>.publishedAt|date('M j, Y g:ia') }}"
+        >Scheduled</span>
       {% else %}
         {{ bootstrap_badge_secondary('Draft') }}
       {% endif %}
