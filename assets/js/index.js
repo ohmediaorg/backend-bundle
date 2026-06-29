@@ -73,7 +73,7 @@ function preventDoubleSubmit(form) {
   });
 }
 
-document.querySelectorAll('form').forEach((form) => {
+document.querySelectorAll('form:not([data-bypass])').forEach((form) => {
   preventDoubleSubmit(form);
 });
 
