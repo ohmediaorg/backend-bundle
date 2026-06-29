@@ -38,7 +38,11 @@
       </div>
 <?php if (!$has_reorder) { ?>
 
-      {{ form_start(search_form) }}
+      {{ form_start(search_form, {
+        attr: {
+          'data-bypass': '',
+        },
+      }) }}
         <div class="row align-items-end">
           <div class="col-lg-6 col-sm-6">
             {{ form_row(search_form.search) }}
