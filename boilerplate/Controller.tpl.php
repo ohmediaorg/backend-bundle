@@ -64,6 +64,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         $<?php echo $plural['camel_case']; ?> = $this-><?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>')
             ->orderBy('<?php echo $alias; ?>.ordinal', 'asc')
+            ->addOrderBy('<?php echo $alias; ?>.id', 'asc')
             ->getQuery()
             ->getResult();
 
