@@ -84,22 +84,11 @@ $oh-side-nav-padding-y: 0.5rem;
     color: $white;
     text-decoration: none;
     display: block;
+    padding-left: 0;
 
-    .oh-logo {
-      margin-left: $spacer;
-    }
-
-    .oh-version {
-      vertical-align: top;
-      line-height: 1;
-      color: $gray-400;
-      margin-left: $spacer * 0.5;
-    }
-
-    .oh-logo,
-    .oh-version {
-      height: 50px;
-      display: inline-block;
+    .pg-logo {
+      height: 100px;
+      display: block;
     }
   }
 
