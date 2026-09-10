@@ -35,7 +35,7 @@ class EmailController extends AbstractController
         );
 
         $qb = $emailRepository->createQueryBuilder('e');
-        $qb->orderBy('e.id', 'desc');
+        $qb->orderBy('e.id', \SortDirection::Descending);
 
         $searchForm = $this->getSearchForm($request);
 

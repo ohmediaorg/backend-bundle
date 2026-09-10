@@ -51,10 +51,10 @@ class <?php echo $singular['pascal_case']; ?>Repository extends ServiceEntityRep
             ->andWhere($alias.'.published_at <= :now')
             ->setParameter('now', DateTimeUtil::getDateTimeUtc())
 <?php if ($has_reorder) { ?>
-            ->orderBy($alias.'.ordinal', 'ASC')
-            ->addOrderBy($alias.'.id', 'ASC');
+            ->orderBy($alias.'.ordinal', \SortDirection::Ascending)
+            ->addOrderBy($alias.'.id', \SortDirection::Ascending);
 <?php } else { ?>
-            ->orderBy($alias.'.published_at', 'DESC');
+            ->orderBy($alias.'.published_at', \SortDirection::Descending);
 <?php } ?>
     }
 <?php } ?>

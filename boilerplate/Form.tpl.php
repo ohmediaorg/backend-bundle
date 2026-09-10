@@ -91,7 +91,7 @@ class <?php echo $singular['pascal_case']; ?>Type extends AbstractType
         //     'class' => User::class,
         //     'query_builder' => function (EntityRepository $er): QueryBuilder {
         //         return $er->createQueryBuilder('u')
-        //             ->orderBy('u.email', 'ASC');
+        //             ->orderBy('u.email', \SortDirection::Ascending);
         //     },
         //     'choice_label' => 'email',
         // ]);

@@ -63,8 +63,8 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         );
 
         $<?php echo $plural['camel_case']; ?> = $this-><?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>')
-            ->orderBy('<?php echo $alias; ?>.ordinal', 'asc')
-            ->addOrderBy('<?php echo $alias; ?>.id', 'asc')
+            ->orderBy('<?php echo $alias; ?>.ordinal', \SortDirection::Ascending)
+            ->addOrderBy('<?php echo $alias; ?>.id', \SortDirection::Ascending)
             ->getQuery()
             ->getResult();
 
@@ -133,10 +133,10 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
         $qb = $this-><?php echo $singular['camel_case']; ?>Repository->createQueryBuilder('<?php echo $alias; ?>');
 <?php if ($is_publishable) { ?>
-        $qb->orderBy('CASE WHEN <?php echo $alias; ?>.published_at IS NULL THEN 0 ELSE 1 END', 'ASC');
-        $qb->addOrderBy('<?php echo $alias; ?>.published_at', 'DESC');
+        $qb->orderBy('CASE WHEN <?php echo $alias; ?>.published_at IS NULL THEN 0 ELSE 1 END', \SortDirection::Ascending);
+        $qb->addOrderBy('<?php echo $alias; ?>.published_at', \SortDirection::Descending);
 <?php } else { ?>
-        $qb->orderBy('<?php echo $alias; ?>.id', 'desc');
+        $qb->orderBy('<?php echo $alias; ?>.id', \SortDirection::Descending);
 <?php } ?>
 
         $searchForm = $this->getSearchForm($request);
