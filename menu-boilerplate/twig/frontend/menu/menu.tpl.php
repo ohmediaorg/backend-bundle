@@ -82,7 +82,7 @@
 </nav>
 
 {% for menu in menus %}
-  <div class="menu" data-menu="{{ menu.entity.id }}" {% if not loop.first %}style="display:none"{% endif %}>
+  <div class="<?php echo $singular['kebab_case']; ?>" data-<?php echo $singular['kebab_case']; ?>="{{ menu.entity.id }}" {% if not loop.first %}style="display:none"{% endif %}>
     <div class="<?php echo $singular['kebab_case']; ?>-nav--sections__wrapper" {% if menu.sections|length < 2 %}style="display:none"{% endif %}>
       <nav class="<?php echo $singular['kebab_case']; ?>-nav--sections">
         <ul>
@@ -161,12 +161,12 @@
 document.addEventListener('DOMContentLoaded', function() {
   const pickers = document.querySelectorAll('[data-<?php echo $singular['kebab_case']; ?>-picker]');
 
-  const allMenus = document.querySelectorAll('[data-menu]');
+  const allMenus = document.querySelectorAll('[data-<?php echo $singular['kebab_case']; ?>]');
 
   pickers.forEach(function(picker) {
     const id = picker.dataset.menuPicker;
 
-    const menu = document.querySelector('[data-menu="' + id + '"]');
+    const menu = document.querySelector('[data-<?php echo $singular['kebab_case']; ?>="' + id + '"]');
 
     const menuNavSections = menu.querySelector('.<?php echo $singular['kebab_case']; ?>-nav--sections');
 
