@@ -30,7 +30,7 @@ class <?php echo $singular['pascal_case']; ?>SectionController extends AbstractC
 
     public const CSRF_TOKEN_REORDER = '<?php echo $singular['snake_case']; ?>_section_reorder';
 
-    #[Route('/menu/sections/reorder', name: '<?php echo $singular['snake_case']; ?>_section_reorder_post', methods: ['POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/sections/reorder', name: '<?php echo $singular['snake_case']; ?>_section_reorder_post', methods: ['POST'])]
     public function reorderPost(
         Connection $connection,
         Request $request,
@@ -72,7 +72,7 @@ class <?php echo $singular['pascal_case']; ?>SectionController extends AbstractC
         return new JsonResponse();
     }
 
-    #[Route('/menu/{id}/section/create', name: '<?php echo $singular['snake_case']; ?>_section_create', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/{id}/section/create', name: '<?php echo $singular['snake_case']; ?>_section_create', methods: ['GET', 'POST'])]
     public function create(
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?> $menu,
         Request $request,
@@ -110,7 +110,7 @@ class <?php echo $singular['pascal_case']; ?>SectionController extends AbstractC
         ]);
     }
 
-    #[Route('/menu/section/{id}', name: '<?php echo $singular['snake_case']; ?>_section_view', methods: ['GET'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/section/{id}', name: '<?php echo $singular['snake_case']; ?>_section_view', methods: ['GET'])]
     public function view(
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Section $menuSection,
     ): Response {
@@ -131,7 +131,7 @@ class <?php echo $singular['pascal_case']; ?>SectionController extends AbstractC
         ]);
     }
 
-    #[Route('/menu/section/{id}/edit', name: '<?php echo $singular['snake_case']; ?>_section_edit', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/section/{id}/edit', name: '<?php echo $singular['snake_case']; ?>_section_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Section $menuSection,
@@ -185,7 +185,7 @@ class <?php echo $singular['pascal_case']; ?>SectionController extends AbstractC
         ]);
     }
 
-    #[Route('/menu/section/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_section_delete', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/section/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_section_delete', methods: ['GET', 'POST'])]
     public function delete(
         Request $request,
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Section $menuSection,

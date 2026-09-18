@@ -30,7 +30,7 @@ class <?php echo $singular['pascal_case']; ?>ItemController extends AbstractCont
 
     public const CSRF_TOKEN_REORDER = '<?php echo $singular['snake_case']; ?>_item_reorder';
 
-    #[Route('/menu/items/reorder', name: '<?php echo $singular['snake_case']; ?>_item_reorder_post', methods: ['POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/items/reorder', name: '<?php echo $singular['snake_case']; ?>_item_reorder_post', methods: ['POST'])]
     public function reorderPost(
         Connection $connection,
         Request $request,
@@ -72,7 +72,7 @@ class <?php echo $singular['pascal_case']; ?>ItemController extends AbstractCont
         return new JsonResponse();
     }
 
-    #[Route('/menu/section/{id}/item/create', name: '<?php echo $singular['snake_case']; ?>_item_create', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/section/{id}/item/create', name: '<?php echo $singular['snake_case']; ?>_item_create', methods: ['GET', 'POST'])]
     public function create(
         Request $request,
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Section $menuSection,
@@ -114,7 +114,7 @@ class <?php echo $singular['pascal_case']; ?>ItemController extends AbstractCont
         ]);
     }
 
-    #[Route('/menu/item/{id}/edit', name: '<?php echo $singular['snake_case']; ?>_item_edit', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/item/{id}/edit', name: '<?php echo $singular['snake_case']; ?>_item_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Item $menuItem,
@@ -166,7 +166,7 @@ class <?php echo $singular['pascal_case']; ?>ItemController extends AbstractCont
         return $this->redirectToSection($menuItem);
     }
 
-    #[Route('/menu/item/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_item_delete', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/item/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_item_delete', methods: ['GET', 'POST'])]
     public function delete(
         Request $request,
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Item $menuItem,

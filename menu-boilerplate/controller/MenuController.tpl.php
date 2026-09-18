@@ -31,7 +31,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
 
     private const CSRF_TOKEN_REORDER = '<?php echo $singular['snake_case']; ?>_reorder';
 
-    #[Route('/menus', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>s', name: '<?php echo $singular['snake_case']; ?>_index', methods: ['GET'])]
     public function index(): Response
     {
         $newMenu = new <?php echo $singular['pascal_case']; ?>();
@@ -47,7 +47,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             ->getQuery()
             ->getResult();
 
-        return $this->render('@backend/menu/<?php echo $singular['snake_case']; ?>_index.html.twig', [
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_index.html.twig', [
             'menus' => $menus,
             'new_menu' => $newMenu,
             'attributes' => self::getAttributes(),
@@ -55,7 +55,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         ]);
     }
 
-    #[Route('/menus/reorder', name: '<?php echo $singular['snake_case']; ?>_reorder_post', methods: ['POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>s/reorder', name: '<?php echo $singular['snake_case']; ?>_reorder_post', methods: ['POST'])]
     public function reorderPost(
         Connection $connection,
         Request $request,
@@ -97,7 +97,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         return new JsonResponse();
     }
 
-    #[Route('/menu/create', name: '<?php echo $singular['snake_case']; ?>_create', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/create', name: '<?php echo $singular['snake_case']; ?>_create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
         $menu = new <?php echo $singular['pascal_case']; ?>();
@@ -126,13 +126,13 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             $this->addFlash('error', 'There are some errors in the form below.');
         }
 
-        return $this->render('@backend/menu/<?php echo $singular['snake_case']; ?>_create.html.twig', [
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_create.html.twig', [
             'form' => $form->createView(),
             'menu' => $menu,
         ]);
     }
 
-    #[Route('/menu/{id}', name: '<?php echo $singular['snake_case']; ?>_view', methods: ['GET'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/{id}', name: '<?php echo $singular['snake_case']; ?>_view', methods: ['GET'])]
     public function view(
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?> $menu,
     ): Response {
@@ -145,7 +145,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         $new<?php echo $singular['pascal_case']; ?>Section = new <?php echo $singular['pascal_case']; ?>Section();
         $new<?php echo $singular['pascal_case']; ?>Section->setMenu($menu);
 
-        return $this->render('@backend/menu/<?php echo $singular['snake_case']; ?>_view.html.twig', [
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_view.html.twig', [
             'menu' => $menu,
             'new_<?php echo $singular['snake_case']; ?>_section' => $new<?php echo $singular['pascal_case']; ?>Section,
             'attributes' => self::getAttributes(),
@@ -153,7 +153,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         ]);
     }
 
-    #[Route('/menu/{id}/edit', name: '<?php echo $singular['snake_case']; ?>_edit', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/{id}/edit', name: '<?php echo $singular['snake_case']; ?>_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?> $menu,
@@ -182,7 +182,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             $this->addFlash('error', 'There are some errors in the form below.');
         }
 
-        return $this->render('@backend/menu/<?php echo $singular['snake_case']; ?>_edit.html.twig', [
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_edit.html.twig', [
             'form' => $form->createView(),
             'menu' => $menu,
         ]);
@@ -205,7 +205,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
         ]);
     }
 
-    #[Route('/menu/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_delete', methods: ['GET', 'POST'])]
+    #[Route('/<?php echo $singular['kebab_case']; ?>/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_delete', methods: ['GET', 'POST'])]
     public function delete(
         Request $request,
         #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?> $menu,
@@ -234,7 +234,7 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             $this->addFlash('error', 'There are some errors in the form below.');
         }
 
-        return $this->render('@backend/menu/<?php echo $singular['snake_case']; ?>_delete.html.twig', [
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>_delete.html.twig', [
             'form' => $form->createView(),
             'menu' => $menu,
         ]);
