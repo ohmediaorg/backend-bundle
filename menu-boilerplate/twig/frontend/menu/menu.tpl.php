@@ -65,7 +65,7 @@
   {% endif %}
 {% endmacro %}
 
-<nav class="<?php echo $singular['kebab_case']; ?>-nav" {% if menus|length < 2 %}style="display:none"{% endif %}>
+<nav class="<?php echo $singular['kebab_case']; ?>-nav" {% if menus|length <?php echo '<'; ?> 2 %}style="display:none"{% endif %}>
   <div class="<?php echo $singular['kebab_case']; ?>-nav__inner">
     <div class="<?php echo $singular['kebab_case']; ?>-nav__menus">
       <ul>
@@ -83,7 +83,7 @@
 
 {% for menu in menus %}
   <div class="<?php echo $singular['kebab_case']; ?>" data-<?php echo $singular['kebab_case']; ?>="{{ menu.entity.id }}" {% if not loop.first %}style="display:none"{% endif %}>
-    <div class="<?php echo $singular['kebab_case']; ?>-nav--sections__wrapper" {% if menu.sections|length < 2 %}style="display:none"{% endif %}>
+    <div class="<?php echo $singular['kebab_case']; ?>-nav--sections__wrapper" {% if menu.sections|length <?php echo '<'; ?> 2 %}style="display:none"{% endif %}>
       <nav class="<?php echo $singular['kebab_case']; ?>-nav--sections">
         <ul>
           {% for section in menu.sections %}
@@ -97,7 +97,7 @@
       </nav>
     </div>
 
-    <div class="<?php echo $singular['snake_case']; ?>__inner">
+    <div class="<?php echo $singular['kebab_case']; ?>__inner">
       {% for section in menu.sections %}
         <div id="{{ section.entity.slug }}-{{ section.entity.id }}" class="<?php echo $singular['kebab_case']; ?>-section">
           <div class="<?php echo $singular['kebab_case']; ?>-section__inner">
