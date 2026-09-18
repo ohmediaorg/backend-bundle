@@ -11,7 +11,7 @@ class <?php echo $singular['pascal_case']; ?>EntityChoice implements EntityChoic
 {
     public function getLabel(): string
     {
-        return '<?php echo $singular['title']; ?>';
+        return '<?php echo $singular['title']; ?>s';
     }
 
     public function getEntities(): array
