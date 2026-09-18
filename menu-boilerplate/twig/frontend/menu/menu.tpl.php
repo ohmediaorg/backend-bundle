@@ -164,7 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const allMenus = document.querySelectorAll('[data-<?php echo $singular['kebab_case']; ?>]');
 
   pickers.forEach(function(picker) {
-    const id = picker.dataset.menuPicker;
+    const id = picker.dataset.<?php echo $singular['camel_case']; ?>Picker;
 
     const menu = document.querySelector('[data-<?php echo $singular['kebab_case']; ?>="' + id + '"]');
 
