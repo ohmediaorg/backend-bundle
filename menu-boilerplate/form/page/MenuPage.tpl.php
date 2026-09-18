@@ -24,6 +24,6 @@ class <?php echo $singular['pascal_case']; ?>Page extends AbstractPageTemplateTy
 
     public static function getTemplateName(): string
     {
-        return '<?php echo $singular['title_case']; ?>';
+        return '<?php echo $singular['title']; ?>';
     }
 }

@@ -13,7 +13,7 @@ class <?php echo $singular['pascal_case']; ?>NavItemProvider extends AbstractNav
     public function getNavItem(): ?NavItemInterface
     {
         if ($this->isGranted(<?php echo $singular['pascal_case']; ?>Voter::INDEX, new <?php echo $singular['pascal_case']; ?>())) {
-            return (new NavLink('<?php echo $singular['title_case']; ?>s', '<?php echo $singular['snake_case']; ?>_index'))
+            return (new NavLink('<?php echo $singular['title']; ?>s', '<?php echo $singular['snake_case']; ?>_index'))
                 ->setIcon('<?php echo $icon; ?>');
         }
 

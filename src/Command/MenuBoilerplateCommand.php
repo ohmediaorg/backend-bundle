@@ -8,7 +8,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\String\Inflector\EnglishInflector;
 
 use function Symfony\Component\String\u;
 
@@ -17,7 +16,6 @@ class MenuBoilerplateCommand extends Command
     private string $templateDir;
     private string $projectDir;
     private Filesystem $filesystem;
-    private EnglishInflector $inflector;
     private SymfonyStyle $io;
 
     public function __construct(
@@ -27,8 +25,6 @@ class MenuBoilerplateCommand extends Command
         $this->projectDir = $projectDir.'/';
         $this->templateDir = __DIR__.'/../../menu-boilerplate/';
         $this->filesystem = new Filesystem();
-
-        $this->inflector = new EnglishInflector();
 
         parent::__construct();
     }
@@ -45,7 +41,7 @@ class MenuBoilerplateCommand extends Command
     {
         $this->io = new SymfonyStyle($input, $output);
 
-        $prefix = $this->io->ask('Enter a prefix for the menu (or leave blank for none)', '');
+        $prefix = $this->io->ask('Enter a prefix for the Menu entity (leave blank for none)', '');
 
         $icon = $this->io->ask('Enter a Bootstrap icon name excluding the "bi-" prefix', 'fork-knife');
 
@@ -61,13 +57,8 @@ class MenuBoilerplateCommand extends Command
 
         $parameters = [
             'singular' => $this->generateParameters($className),
-            'plural' => $this->generateParameters($className),
             'icon' => $icon,
         ];
-
-        $parameters['alias'] = strtolower(preg_replace('/[^A-Z]/', '', $parameters['singular']['pascal_case']));
-
-        $parameters['determiner'] = preg_match('/^(a|e|i|o|u)/i', $className) ? 'an' : 'a';
 
         $pascalCase = $parameters['singular']['pascal_case'];
         $snakeCase = $parameters['singular']['snake_case'];
@@ -103,31 +94,45 @@ class MenuBoilerplateCommand extends Command
             'backend/menu/menu_edit.tpl.php' => 'templates/backend/%s/%s_edit.html.twig',
             'backend/menu/menu_index.tpl.php' => 'templates/backend/%s/%s_index.html.twig',
             'backend/menu/menu_view.tpl.php' => 'templates/backend/%s/%s_view.html.twig',
-            'backend/menu/menu_item_create.tpl.php' => 'templates/backend/%s/%s_item_create.html.twig',
-            'backend/menu/menu_item_delete.tpl.php' => 'templates/backend/%s/%s_item_delete.html.twig',
-            'backend/menu/menu_item_edit.tpl.php' => 'templates/backend/%s/%s_item_edit.html.twig',
-            'backend/menu/menu_item_view.tpl.php' => 'templates/backend/%s/%s_item_view.html.twig',
-            'backend/menu/menu_section_create.tpl.php' => 'templates/backend/%s/%s_section_create.html.twig',
-            'backend/menu/menu_section_delete.tpl.php' => 'templates/backend/%s/%s_section_delete.html.twig',
-            'backend/menu/menu_section_edit.tpl.php' => 'templates/backend/%s/%s_section_edit.html.twig',
-            'backend/menu/menu_section_view.tpl.php' => 'templates/backend/%s/%s_section_view.html.twig',
+            'backend/menu_item/menu_item_create.tpl.php' => 'templates/backend/%s/%s_item_create.html.twig',
+            'backend/menu_item/menu_item_delete.tpl.php' => 'templates/backend/%s/%s_item_delete.html.twig',
+            'backend/menu_item/menu_item_edit.tpl.php' => 'templates/backend/%s/%s_item_edit.html.twig',
+            'backend/menu_item/menu_item_form.tpl.php' => 'templates/backend/%s/%s_item_form.html.twig',
+            'backend/menu_section/menu_section_create.tpl.php' => 'templates/backend/%s/%s_section_create.html.twig',
+            'backend/menu_section/menu_section_delete.tpl.php' => 'templates/backend/%s/%s_section_delete.html.twig',
+            'backend/menu_section/menu_section_edit.tpl.php' => 'templates/backend/%s/%s_section_edit.html.twig',
+            'backend/menu_section/menu_section_view.tpl.php' => 'templates/backend/%s/%s_section_view.html.twig',
             'frontend/menu/menu.tpl.php' => 'templates/frontend/%s/%s.html.twig',
-            'frontend/menu_page.tpl.php' => 'templates/frontend/%s_page.html.twig',
         ];
 
         foreach ($phpFileMap as $src => $dest) {
             $dest = sprintf($dest, $pascalCase);
 
-            $this->generateFile($src, $desc, $parameters);
+            $this->generateFile($src, $dest, $parameters);
         }
 
         foreach ($twigFileMap as $src => $dest) {
-            $dest = sprintf($dest, $snakeCase);
+            $dest = sprintf($dest, $snakeCase, $snakeCase);
 
-            $this->generateFile($src, $desc, $parameters);
+            $this->generateFile('twig/'.$src, $dest, $parameters);
         }
 
-        // TODO: copy svg files
+        // this file has 1 param in sprintf
+        $this->generateFile(
+            'twig/frontend/menu_page.tpl.php',
+            sprintf('templates/frontend/%s_page.html.twig', $snakeCase),
+            $parameters
+        );
+
+        $svgs = scandir($this->templateDir.'/twig/frontend/menu/svg');
+
+        foreach ($svgs as $svg) {
+            if ('.' === $svg || '..' === $svg) {
+                continue;
+            }
+
+            $this->copySvg($svg);
+        }
 
         return Command::SUCCESS;
     }
@@ -175,6 +180,35 @@ class MenuBoilerplateCommand extends Command
         $contents = ob_get_clean();
 
         $this->filesystem->mkdir(\dirname($absoluteDestination));
+
+        file_put_contents($absoluteDestination, $contents);
+
+        $this->io->success(sprintf('Generated %s', $destination));
+
+        return $this;
+    }
+
+    private function copySvg(string $svg)
+    {
+        $source = 'twig/frontend/menu/svg/'.$svg;
+        $destination = 'templates/frontend/menu/svg/'.$svg;
+
+        $absoluteDestination = $this->projectDir.$destination;
+
+        if (file_exists($absoluteDestination)) {
+            $continue = $this->io->confirm(sprintf(
+                'The destination file <fg=yellow>%s</> exists. Do you want to overwrite it?',
+                $destination
+            ), false);
+
+            if (!$continue) {
+                return $this;
+            }
+        }
+
+        $this->filesystem->mkdir(\dirname($absoluteDestination));
+
+        $contents = file_get_contents($this->templateDir.$source);
 
         file_put_contents($absoluteDestination, $contents);
 
