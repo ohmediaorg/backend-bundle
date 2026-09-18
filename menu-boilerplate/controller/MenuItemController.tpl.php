@@ -81,7 +81,7 @@ class <?php echo $singular['pascal_case']; ?>ItemController extends AbstractCont
         $menuItem->setSection($menuSection);
 
         $menuItemPrice = new <?php echo $singular['pascal_case']; ?>ItemPrice();
-        $menuItemPrice->setLabel('Default');
+        $menuItemPrice->setLabel('Regular');
         $menuItem->addPrice($menuItemPrice);
 
         $this->denyAccessUnlessGranted(

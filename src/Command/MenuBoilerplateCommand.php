@@ -71,10 +71,10 @@ class MenuBoilerplateCommand extends Command
             'entity/MenuItem.tpl.php' => 'src/Entity/%sItem.php',
             'entity/MenuItemPrice.tpl.php' => 'src/Entity/%sItemPrice.php',
             'entity/MenuSection.tpl.php' => 'src/Entity/%sSection.php',
-            'form/MenuType.tpl.php' => 'src/Entity/%sType.php',
-            'form/MenuItemType.tpl.php' => 'src/Entity/%sItemType.php',
-            'form/MenuItemPriceType.tpl.php' => 'src/Entity/%sItemPriceType.php',
-            'form/MenuSectionType.tpl.php' => 'src/Entity/%sSectionType.php',
+            'form/MenuType.tpl.php' => 'src/Form/%sType.php',
+            'form/MenuItemType.tpl.php' => 'src/Form/%sItemType.php',
+            'form/MenuItemPriceType.tpl.php' => 'src/Form/%sItemPriceType.php',
+            'form/MenuSectionType.tpl.php' => 'src/Form/%sSectionType.php',
             'form/page/MenuPage.tpl.php' => 'src/Form/Page/%sPage.php',
             'repository/MenuRepository.tpl.php' => 'src/Repository/%sRepository.php',
             'repository/MenuItemRepository.tpl.php' => 'src/Repository/%sItemRepository.php',
@@ -94,14 +94,14 @@ class MenuBoilerplateCommand extends Command
             'backend/menu/menu_edit.tpl.php' => 'templates/backend/%s/%s_edit.html.twig',
             'backend/menu/menu_index.tpl.php' => 'templates/backend/%s/%s_index.html.twig',
             'backend/menu/menu_view.tpl.php' => 'templates/backend/%s/%s_view.html.twig',
-            'backend/menu_item/menu_item_create.tpl.php' => 'templates/backend/%s/%s_item_create.html.twig',
-            'backend/menu_item/menu_item_delete.tpl.php' => 'templates/backend/%s/%s_item_delete.html.twig',
-            'backend/menu_item/menu_item_edit.tpl.php' => 'templates/backend/%s/%s_item_edit.html.twig',
-            'backend/menu_item/menu_item_form.tpl.php' => 'templates/backend/%s/%s_item_form.html.twig',
-            'backend/menu_section/menu_section_create.tpl.php' => 'templates/backend/%s/%s_section_create.html.twig',
-            'backend/menu_section/menu_section_delete.tpl.php' => 'templates/backend/%s/%s_section_delete.html.twig',
-            'backend/menu_section/menu_section_edit.tpl.php' => 'templates/backend/%s/%s_section_edit.html.twig',
-            'backend/menu_section/menu_section_view.tpl.php' => 'templates/backend/%s/%s_section_view.html.twig',
+            'backend/menu_item/menu_item_create.tpl.php' => 'templates/backend/%s_item/%s_item_create.html.twig',
+            'backend/menu_item/menu_item_delete.tpl.php' => 'templates/backend/%s_item/%s_item_delete.html.twig',
+            'backend/menu_item/menu_item_edit.tpl.php' => 'templates/backend/%s_item/%s_item_edit.html.twig',
+            'backend/menu_item/menu_item_form.tpl.php' => 'templates/backend/%s_item/%s_item_form.html.twig',
+            'backend/menu_section/menu_section_create.tpl.php' => 'templates/backend/%s_section/%s_section_create.html.twig',
+            'backend/menu_section/menu_section_delete.tpl.php' => 'templates/backend/%s_section/%s_section_delete.html.twig',
+            'backend/menu_section/menu_section_edit.tpl.php' => 'templates/backend/%s_section/%s_section_edit.html.twig',
+            'backend/menu_section/menu_section_view.tpl.php' => 'templates/backend/%s_section/%s_section_view.html.twig',
             'frontend/menu/menu.tpl.php' => 'templates/frontend/%s/%s.html.twig',
         ];
 
@@ -131,7 +131,7 @@ class MenuBoilerplateCommand extends Command
                 continue;
             }
 
-            $this->copySvg($svg);
+            $this->copySvg($svg, $parameters);
         }
 
         return Command::SUCCESS;
@@ -188,10 +188,10 @@ class MenuBoilerplateCommand extends Command
         return $this;
     }
 
-    private function copySvg(string $svg)
+    private function copySvg(string $svg, array $parameters)
     {
         $source = 'twig/frontend/menu/svg/'.$svg;
-        $destination = 'templates/frontend/menu/svg/'.$svg;
+        $destination = 'templates/frontend/'.$parameters['singular']['snake_case'].'/svg/'.$svg;
 
         $absoluteDestination = $this->projectDir.$destination;
 

@@ -115,7 +115,7 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
             $schema['hasMenu'][] = $menuSchema;
         }
 
-        return $twig->render('@frontend/menu/menu.html.twig', [
+        return $twig->render('@frontend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>.html.twig', [
             'menus' => $menus,
             'schema' => $schema,
         ]);

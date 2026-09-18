@@ -1,7 +1,7 @@
 {% macro <?php echo $singular['snake_case']; ?>_item_tag(svg, text) %}
   <li class="<?php echo $singular['kebab_case']; ?>-item__tag" data-bs-toggle="tooltip" data-bs-title="{{ text|e('html_attr') }}" data-bs-placement="bottom">
     <span class="<?php echo $singular['kebab_case']; ?>-item__tag-icon">
-      {% include '@frontend/menu/svg/' ~ svg %}
+      {% include '@frontend/<?php echo $singular['snake_case']; ?>/svg/' ~ svg %}
     </span>
     <span class="<?php echo $singular['kebab_case']; ?>-item__tag-copy">{{ text }}</span>
   </li>
