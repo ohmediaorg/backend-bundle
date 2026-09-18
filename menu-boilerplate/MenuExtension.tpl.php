@@ -28,7 +28,7 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('menu', [$this, 'menu'], [
+            new TwigFunction('<?php echo $singular['snake_case']; ?>', [$this, 'menu'], [
                 'needs_environment' => true,
                 'is_safe' => ['html'],
             ]),

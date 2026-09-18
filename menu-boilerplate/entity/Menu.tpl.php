@@ -13,7 +13,7 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: <?php echo $singular['pascal_case']; ?>Repository::class)]
-class <?php echo $singular['pascal_case']; ?>
+class <?php echo $singular['pascal_case']."\n"; ?>
 {
     use BlameableEntityTrait;
 

@@ -96,7 +96,7 @@ class <?php echo $singular['pascal_case']; ?>Section
         return $this->published_at && DateTimeUtil::isFuture($this->published_at);
     }
 
-    public function getMenu(): ?<?php echo $singular['pascal_case']; ?>
+    public function getMenu(): ?<?php echo $singular['pascal_case']."\n"; ?>
     {
         return $this->menu;
     }
