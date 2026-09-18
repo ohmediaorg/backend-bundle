@@ -117,10 +117,16 @@ class MenuBoilerplateCommand extends Command
             $this->generateFile('twig/'.$src, $dest, $parameters);
         }
 
-        // this file has 1 param in sprintf
+        // thes files have 1 param in sprintf
         $this->generateFile(
             'twig/frontend/menu_page.tpl.php',
             sprintf('templates/frontend/%s_page.html.twig', $snakeCase),
+            $parameters
+        );
+
+        $this->generateFile(
+            'sass.tpl.php',
+            sprintf('assets/frontend/scss/_%s.scss', $snakeCase),
             $parameters
         );
 
