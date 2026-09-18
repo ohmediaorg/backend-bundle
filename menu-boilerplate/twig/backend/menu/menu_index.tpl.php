@@ -4,35 +4,35 @@
 
 {% block breadcrumbs %}
   {{ bootstrap_breadcrumbs(
-    bootstrap_breadcrumb(bootstrap_icon('fork-knife') ~ ' Menus', 'menu_index'),
+    bootstrap_breadcrumb(bootstrap_icon('fork-knife') ~ ' Menus', '<?php echo $singular['snake_case']; ?>_index'),
   ) }}
 {% endblock %}
 
 {% set can_create_menu = is_granted(attributes.menu.create, new_menu) %}
 
-{% set create_menu_href = path('menu_create') %}
+{% set create_<?php echo $singular['snake_case']; ?>_href = path('<?php echo $singular['snake_case']; ?>_create') %}
 
 {% block actions %}
   {% if can_create_menu %}
-    <a href="{{ create_menu_href }}" class="btn btn-primary">
+    <a href="{{ create_<?php echo $singular['snake_case']; ?>_href }}" class="btn btn-primary">
       {{ bootstrap_icon('plus-lg') }} Add Menu
     </a>
   {% endif %}
 {% endblock %}
 
 {% block main %}
-  {% set menu_count = menus|length %}
+  {% set <?php echo $singular['snake_case']; ?>_count = menus|length %}
 
   <div class="card">
     <div class="card-body">
       <div class="card-title card-title-with-count">
         <h1 class="card-title-heading">Menus</h1>
         <div class="card-title-count">
-          {{ bootstrap_badge_primary(menu_count) }}
+          {{ bootstrap_badge_primary(<?php echo $singular['snake_case']; ?>_count) }}
         </div>
       </div>
 
-      {% if menu_count %}
+      {% if <?php echo $singular['snake_case']; ?>_count %}
         <table class="table table-striped">
           <thead>
             <tr>
@@ -47,7 +47,7 @@
             data-sortable
             data-sortable-csrf-name="{{ csrf_token_name }}"
             data-sortable-csrf-token="{{ csrf_token(csrf_token_name) }}"
-            data-sortable-url="{{ path('menu_reorder_post') }}"
+            data-sortable-url="{{ path('<?php echo $singular['snake_case']; ?>_reorder_post') }}"
           >
             {% for menu in menus %}
               {{ _self.table_row(menu, attributes) }}
@@ -58,7 +58,7 @@
         <p>
           No menus found.
           {% if can_create_menu %}
-            <a href="{{ create_menu_href }}">
+            <a href="{{ create_<?php echo $singular['snake_case']; ?>_href }}">
               Click here to add a menu.
             </a>
           {% endif %}
@@ -73,7 +73,7 @@
 
   {% if is_granted(attributes.menu.edit, menu) %}
     {% set row_actions = row_actions|merge([{
-      route: 'menu_view',
+      route: '<?php echo $singular['snake_case']; ?>_view',
       route_params: {id: menu.id},
       color: 'outline-dark',
       icon: 'eye',
@@ -83,7 +83,7 @@
 
   {% if is_granted(attributes.menu.edit, menu) %}
     {% set row_actions = row_actions|merge([{
-      route: 'menu_edit',
+      route: '<?php echo $singular['snake_case']; ?>_edit',
       route_params: {id: menu.id},
       color: 'secondary',
       icon: 'pencil',
@@ -93,7 +93,7 @@
 
   {% if is_granted(attributes.menu.delete, menu) %}
     {% set row_actions = row_actions|merge([{
-      route: 'menu_delete',
+      route: '<?php echo $singular['snake_case']; ?>_delete',
       route_params: {id: menu.id},
       color: 'danger',
       icon: 'trash',
@@ -118,7 +118,7 @@
     <td>
       {% for section in menu.sections %}
         <small class="d-block">
-          <a href="{{ path('menu_section_view', {id: section.id}) }}">
+          <a href="{{ path('<?php echo $singular['snake_case']; ?>_section_view', {id: section.id}) }}">
             {{ section }}
           </a>
         </small>

@@ -4,8 +4,8 @@
 
 {% block breadcrumbs %}
   {{ bootstrap_breadcrumbs(
-    bootstrap_breadcrumb(bootstrap_icon('fork-knife') ~ ' Menus', 'menu_index'),
-    bootstrap_breadcrumb(menu_section.menu, 'menu_view', {id: menu_section.menu.id}),
+    bootstrap_breadcrumb(bootstrap_icon('fork-knife') ~ ' Menus', '<?php echo $singular['snake_case']; ?>_index'),
+    bootstrap_breadcrumb(<?php echo $singular['snake_case']; ?>_section.menu, '<?php echo $singular['snake_case']; ?>_view', {id: <?php echo $singular['snake_case']; ?>_section.menu.id}),
     bootstrap_breadcrumb('Create'),
   ) }}
 {% endblock %}

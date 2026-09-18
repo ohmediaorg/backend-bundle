@@ -2,11 +2,11 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\MenuItem;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Item;
 use OHMedia\SecurityBundle\Entity\User;
 use OHMedia\SecurityBundle\Security\Voter\AbstractEntityVoter;
 
-class MenuItemVoter extends AbstractEntityVoter
+class <?php echo $singular['pascal_case']; ?>ItemVoter extends AbstractEntityVoter
 {
     public const REORDER = 'reorder';
     public const CREATE = 'create';
@@ -25,25 +25,25 @@ class MenuItemVoter extends AbstractEntityVoter
 
     protected function getEntityClass(): string
     {
-        return MenuItem::class;
+        return <?php echo $singular['pascal_case']; ?>Item::class;
     }
 
-    protected function canReorder(MenuItem $menuItem, User $loggedIn): bool
+    protected function canReorder(<?php echo $singular['pascal_case']; ?>Item $menuItem, User $loggedIn): bool
     {
         return true;
     }
 
-    protected function canCreate(MenuItem $menuItem, User $loggedIn): bool
+    protected function canCreate(<?php echo $singular['pascal_case']; ?>Item $menuItem, User $loggedIn): bool
     {
         return true;
     }
 
-    protected function canEdit(MenuItem $menuItem, User $loggedIn): bool
+    protected function canEdit(<?php echo $singular['pascal_case']; ?>Item $menuItem, User $loggedIn): bool
     {
         return true;
     }
 
-    protected function canDelete(MenuItem $menuItem, User $loggedIn): bool
+    protected function canDelete(<?php echo $singular['pascal_case']; ?>Item $menuItem, User $loggedIn): bool
     {
         return true;
     }

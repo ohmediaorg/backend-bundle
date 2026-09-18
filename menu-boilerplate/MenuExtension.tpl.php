@@ -2,9 +2,9 @@
 
 namespace App\Twig;
 
-use App\Entity\MenuItem;
-use App\Entity\MenuSection;
-use App\Repository\MenuItemRepository;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Item;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Section;
+use App\Repository\<?php echo $singular['pascal_case']; ?>ItemRepository;
 use OHMedia\FileBundle\Service\FileManager;
 use OHMedia\SettingsBundle\Service\Settings;
 use OHMedia\TimezoneBundle\Util\DateTimeUtil;
@@ -14,11 +14,11 @@ use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class MenuExtension extends AbstractExtension
+class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
 {
     public function __construct(
         private FileManager $fileManager,
-        private MenuItemRepository $menuItemRepository,
+        private <?php echo $singular['pascal_case']; ?>ItemRepository $menuItemRepository,
         private RequestStack $requestStack,
         private Settings $settings,
         private UrlHelper $urlHelper,
@@ -106,7 +106,7 @@ class MenuExtension extends AbstractExtension
             ];
 
             foreach ($menu['sections'] as $section) {
-                $menuSchema['hasMenuSection'][] = $this->getMenuSectionSchema(
+                $menuSchema['hasMenuSection'][] = $this->get<?php echo $singular['pascal_case']; ?>SectionSchema(
                     $section['entity'],
                     ...$section['items'],
                 );
@@ -121,24 +121,24 @@ class MenuExtension extends AbstractExtension
         ]);
     }
 
-    private function getMenuSectionSchema(
-        MenuSection $section,
-        MenuItem ...$items,
+    private function get<?php echo $singular['pascal_case']; ?>SectionSchema(
+        <?php echo $singular['pascal_case']; ?>Section $section,
+        <?php echo $singular['pascal_case']; ?>Item ...$items,
     ): array {
         $schema = [
-            '@type' => 'MenuSection',
+            '@type' => '<?php echo $singular['pascal_case']; ?>Section',
             'name' => (string) $section,
             'hasMenuItem' => [],
         ];
 
         foreach ($items as $item) {
-            $schema['hasMenuItem'][] = $this->getMenuItemSchema($item);
+            $schema['hasMenuItem'][] = $this->get<?php echo $singular['pascal_case']; ?>ItemSchema($item);
         }
 
         return $schema;
     }
 
-    private function getMenuItemSchema(MenuItem $item): array
+    private function get<?php echo $singular['pascal_case']; ?>ItemSchema(<?php echo $singular['pascal_case']; ?>Item $item): array
     {
         $suitableForDiet = [];
 
@@ -180,7 +180,7 @@ class MenuExtension extends AbstractExtension
         }
 
         $schema = [
-            '@type' => 'MenuItem',
+            '@type' => '<?php echo $singular['pascal_case']; ?>Item',
             'name' => (string) $item,
             'description' => $item->getDescription(),
             'offers' => $offers,

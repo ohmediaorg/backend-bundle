@@ -2,11 +2,11 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Menu;
+use App\Entity\<?php echo $singular['pascal_case']; ?>;
 use OHMedia\SecurityBundle\Entity\User;
 use OHMedia\SecurityBundle\Security\Voter\AbstractEntityVoter;
 
-class MenuVoter extends AbstractEntityVoter
+class <?php echo $singular['pascal_case']; ?>Voter extends AbstractEntityVoter
 {
     public const INDEX = 'index';
     public const CREATE = 'create';
@@ -27,30 +27,30 @@ class MenuVoter extends AbstractEntityVoter
 
     protected function getEntityClass(): string
     {
-        return Menu::class;
+        return <?php echo $singular['pascal_case']; ?>::class;
     }
 
-    protected function canIndex(Menu $menu, User $loggedIn): bool
+    protected function canIndex(<?php echo $singular['pascal_case']; ?> $menu, User $loggedIn): bool
     {
         return true;
     }
 
-    protected function canCreate(Menu $menu, User $loggedIn): bool
+    protected function canCreate(<?php echo $singular['pascal_case']; ?> $menu, User $loggedIn): bool
     {
         return true;
     }
 
-    protected function canView(Menu $menu, User $loggedIn): bool
+    protected function canView(<?php echo $singular['pascal_case']; ?> $menu, User $loggedIn): bool
     {
         return true;
     }
 
-    protected function canEdit(Menu $menu, User $loggedIn): bool
+    protected function canEdit(<?php echo $singular['pascal_case']; ?> $menu, User $loggedIn): bool
     {
         return true;
     }
 
-    protected function canDelete(Menu $menu, User $loggedIn): bool
+    protected function canDelete(<?php echo $singular['pascal_case']; ?> $menu, User $loggedIn): bool
     {
         return true;
     }

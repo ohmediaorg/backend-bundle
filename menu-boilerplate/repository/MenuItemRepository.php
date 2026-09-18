@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\MenuItem;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Item;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use OHMedia\TimezoneBundle\Util\DateTimeUtil;
 
 /**
- * @method MenuItem|null find($id, $lockMode = null, $lockVersion = null)
- * @method MenuItem|null findOneBy(array $criteria, array $orderBy = null)
- * @method MenuItem[]    findAll()
- * @method MenuItem[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method <?php echo $singular['pascal_case']; ?>Item|null find($id, $lockMode = null, $lockVersion = null)
+ * @method <?php echo $singular['pascal_case']; ?>Item|null findOneBy(array $criteria, array $orderBy = null)
+ * @method <?php echo $singular['pascal_case']; ?>Item[]    findAll()
+ * @method <?php echo $singular['pascal_case']; ?>Item[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class MenuItemRepository extends ServiceEntityRepository
+class <?php echo $singular['pascal_case']; ?>ItemRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, MenuItem::class);
+        parent::__construct($registry, <?php echo $singular['pascal_case']; ?>Item::class);
     }
 
-    public function save(MenuItem $menuItem, bool $flush = false): void
+    public function save(<?php echo $singular['pascal_case']; ?>Item $menuItem, bool $flush = false): void
     {
         $this->getEntityManager()->persist($menuItem);
 
@@ -30,7 +30,7 @@ class MenuItemRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(MenuItem $menuItem, bool $flush = false): void
+    public function remove(<?php echo $singular['pascal_case']; ?>Item $menuItem, bool $flush = false): void
     {
         $this->getEntityManager()->remove($menuItem);
 

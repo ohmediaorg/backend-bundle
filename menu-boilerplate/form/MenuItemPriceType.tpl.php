@@ -2,13 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\MenuItemPrice;
+use App\Entity\<?php echo $singular['pascal_case']; ?>ItemPrice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MenuItemPriceType extends AbstractType
+class <?php echo $singular['pascal_case']; ?>ItemPriceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -27,7 +27,7 @@ class MenuItemPriceType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => MenuItemPrice::class,
+            'data_class' => <?php echo $singular['pascal_case']; ?>ItemPrice::class,
         ]);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\MenuItemRepository;
+use App\Repository\<?php echo $singular['pascal_case']; ?>ItemRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -12,8 +12,8 @@ use OHMedia\TimezoneBundle\Util\DateTimeUtil;
 use OHMedia\UtilityBundle\Entity\BlameableEntityTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: MenuItemRepository::class)]
-class MenuItem
+#[ORM\Entity(repositoryClass: <?php echo $singular['pascal_case']; ?>ItemRepository::class)]
+class <?php echo $singular['pascal_case']; ?>Item
 {
     use BlameableEntityTrait;
 
@@ -30,7 +30,7 @@ class MenuItem
 
     #[ORM\ManyToOne(inversedBy: 'items')]
     #[Assert\NotBlank]
-    private ?MenuSection $section = null;
+    private ?<?php echo $singular['pascal_case']; ?>Section $section = null;
 
     #[ORM\Column(length: 100)]
     #[Assert\Length(max: 100)]
@@ -69,9 +69,9 @@ class MenuItem
     private ?bool $gluten_free = null;
 
     /**
-     * @var Collection<int, MenuItemPrice>
+     * @var Collection<int, <?php echo $singular['pascal_case']; ?>ItemPrice>
      */
-    #[ORM\OneToMany(targetEntity: MenuItemPrice::class, mappedBy: 'item', orphanRemoval: true, cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: <?php echo $singular['pascal_case']; ?>ItemPrice::class, mappedBy: 'item', orphanRemoval: true, cascade: ['persist', 'remove'])]
     #[Assert\Valid]
     #[Assert\Count(min: 1, minMessage: 'You must have at least one price.')]
     private Collection $prices;
@@ -125,12 +125,12 @@ class MenuItem
         return $this->published_at && DateTimeUtil::isFuture($this->published_at);
     }
 
-    public function getSection(): ?MenuSection
+    public function getSection(): ?<?php echo $singular['pascal_case']; ?>Section
     {
         return $this->section;
     }
 
-    public function setSection(?MenuSection $section): static
+    public function setSection(?<?php echo $singular['pascal_case']; ?>Section $section): static
     {
         $this->section = $section;
 
@@ -275,14 +275,14 @@ class MenuItem
     }
 
     /**
-     * @return Collection<int, MenuItemPrice>
+     * @return Collection<int, <?php echo $singular['pascal_case']; ?>ItemPrice>
      */
     public function getPrices(): Collection
     {
         return $this->prices;
     }
 
-    public function addPrice(MenuItemPrice $price): static
+    public function addPrice(<?php echo $singular['pascal_case']; ?>ItemPrice $price): static
     {
         if (!$this->prices->contains($price)) {
             $this->prices->add($price);
@@ -292,7 +292,7 @@ class MenuItem
         return $this;
     }
 
-    public function removePrice(MenuItemPrice $price): static
+    public function removePrice(<?php echo $singular['pascal_case']; ?>ItemPrice $price): static
     {
         if ($this->prices->removeElement($price)) {
             // set the owning side to null (unless already changed)

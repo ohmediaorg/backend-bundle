@@ -1,77 +1,77 @@
-{% macro menu_item_tag(svg, text) %}
-  <li class="menu-item__tag" data-bs-toggle="tooltip" data-bs-title="{{ text|e('html_attr') }}" data-bs-placement="bottom">
-    <span class="menu-item__tag-icon">
+{% macro <?php echo $singular['snake_case']; ?>_item_tag(svg, text) %}
+  <li class="<?php echo $singular['kebab_case']; ?>-item__tag" data-bs-toggle="tooltip" data-bs-title="{{ text|e('html_attr') }}" data-bs-placement="bottom">
+    <span class="<?php echo $singular['kebab_case']; ?>-item__tag-icon">
       {% include '@frontend/menu/svg/' ~ svg %}
     </span>
-    <span class="menu-item__tag-copy">{{ text }}</span>
+    <span class="<?php echo $singular['kebab_case']; ?>-item__tag-copy">{{ text }}</span>
   </li>
 {% endmacro %}
 
-{% macro menu_item_tags(item) %}
+{% macro <?php echo $singular['snake_case']; ?>_item_tags(item) %}
   {% if item.favourite %}
-    {{ _self.menu_item_tag(
+    {{ _self.<?php echo $singular['snake_case']; ?>_item_tag(
       'favourite.svg.twig',
       'Fan Favourite'
     ) }}
   {% endif %}
 
   {% if item.dairyFree %}
-    {{ _self.menu_item_tag(
+    {{ _self.<?php echo $singular['snake_case']; ?>_item_tag(
       'dairy_free.svg.twig',
       'Dairy-Free'
     ) }}
   {% endif %}
 
   {% if item.eggs %}
-    {{ _self.menu_item_tag(
+    {{ _self.<?php echo $singular['snake_case']; ?>_item_tag(
       'eggs.svg.twig',
       'Contains Eggs'
     ) }}
   {% endif %}
 
   {% if item.glutenFree %}
-    {{ _self.menu_item_tag(
+    {{ _self.<?php echo $singular['snake_case']; ?>_item_tag(
       'gluten_free.svg.twig',
       'Gluten Free'
     ) }}
   {% endif %}
 
   {% if item.organic %}
-    {{ _self.menu_item_tag(
+    {{ _self.<?php echo $singular['snake_case']; ?>_item_tag(
       'organic.svg.twig',
       'Organic'
     ) }}
   {% endif %}
 
   {% if item.spicy %}
-    {{ _self.menu_item_tag(
+    {{ _self.<?php echo $singular['snake_case']; ?>_item_tag(
       'spicy.svg.twig',
       'Spicy'
     ) }}
   {% endif %}
 
   {% if item.vegan %}
-    {{ _self.menu_item_tag(
+    {{ _self.<?php echo $singular['snake_case']; ?>_item_tag(
       'vegan.svg.twig',
       'Vegan'
     ) }}
   {% endif %}
 
   {% if item.vegetarian %}
-    {{ _self.menu_item_tag(
+    {{ _self.<?php echo $singular['snake_case']; ?>_item_tag(
       'vegetarian.svg.twig',
       'Vegetarian'
     ) }}
   {% endif %}
 {% endmacro %}
 
-<nav class="menu-nav">
-  <div class="menu-nav__inner">
-    <div class="menu-nav__menus">
+<nav class="<?php echo $singular['kebab_case']; ?>-nav">
+  <div class="<?php echo $singular['kebab_case']; ?>-nav__inner">
+    <div class="<?php echo $singular['kebab_case']; ?>-nav__menus">
       <ul>
         {% for menu in menus %}
           <li>
-            <a href="#" {% if loop.first %}class="active"{% endif %} data-menu-picker="{{ menu.entity.id }}">
+            <a href="#" {% if loop.first %}class="active"{% endif %} data-<?php echo $singular['kebab_case']; ?>-picker="{{ menu.entity.id }}">
               {{ menu.entity }}
             </a>
           </li>
@@ -83,8 +83,8 @@
 
 {% for menu in menus %}
   <div class="menu" data-menu="{{ menu.entity.id }}" {% if not loop.first %}style="display:none"{% endif %}>
-    <div class="menu-nav--sections__wrapper">
-      <nav class="menu-nav--sections">
+    <div class="<?php echo $singular['kebab_case']; ?>-nav--sections__wrapper">
+      <nav class="<?php echo $singular['kebab_case']; ?>-nav--sections">
         <ul>
           {% for section in menu.sections %}
             <li class="nav-links__item">
@@ -97,41 +97,41 @@
       </nav>
     </div>
 
-    <div class="menu__inner">
+    <div class="<?php echo $singular['snake_case']; ?>__inner">
       {% for section in menu.sections %}
-        <div id="{{ section.entity.slug }}-{{ section.entity.id }}" class="menu-section">
-          <div class="menu-section__inner">
-            <h2 class="menu-section__title">{{ section.entity }}</h2>
+        <div id="{{ section.entity.slug }}-{{ section.entity.id }}" class="<?php echo $singular['kebab_case']; ?>-section">
+          <div class="<?php echo $singular['kebab_case']; ?>-section__inner">
+            <h2 class="<?php echo $singular['kebab_case']; ?>-section__title">{{ section.entity }}</h2>
             {% if section.entity.description %}
-              <div class="menu-section__description">
+              <div class="<?php echo $singular['kebab_case']; ?>-section__description">
                 {{ wysiwyg(section.entity.description, null, false) }}
               </div>
             {% endif %}
 
-            <div class="menu-items">
+            <div class="<?php echo $singular['kebab_case']; ?>-items">
               {% for item in section.items %}
-                <div class="menu-item">
-                  <div class="menu-item__copy">
-                    <h3 class="menu-item__title">{{ item }}</h3>
-                    <div class="menu-item__description">
+                <div class="<?php echo $singular['kebab_case']; ?>-item">
+                  <div class="<?php echo $singular['kebab_case']; ?>-item__copy">
+                    <h3 class="<?php echo $singular['kebab_case']; ?>-item__title">{{ item }}</h3>
+                    <div class="<?php echo $singular['kebab_case']; ?>-item__description">
                       {{ wysiwyg(item.description, null, false) }}
                     </div>
                     {% if item.hasTags %}
-                      <div class="menu-item__tags">
-                        <ul>{{ _self.menu_item_tags(item) }}</ul>
+                      <div class="<?php echo $singular['kebab_case']; ?>-item__tags">
+                        <ul>{{ _self.<?php echo $singular['snake_case']; ?>_item_tags(item) }}</ul>
                       </div>
                     {% endif %}
-                    <div class="menu-item__prices">
+                    <div class="<?php echo $singular['kebab_case']; ?>-item__prices">
                       {% if item.prices.count == 1 %}
-                        <div class="menu-item__price__amount">
+                        <div class="<?php echo $singular['kebab_case']; ?>-item__price__amount">
                           ${{ item.prices[0].amount }}
                         </div>
                       {% else %}
                         {% for price in item.prices %}
-                          <div class="menu-item__price__label">
+                          <div class="<?php echo $singular['kebab_case']; ?>-item__price__label">
                             {{ price.label }}
                           </div>
-                          <div class="menu-item__price__amount">
+                          <div class="<?php echo $singular['kebab_case']; ?>-item__price__amount">
                             ${{ price.amount }}
                           </div>
                         {% endfor %}
@@ -140,7 +140,7 @@
                   </div>
 
                   {% if item.image %}
-                    <div class="menu-item__image">
+                    <div class="<?php echo $singular['kebab_case']; ?>-item__image">
                       {{ image_tag(item.image, {
                         width: 350,
                         height: 219,
@@ -159,7 +159,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const pickers = document.querySelectorAll('[data-menu-picker]');
+  const pickers = document.querySelectorAll('[data-<?php echo $singular['kebab_case']; ?>-picker]');
 
   const allMenus = document.querySelectorAll('[data-menu]');
 
@@ -168,7 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const menu = document.querySelector('[data-menu="' + id + '"]');
 
-    const menuNavSections = menu.querySelector('.menu-nav--sections');
+    const menuNavSections = menu.querySelector('.<?php echo $singular['kebab_case']; ?>-nav--sections');
 
     window.StickyJS(menuNavSections, {
       classPrefix: 'sticky',

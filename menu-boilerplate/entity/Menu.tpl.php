@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\MenuRepository;
+use App\Repository\<?php echo $singular['pascal_case']; ?>Repository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -12,8 +12,8 @@ use OHMedia\UtilityBundle\Entity\BlameableEntityTrait;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: MenuRepository::class)]
-class Menu
+#[ORM\Entity(repositoryClass: <?php echo $singular['pascal_case']; ?>Repository::class)]
+class <?php echo $singular['pascal_case']; ?>
 {
     use BlameableEntityTrait;
 
@@ -34,9 +34,9 @@ class Menu
     private ?string $name = null;
 
     /**
-     * @var Collection<int, MenuSection>
+     * @var Collection<int, <?php echo $singular['pascal_case']; ?>Section>
      */
-    #[ORM\OneToMany(targetEntity: MenuSection::class, mappedBy: 'menu', cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: <?php echo $singular['pascal_case']; ?>Section::class, mappedBy: 'menu', cascade: ['persist', 'remove'])]
     #[ORM\OrderBy(['ordinal' => \SortDirection::Ascending])]
     private Collection $sections;
 
@@ -109,14 +109,14 @@ class Menu
     }
 
     /**
-     * @return Collection<int, MenuSection>
+     * @return Collection<int, <?php echo $singular['pascal_case']; ?>Section>
      */
     public function getSections(): Collection
     {
         return $this->sections;
     }
 
-    public function addSection(MenuSection $section): static
+    public function addSection(<?php echo $singular['pascal_case']; ?>Section $section): static
     {
         if (!$this->sections->contains($section)) {
             $this->sections->add($section);
@@ -126,7 +126,7 @@ class Menu
         return $this;
     }
 
-    public function removeSection(MenuSection $section): static
+    public function removeSection(<?php echo $singular['pascal_case']; ?>Section $section): static
     {
         if ($this->sections->removeElement($section)) {
             // set the owning side to null (unless already changed)

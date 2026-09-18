@@ -2,12 +2,12 @@
 
 namespace App\Controller\Backend;
 
-use App\Entity\MenuItem;
-use App\Entity\MenuItemPrice;
-use App\Entity\MenuSection;
-use App\Form\MenuItemType;
-use App\Repository\MenuItemRepository;
-use App\Security\Voter\MenuItemVoter;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Item;
+use App\Entity\<?php echo $singular['pascal_case']; ?>ItemPrice;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Section;
+use App\Form\<?php echo $singular['pascal_case']; ?>ItemType;
+use App\Repository\<?php echo $singular['pascal_case']; ?>ItemRepository;
+use App\Security\Voter\<?php echo $singular['pascal_case']; ?>ItemVoter;
 use Doctrine\DBAL\Connection;
 use OHMedia\BackendBundle\Form\MultiSaveType;
 use OHMedia\BackendBundle\Routing\Attribute\Admin;
@@ -22,22 +22,22 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Admin]
-class MenuItemController extends AbstractController
+class <?php echo $singular['pascal_case']; ?>ItemController extends AbstractController
 {
-    public function __construct(private MenuItemRepository $menuItemRepository)
+    public function __construct(private <?php echo $singular['pascal_case']; ?>ItemRepository $menuItemRepository)
     {
     }
 
-    public const CSRF_TOKEN_REORDER = 'menu_item_reorder';
+    public const CSRF_TOKEN_REORDER = '<?php echo $singular['snake_case']; ?>_item_reorder';
 
-    #[Route('/menu/items/reorder', name: 'menu_item_reorder_post', methods: ['POST'])]
+    #[Route('/menu/items/reorder', name: '<?php echo $singular['snake_case']; ?>_item_reorder_post', methods: ['POST'])]
     public function reorderPost(
         Connection $connection,
         Request $request,
     ): Response {
         $this->denyAccessUnlessGranted(
-            MenuItemVoter::REORDER,
-            new MenuItem(),
+            <?php echo $singular['pascal_case']; ?>ItemVoter::REORDER,
+            new <?php echo $singular['pascal_case']; ?>Item(),
             'You cannot reorder the menu items.'
         );
 
@@ -72,25 +72,25 @@ class MenuItemController extends AbstractController
         return new JsonResponse();
     }
 
-    #[Route('/menu/section/{id}/item/create', name: 'menu_item_create', methods: ['GET', 'POST'])]
+    #[Route('/menu/section/{id}/item/create', name: '<?php echo $singular['snake_case']; ?>_item_create', methods: ['GET', 'POST'])]
     public function create(
         Request $request,
-        #[MapEntity(id: 'id')] MenuSection $menuSection,
+        #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Section $menuSection,
     ): Response {
-        $menuItem = new MenuItem();
+        $menuItem = new <?php echo $singular['pascal_case']; ?>Item();
         $menuItem->setSection($menuSection);
 
-        $menuItemPrice = new MenuItemPrice();
+        $menuItemPrice = new <?php echo $singular['pascal_case']; ?>ItemPrice();
         $menuItemPrice->setLabel('Default');
         $menuItem->addPrice($menuItemPrice);
 
         $this->denyAccessUnlessGranted(
-            MenuItemVoter::CREATE,
+            <?php echo $singular['pascal_case']; ?>ItemVoter::CREATE,
             $menuItem,
             'You cannot create a new menu item.'
         );
 
-        $form = $this->createForm(MenuItemType::class, $menuItem);
+        $form = $this->createForm(<?php echo $singular['pascal_case']; ?>ItemType::class, $menuItem);
 
         $form->add('save', MultiSaveType::class);
 
@@ -108,24 +108,24 @@ class MenuItemController extends AbstractController
             $this->addFlash('error', 'There are some errors in the form below.');
         }
 
-        return $this->render('@backend/menu_item/menu_item_create.html.twig', [
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>_item/<?php echo $singular['snake_case']; ?>_item_create.html.twig', [
             'form' => $form->createView(),
-            'menu_item' => $menuItem,
+            '<?php echo $singular['snake_case']; ?>_item' => $menuItem,
         ]);
     }
 
-    #[Route('/menu/item/{id}/edit', name: 'menu_item_edit', methods: ['GET', 'POST'])]
+    #[Route('/menu/item/{id}/edit', name: '<?php echo $singular['snake_case']; ?>_item_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
-        #[MapEntity(id: 'id')] MenuItem $menuItem,
+        #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Item $menuItem,
     ): Response {
         $this->denyAccessUnlessGranted(
-            MenuItemVoter::EDIT,
+            <?php echo $singular['pascal_case']; ?>ItemVoter::EDIT,
             $menuItem,
             'You cannot edit this menu item.'
         );
 
-        $form = $this->createForm(MenuItemType::class, $menuItem);
+        $form = $this->createForm(<?php echo $singular['pascal_case']; ?>ItemType::class, $menuItem);
 
         $form->add('save', MultiSaveType::class);
 
@@ -143,22 +143,22 @@ class MenuItemController extends AbstractController
             $this->addFlash('error', 'There are some errors in the form below.');
         }
 
-        return $this->render('@backend/menu_item/menu_item_edit.html.twig', [
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>_item/<?php echo $singular['snake_case']; ?>_item_edit.html.twig', [
             'form' => $form->createView(),
-            'menu_item' => $menuItem,
+            '<?php echo $singular['snake_case']; ?>_item' => $menuItem,
         ]);
     }
 
-    private function redirectForm(MenuItem $menuItem, FormInterface $form): Response
+    private function redirectForm(<?php echo $singular['pascal_case']; ?>Item $menuItem, FormInterface $form): Response
     {
         $clickedButtonName = $form->getClickedButton()->getName() ?? null;
 
         if ('keep_editing' === $clickedButtonName) {
-            return $this->redirectToRoute('menu_item_edit', [
+            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_item_edit', [
                 'id' => $menuItem->getId(),
             ]);
         } elseif ('add_another' === $clickedButtonName) {
-            return $this->redirectToRoute('menu_item_create', [
+            return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_item_create', [
                 'id' => $menuItem->getSection()->getId(),
             ]);
         }
@@ -166,13 +166,13 @@ class MenuItemController extends AbstractController
         return $this->redirectToSection($menuItem);
     }
 
-    #[Route('/menu/item/{id}/delete', name: 'menu_item_delete', methods: ['GET', 'POST'])]
+    #[Route('/menu/item/{id}/delete', name: '<?php echo $singular['snake_case']; ?>_item_delete', methods: ['GET', 'POST'])]
     public function delete(
         Request $request,
-        #[MapEntity(id: 'id')] MenuItem $menuItem,
+        #[MapEntity(id: 'id')] <?php echo $singular['pascal_case']; ?>Item $menuItem,
     ): Response {
         $this->denyAccessUnlessGranted(
-            MenuItemVoter::DELETE,
+            <?php echo $singular['pascal_case']; ?>ItemVoter::DELETE,
             $menuItem,
             'You cannot delete this menu item.'
         );
@@ -195,15 +195,15 @@ class MenuItemController extends AbstractController
             $this->addFlash('error', 'There are some errors in the form below.');
         }
 
-        return $this->render('@backend/menu_item/menu_item_delete.html.twig', [
+        return $this->render('@backend/<?php echo $singular['snake_case']; ?>_item/<?php echo $singular['snake_case']; ?>_item_delete.html.twig', [
             'form' => $form->createView(),
-            'menu_item' => $menuItem,
+            '<?php echo $singular['snake_case']; ?>_item' => $menuItem,
         ]);
     }
 
-    private function redirectToSection(MenuItem $menuItem): Response
+    private function redirectToSection(<?php echo $singular['pascal_case']; ?>Item $menuItem): Response
     {
-        return $this->redirectToRoute('menu_section_view', [
+        return $this->redirectToRoute('<?php echo $singular['snake_case']; ?>_section_view', [
             'id' => $menuItem->getSection()->getId(),
         ]);
     }

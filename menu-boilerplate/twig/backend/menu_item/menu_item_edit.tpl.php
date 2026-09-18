@@ -1,12 +1,12 @@
-{% extends '@backend/menu_item/menu_item_form.html.twig' %}
+{% extends '@backend/<?php echo $singular['snake_case']; ?>_item/<?php echo $singular['snake_case']; ?>_item_form.html.twig' %}
 
 {% set form_title = 'Edit Menu Item' %}
 
 {% block breadcrumbs %}
   {{ bootstrap_breadcrumbs(
-    bootstrap_breadcrumb(bootstrap_icon('fork-knife') ~ ' Menus', 'menu_index'),
-    bootstrap_breadcrumb(menu_item.section.menu, 'menu_view', {id: menu_item.section.menu.id}),
-    bootstrap_breadcrumb(menu_item.section, 'menu_section_view', {id: menu_item.section.id}),
+    bootstrap_breadcrumb(bootstrap_icon('fork-knife') ~ ' Menus', '<?php echo $singular['snake_case']; ?>_index'),
+    bootstrap_breadcrumb(<?php echo $singular['snake_case']; ?>_item.section.menu, '<?php echo $singular['snake_case']; ?>_view', {id: <?php echo $singular['snake_case']; ?>_item.section.menu.id}),
+    bootstrap_breadcrumb(<?php echo $singular['snake_case']; ?>_item.section, '<?php echo $singular['snake_case']; ?>_section_view', {id: <?php echo $singular['snake_case']; ?>_item.section.id}),
     bootstrap_breadcrumb('Edit'),
   ) }}
 {% endblock %}

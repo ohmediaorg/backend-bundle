@@ -4,7 +4,7 @@ namespace App\Form\Page;
 
 use OHMedia\PageBundle\Form\Type\AbstractPageTemplateType;
 
-class MenuPage extends AbstractPageTemplateType
+class <?php echo $singular['pascal_case']; ?>Page extends AbstractPageTemplateType
 {
     protected function buildFormContent()
     {
@@ -19,11 +19,11 @@ class MenuPage extends AbstractPageTemplateType
 
     public static function getTemplate(): string
     {
-        return '@frontend/menu_page.html.twig';
+        return '@frontend/<?php echo $singular['snake_case']; ?>_page.html.twig';
     }
 
     public static function getTemplateName(): string
     {
-        return 'Menu';
+        return '<?php echo $singular['title_case']; ?>';
     }
 }

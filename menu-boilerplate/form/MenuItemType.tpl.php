@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\MenuItem;
-use App\Entity\MenuSection;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Item;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Section;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use OHMedia\FileBundle\Form\Type\FileEntityType;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MenuItemType extends AbstractType
+class <?php echo $singular['pascal_case']; ?>ItemType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -36,7 +36,7 @@ class MenuItemType extends AbstractType
         ]);
 
         $builder->add('prices', CollectionType::class, [
-            'entry_type' => MenuItemPriceType::class,
+            'entry_type' => <?php echo $singular['pascal_case']; ?>ItemPriceType::class,
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
@@ -88,7 +88,7 @@ class MenuItemType extends AbstractType
 
         if ($menuItem->getId()) {
             $builder->add('section', EntityType::class, [
-                'class' => MenuSection::class,
+                'class' => <?php echo $singular['pascal_case']; ?>Section::class,
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('s')
                         ->join('s.menu', 'm')
@@ -110,7 +110,7 @@ class MenuItemType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => MenuItem::class,
+            'data_class' => <?php echo $singular['pascal_case']; ?>Item::class,
         ]);
     }
 }

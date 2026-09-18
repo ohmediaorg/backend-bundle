@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MenuItemPriceRepository;
+use App\Repository\<?php echo $singular['pascal_case']; ?>ItemPriceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: MenuItemPriceRepository::class)]
-class MenuItemPrice
+#[ORM\Entity(repositoryClass: <?php echo $singular['pascal_case']; ?>ItemPriceRepository::class)]
+class <?php echo $singular['pascal_case']; ?>ItemPrice
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -27,7 +27,7 @@ class MenuItemPrice
 
     #[ORM\ManyToOne(inversedBy: 'prices')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?MenuItem $item = null;
+    private ?<?php echo $singular['pascal_case']; ?>Item $item = null;
 
     public function __toString(): string
     {
@@ -63,12 +63,12 @@ class MenuItemPrice
         return $this;
     }
 
-    public function getItem(): ?MenuItem
+    public function getItem(): ?<?php echo $singular['pascal_case']; ?>Item
     {
         return $this->item;
     }
 
-    public function setItem(?MenuItem $item): static
+    public function setItem(?<?php echo $singular['pascal_case']; ?>Item $item): static
     {
         $this->item = $item;
 

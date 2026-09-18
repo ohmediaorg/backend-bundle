@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Repository\MenuSectionRepository;
+use App\Repository\<?php echo $singular['pascal_case']; ?>SectionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -12,8 +12,8 @@ use OHMedia\UtilityBundle\Entity\BlameableEntityTrait;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: MenuSectionRepository::class)]
-class MenuSection
+#[ORM\Entity(repositoryClass: <?php echo $singular['pascal_case']; ?>SectionRepository::class)]
+class <?php echo $singular['pascal_case']; ?>Section
 {
     use BlameableEntityTrait;
 
@@ -30,7 +30,7 @@ class MenuSection
 
     #[ORM\ManyToOne(inversedBy: 'sections')]
     #[Assert\NotBlank]
-    private ?Menu $menu = null;
+    private ?<?php echo $singular['pascal_case']; ?> $menu = null;
 
     #[ORM\Column(length: 100)]
     #[Assert\Length(max: 100)]
@@ -41,9 +41,9 @@ class MenuSection
     private ?string $description = null;
 
     /**
-     * @var Collection<int, MenuItem>
+     * @var Collection<int, <?php echo $singular['pascal_case']; ?>Item>
      */
-    #[ORM\OneToMany(targetEntity: MenuItem::class, mappedBy: 'section', cascade: ['persist', 'remove'])]
+    #[ORM\OneToMany(targetEntity: <?php echo $singular['pascal_case']; ?>Item::class, mappedBy: 'section', cascade: ['persist', 'remove'])]
     #[ORM\OrderBy(['ordinal' => \SortDirection::Ascending])]
     private Collection $items;
 
@@ -96,12 +96,12 @@ class MenuSection
         return $this->published_at && DateTimeUtil::isFuture($this->published_at);
     }
 
-    public function getMenu(): ?Menu
+    public function getMenu(): ?<?php echo $singular['pascal_case']; ?>
     {
         return $this->menu;
     }
 
-    public function setMenu(?Menu $menu): static
+    public function setMenu(?<?php echo $singular['pascal_case']; ?> $menu): static
     {
         $this->menu = $menu;
 
@@ -140,14 +140,14 @@ class MenuSection
     }
 
     /**
-     * @return Collection<int, MenuItem>
+     * @return Collection<int, <?php echo $singular['pascal_case']; ?>Item>
      */
     public function getItems(): Collection
     {
         return $this->items;
     }
 
-    public function addItem(MenuItem $item): static
+    public function addItem(<?php echo $singular['pascal_case']; ?>Item $item): static
     {
         if (!$this->items->contains($item)) {
             $this->items->add($item);
@@ -157,7 +157,7 @@ class MenuSection
         return $this;
     }
 
-    public function removeItem(MenuItem $item): static
+    public function removeItem(<?php echo $singular['pascal_case']; ?>Item $item): static
     {
         if ($this->items->removeElement($item)) {
             // set the owning side to null (unless already changed)

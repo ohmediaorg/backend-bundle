@@ -2,8 +2,8 @@
 
 namespace App\Form;
 
-use App\Entity\Menu;
-use App\Entity\MenuSection;
+use App\Entity\<?php echo $singular['pascal_case']; ?>;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Section;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use OHMedia\TimezoneBundle\Form\Type\DateTimeType;
@@ -13,7 +13,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class MenuSectionType extends AbstractType
+class <?php echo $singular['pascal_case']; ?>SectionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -28,7 +28,7 @@ class MenuSectionType extends AbstractType
 
         if ($menuSection->getId()) {
             $builder->add('menu', EntityType::class, [
-                'class' => Menu::class,
+                'class' => <?php echo $singular['pascal_case']; ?>::class,
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.ordinal', \SortDirection::Ascending);
@@ -47,7 +47,7 @@ class MenuSectionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => MenuSection::class,
+            'data_class' => <?php echo $singular['pascal_case']; ?>Section::class,
         ]);
     }
 }

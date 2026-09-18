@@ -2,24 +2,24 @@
 
 namespace App\Service\EntityChoice;
 
-use App\Entity\Menu;
-use App\Entity\MenuItem;
-use App\Entity\MenuSection;
+use App\Entity\<?php echo $singular['pascal_case']; ?>;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Item;
+use App\Entity\<?php echo $singular['pascal_case']; ?>Section;
 use OHMedia\SecurityBundle\Service\EntityChoiceInterface;
 
-class MenuEntityChoice implements EntityChoiceInterface
+class <?php echo $singular['pascal_case']; ?>EntityChoice implements EntityChoiceInterface
 {
     public function getLabel(): string
     {
-        return 'Menu';
+        return '<?php echo $singular['title_case']; ?>';
     }
 
     public function getEntities(): array
     {
         return [
-            Menu::class,
-            MenuSection::class,
-            MenuItem::class,
+            <?php echo $singular['pascal_case']; ?>::class,
+            <?php echo $singular['pascal_case']; ?>Section::class,
+            <?php echo $singular['pascal_case']; ?>Item::class,
         ];
     }
 }
