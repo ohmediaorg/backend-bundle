@@ -1,0 +1,12 @@
+{% extends '@OHMediaBackend/form.html.twig' %}
+
+{% set form_title = 'Delete ' ~ <?php echo $singular['snake_case']; ?>_item %}
+
+{% block breadcrumbs %}
+  {{ bootstrap_breadcrumbs(
+    bootstrap_breadcrumb(bootstrap_icon('<?php echo $icon; ?>') ~ ' <?php echo $singular['title']; ?>s', '<?php echo $singular['snake_case']; ?>_index'),
+    bootstrap_breadcrumb(<?php echo $singular['snake_case']; ?>_item.section.menu, '<?php echo $singular['snake_case']; ?>_view', {id: <?php echo $singular['snake_case']; ?>_item.section.menu.id}),
+    bootstrap_breadcrumb(<?php echo $singular['snake_case']; ?>_item.section, '<?php echo $singular['snake_case']; ?>_section_view', {id: <?php echo $singular['snake_case']; ?>_item.section.id}),
+    bootstrap_breadcrumb('Delete'),
+  ) }}
+{% endblock %}
