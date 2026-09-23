@@ -106,7 +106,7 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
             ];
 
             foreach ($menu['sections'] as $section) {
-                $menuSchema['hasMenuSection'][] = $this->get<?php echo $singular['pascal_case']; ?>SectionSchema(
+                $menuSchema['hasMenuSection'][] = $this->getMenuSectionSchema(
                     $section['entity'],
                     ...$section['items'],
                 );
@@ -121,24 +121,24 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
         ]);
     }
 
-    private function get<?php echo $singular['pascal_case']; ?>SectionSchema(
+    private function getMenuSectionSchema(
         <?php echo $singular['pascal_case']; ?>Section $section,
         <?php echo $singular['pascal_case']; ?>Item ...$items,
     ): array {
         $schema = [
-            '@type' => '<?php echo $singular['pascal_case']; ?>Section',
+            '@type' => 'MenuSection',
             'name' => (string) $section,
             'hasMenuItem' => [],
         ];
 
         foreach ($items as $item) {
-            $schema['hasMenuItem'][] = $this->get<?php echo $singular['pascal_case']; ?>ItemSchema($item);
+            $schema['hasMenuItem'][] = $this->getMenuItemSchema($item);
         }
 
         return $schema;
     }
 
-    private function get<?php echo $singular['pascal_case']; ?>ItemSchema(<?php echo $singular['pascal_case']; ?>Item $item): array
+    private function getMenuItemSchema(<?php echo $singular['pascal_case']; ?>Item $item): array
     {
         $suitableForDiet = [];
 
@@ -180,7 +180,7 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
         }
 
         $schema = [
-            '@type' => '<?php echo $singular['pascal_case']; ?>Item',
+            '@type' => 'MenuItem',
             'name' => (string) $item,
             'description' => $item->getDescription(),
             'offers' => $offers,
