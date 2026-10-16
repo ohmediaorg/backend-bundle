@@ -4,6 +4,7 @@ window.Bootstrap = Bootstrap;
 
 import './alert.js';
 import './confirm.js';
+import './date.js';
 import './sortable.js';
 
 import bootstrapToast from './toast.js';
