@@ -17,9 +17,8 @@ function enhance(input) {
   const today = document.createElement('button');
   today.type = 'button';
   today.className = 'btn btn-secondary';
-  today.title = 'Now';
-  today.ariaLabel = 'Set the input value to the current date';
-  today.innerHTML = '<i class="bi bi-clock"></i>';
+  today.title = today.ariaLabel = 'Set the input value to the current date';
+  today.textContent = 'Now';
 
   group.appendChild(today);
 
@@ -50,10 +49,9 @@ function enhance(input) {
 
   const clear = document.createElement('button');
   clear.type = 'button';
-  clear.className = 'btn btn-danger';
-  clear.title = 'Clear';
-  clear.ariaLabel = 'Clear date input value';
-  clear.innerHTML = '<i class="bi bi-x-circle"></i>';
+  clear.className = 'btn btn-outline-dark';
+  clear.title = clear.ariaLabel = 'Clear date input value';
+  clear.textContent = 'Clear';
 
   group.appendChild(clear);
 
