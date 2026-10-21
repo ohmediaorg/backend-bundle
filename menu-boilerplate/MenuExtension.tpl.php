@@ -6,10 +6,11 @@ use App\Entity\<?php echo $singular['pascal_case']; ?>Item;
 use App\Entity\<?php echo $singular['pascal_case']; ?>Section;
 use App\Repository\<?php echo $singular['pascal_case']; ?>ItemRepository;
 use OHMedia\FileBundle\Service\FileManager;
+use OHMedia\PageBundle\Service\PageRenderer;
 use OHMedia\SettingsBundle\Service\Settings;
 use OHMedia\TimezoneBundle\Util\DateTimeUtil;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\UrlHelper;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -19,8 +20,9 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
     public function __construct(
         private FileManager $fileManager,
         private <?php echo $singular['pascal_case']; ?>ItemRepository $menuItemRepository,
-        private RequestStack $requestStack,
+        private PageRenderer $pageRenderer,
         private Settings $settings,
+        private UrlGeneratorInterface $urlGenerator,
         private UrlHelper $urlHelper,
     ) {
     }
@@ -88,17 +90,28 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
             return '<p>No menu found.</p>';
         }
 
-        $request = $this->requestStack->getMainRequest();
+        $pagePath = $this->pageRenderer->getCurrentPage()->getPath();
 
         $schema = [
             '@context' => 'https://schema.org',
             '@type' => 'Restaurant',
-            'url' => $this->urlHelper->getAbsoluteUrl($request->getPathInfo()),
+            'url' => $this->urlGenerator->generate('oh_media_page_frontend', [
+                'path' => $pagePath,
+            ], UrlGeneratorInterface::ABSOLUTE_URL),
             'name' => $this->settings->get('schema_organization_name'),
             'hasMenu' => [],
         ];
 
-        foreach ($menus as $menu) {
+        $slug = $this->pageRenderer->getDynamicPart();
+
+        foreach ($menus as $mid => $menu) {
+            if (!$slug) {
+                // no slug so use the first menu's
+                $slug = $menu['entity']->getSlug();
+            }
+
+            $menus[$mid]['active'] = $menu['entity']->getSlug() === $slug;
+
             $menuSchema = [
                 '@type' => 'Menu',
                 'name' => (string) $menu['entity'],
@@ -118,6 +131,7 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
         return $twig->render('@frontend/<?php echo $singular['snake_case']; ?>/<?php echo $singular['snake_case']; ?>.html.twig', [
             'menus' => $menus,
             'schema' => $schema,
+            'menu_page_path' => $pagePath,
         ]);
     }
 

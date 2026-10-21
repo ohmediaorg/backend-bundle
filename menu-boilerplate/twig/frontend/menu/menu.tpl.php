@@ -71,7 +71,7 @@
       <ul>
         {% for menu in menus %}
           <li>
-            <a href="#" {% if loop.first %}class="active"{% endif %} data-menu-picker="{{ menu.entity.id }}">
+            <a href="{{ page_path(menu_page_path) }}/{{ menu.entity.slug }}" {% if menu.active %}class="active"{% endif %} data-menu-picker="{{ menu.entity.id }}">
               {{ menu.entity }}
             </a>
           </li>
@@ -82,7 +82,7 @@
 </nav>
 
 {% for menu in menus %}
-  <div class="<?php echo $singular['kebab_case']; ?>" data-menu="{{ menu.entity.id }}" {% if not loop.first %}style="display:none"{% endif %}>
+  <div class="<?php echo $singular['kebab_case']; ?>" data-menu="{{ menu.entity.id }}" {% if not menu.active %}style="display:none"{% endif %}>
     <div class="<?php echo $singular['kebab_case']; ?>-nav--sections__wrapper" {% if menu.sections|length <?php echo '<'; ?> 2 %}style="display:none"{% endif %}>
       <nav class="<?php echo $singular['kebab_case']; ?>-nav--sections">
         <ul>
@@ -220,6 +220,8 @@ document.addEventListener('DOMContentLoaded', function() {
       });
 
       picker.classList.add('active');
+
+      history.replaceState({}, '', picker.href);
     });
   });
 });

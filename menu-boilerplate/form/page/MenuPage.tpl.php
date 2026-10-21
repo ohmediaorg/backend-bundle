@@ -2,9 +2,9 @@
 
 namespace App\Form\Page;
 
-use OHMedia\PageBundle\Form\Type\AbstractPageTemplateType;
+use OHMedia\PageBundle\Form\Type\AbstractDynamicPageTemplateType;
 
-class <?php echo $singular['pascal_case']; ?>Page extends AbstractPageTemplateType
+class <?php echo $singular['pascal_case']; ?>Page extends AbstractDynamicPageTemplateType
 {
     protected function buildFormContent()
     {
