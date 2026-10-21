@@ -1,6 +1,6 @@
 .<?php echo $singular['kebab_case']; ?>-nav {
   padding: 2rem 0;
-  border-bottom: 1px solid #cbbca7;
+  border-bottom: 1px solid $gray-500;
 
   .<?php echo $singular['kebab_case']; ?>-nav__inner {
     @include pulsar-container($oh-container-width-large);
@@ -29,6 +29,9 @@
 }
 
 .<?php echo $singular['kebab_case']; ?>-nav--sections {
+  width: 100%;
+  max-width: 270px;
+
   ul {
     @extend .nav-links;
     @extend .nav-links--vertical;
@@ -36,7 +39,12 @@
     min-width: 0 !important;
   }
 
+  @include media-breakpoint-down(lg) {
+    max-width: 200px;
+  }
+
   @include media-breakpoint-down(md) {
+    max-width: 100%;
     width: 100%;
     overflow-x: auto;
     white-space: nowrap;
@@ -90,6 +98,7 @@
 
     .<?php echo $singular['kebab_case']; ?>-section__title {
       @extend %oh-h3;
+      @include font-size(36px);
       margin-bottom: 1.25rem;
     }
 
@@ -101,7 +110,7 @@
 
   @include media-breakpoint-up(md) {
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 270px 1fr;
     gap: 1.5rem;
 
     @include pulsar-container($oh-container-width-large);
@@ -113,6 +122,10 @@
     .<?php echo $singular['kebab_case']; ?>-nav--sections {
       padding: 2rem 0;
     }
+  }
+
+  @include media-breakpoint-down(lg) {
+    grid-template-columns: 200px 1fr;
   }
 
   @include media-breakpoint-down(md) {
@@ -128,7 +141,7 @@
 
 .<?php echo $singular['kebab_case']; ?>-item {
   padding: 2rem 0;
-  border-bottom: 1px solid #cbbca7;
+  border-bottom: 1px solid $gray-500;
   gap: 1rem 2rem;
 
   &:first-of-type {
@@ -141,8 +154,9 @@
 
   .<?php echo $singular['kebab_case']; ?>-item__title {
     @extend %oh-h5;
-    @include font-size(20px);
+    @include font-size(24px);
     margin-bottom: 0.5rem;
+    font-weight: 500;
   }
 
   .<?php echo $singular['kebab_case']; ?>-item__copy {
@@ -176,6 +190,7 @@
     }
 
     .<?php echo $singular['kebab_case']; ?>-item__tag-icon {
+      @include font-size(16px);
       margin-right: 0.25rem;
     }
 
@@ -189,16 +204,16 @@
     grid-template-columns: auto 1fr;
     gap: 0.75rem 1.5rem;
     margin-top: 1rem;
-    @include font-size(18px);
+    @include font-size(16px);
     line-height: 1.333em;
 
     .<?php echo $singular['kebab_case']; ?>-item__price__label {
       min-width: 30px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .<?php echo $singular['kebab_case']; ?>-item__price__amount {
-      font-weight: 500;
+      font-weight: 400;
     }
   }
 
