@@ -44,7 +44,7 @@ class <?php echo $singular['pascal_case']; ?>Section
      * @var Collection<int, <?php echo $singular['pascal_case']; ?>Item>
      */
     #[ORM\OneToMany(targetEntity: <?php echo $singular['pascal_case']; ?>Item::class, mappedBy: 'section', cascade: ['persist', 'remove'])]
-    #[ORM\OrderBy(['ordinal' => \SortDirection::Ascending])]
+    #[ORM\OrderBy(['ordinal' => \SortDirection::Ascending, 'id' => \SortDirection::Ascending])]
     private Collection $items;
 
     public function __construct()

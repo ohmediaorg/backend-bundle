@@ -55,8 +55,11 @@ class <?php echo $singular['pascal_case']; ?>Extension extends AbstractExtension
             ->andWhere('m.published_at <= :now')
             ->setParameter('now', $now)
             ->orderBy('m.ordinal', \SortDirection::Ascending)
+            ->addOrderBy('m.id', \SortDirection::Ascending)
             ->addOrderBy('s.ordinal', \SortDirection::Ascending)
+            ->addOrderBy('s.id', \SortDirection::Ascending)
             ->addOrderBy('i.ordinal', \SortDirection::Ascending)
+            ->addOrderBy('i.id', \SortDirection::Ascending)
             ->getQuery()
             ->getResult();
 

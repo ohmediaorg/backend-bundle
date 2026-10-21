@@ -31,7 +31,8 @@ class <?php echo $singular['pascal_case']; ?>SectionType extends AbstractType
                 'class' => <?php echo $singular['pascal_case']; ?>::class,
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('s')
-                        ->orderBy('s.ordinal', \SortDirection::Ascending);
+                        ->orderBy('s.ordinal', \SortDirection::Ascending)
+                        ->addOrderBy('s.id', \SortDirection::Ascending);
                 },
             ]);
         }

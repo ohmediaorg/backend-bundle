@@ -42,8 +42,9 @@ class <?php echo $singular['pascal_case']; ?>Controller extends AbstractControll
             'You cannot access the list of menus.'
         );
 
-        $menus = $this->menuRepository->createQueryBuilder('mc')
-            ->orderBy('mc.ordinal', \SortDirection::Ascending)
+        $menus = $this->menuRepository->createQueryBuilder('m')
+            ->orderBy('m.ordinal', \SortDirection::Ascending)
+            ->addOrderBy('m.id', \SortDirection::Ascending)
             ->getQuery()
             ->getResult();
 

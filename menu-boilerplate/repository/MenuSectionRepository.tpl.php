@@ -45,6 +45,7 @@ class <?php echo $singular['pascal_case']; ?>SectionRepository extends ServiceEn
             ->andWhere($alias.'.published_at IS NOT NULL')
             ->andWhere($alias.'.published_at <= :now')
             ->setParameter('now', DateTimeUtil::getDateTimeUtc())
-            ->orderBy($alias.'.ordinal', \SortDirection::Ascending);
+            ->orderBy($alias.'.ordinal', \SortDirection::Ascending)
+            ->addOrderBy($alias.'.id', \SortDirection::Ascending);
     }
 }
