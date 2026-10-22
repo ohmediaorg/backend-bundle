@@ -94,7 +94,7 @@ class <?php echo $singular['pascal_case']; ?>ItemType extends AbstractType
                         ->join('s.menu', 'm')
                         ->orderBy('m.ordinal', \SortDirection::Ascending)
                         ->addOrderBy('m.id', \SortDirection::Ascending)
-                        ->addOrderBy('s.ordinal', \SortDirection::Ascending);
+                        ->addOrderBy('s.ordinal', \SortDirection::Ascending)
                         ->addOrderBy('s.id', \SortDirection::Ascending);
                 },
                 'group_by' => 'menu',
